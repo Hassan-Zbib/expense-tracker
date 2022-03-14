@@ -79,14 +79,14 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/update
 // @access  Private
 const updateUser = asyncHandler(async (req, res) => {
-    
+    res.status(200).json({message: 'Under Development'})
 })
 
 // @desc    Reset a user password
 // @route   POST /api/users/reset
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-    
+    res.status(200).json({message: 'Under Development'})
 })
 
 // @desc    Get user data
