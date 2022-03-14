@@ -53,6 +53,10 @@ const userSchema = mongoose.Schema(
             required: false,
             default: "",
         },
+        logoURL: {
+            type: String,
+            required: false,
+        },
         settings: {
             emailExports: {
                 type: Boolean,

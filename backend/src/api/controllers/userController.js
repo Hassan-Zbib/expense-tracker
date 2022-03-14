@@ -4,7 +4,7 @@ const User = require('../models/userModel')
 const { generateToken } = require('../helpers/common')
 
 // @desc    Register new user
-// @route   POST /api/users
+// @route   POST /api/user
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
 
@@ -49,7 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Authenticate a user
-// @route   POST /api/users/login
+// @route   POST /api/user/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
 
@@ -76,21 +76,21 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update a user
-// @route   POST /api/users/update
+// @route   POST /api/user/update
 // @access  Private
 const updateUser = asyncHandler(async (req, res) => {
     res.status(200).json({message: 'Under Development'})
 })
 
 // @desc    Reset a user password
-// @route   POST /api/users/reset
+// @route   POST /api/user/reset
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
     res.status(200).json({message: 'Under Development'})
 })
 
 // @desc    Get user data
-// @route   GET /api/users/me
+// @route   GET /api/user/me
 // @access  Private
 const getCurrentUser = asyncHandler(async (req, res) => {
     res.status(200).json(req.user)
