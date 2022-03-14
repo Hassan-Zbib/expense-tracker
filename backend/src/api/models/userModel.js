@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add an organization name'],
             unique: true,
+            immutable: true,
         },
         firstName: {
             type: String,
