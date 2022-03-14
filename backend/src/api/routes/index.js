@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 })
 
 // API routes
-router.use('/user', require('./user'))
-// router.use('/expenses', require('./expenses'))
-// router.use('/income', require('./income'))
+router.use('/users', require('./user'))
+router.use('/expenses', require('./expense'))
+router.use('/incomes', require('./income'))
 
 module.exports = router
