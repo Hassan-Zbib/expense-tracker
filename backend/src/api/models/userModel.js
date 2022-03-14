@@ -57,6 +57,18 @@ const userSchema = mongoose.Schema(
             type: String,
             required: false,
         },
+        transactions: {
+            type: Number,
+            default: 0,
+        },
+        totalIncome: {
+            type: Number,
+            default: 0,
+        },
+        totalExpenses: {
+            type: Number,
+            default: 0,
+        },
         settings: {
             emailExports: {
                 type: Boolean,
