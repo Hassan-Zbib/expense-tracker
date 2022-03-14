@@ -8,6 +8,44 @@ const { generateToken } = require('../helpers/common')
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
 
+    const { orgName, firstName, lastName, email, password } = req.body
+
+    if (!orgName || !firstName || !lastName || !email || !password) {
+        res.status(400)
+        throw new Error('Please add all fields')
+      }
+
+    // Check if user exists
+    const userExists = await User.exists({ $or: [{email: email}, {orgName: orgName}] })
+    if (userExists) {
+        res.status(400)
+        throw new Error('User already exists')
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    // Create user
+    const user = await User.create({
+        orgName: orgName,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password
+    })
+
+    // Send user info and token
+    if (user) {
+        res.status(201).json({
+            orgName: user.orgName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            accessToken: generateToken(user._id)
+        })
+    }
+
 })
 
 // @desc    Authenticate a user
