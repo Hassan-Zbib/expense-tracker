@@ -6,18 +6,21 @@ const expenseSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User',
+            immutable: true,
         },
         type: {
             type: String,
             required: [true, 'Please add a type'],
+            lowercase: true,
         },
         amount: {
             type: Number,
             required: [true, 'Please add an amount'],
-            default : 0,
+            min: 1,
         },
         date: {
             type: Date,
+            default: () => Date.now(),
             required: [true, 'Please add a date'],
         },
     },

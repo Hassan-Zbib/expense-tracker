@@ -7,9 +7,9 @@ const {
     updateUser,
     resetPassword,
     getCurrentUser,
-  } = require('../controllers/userController')
+  } = require('../../controllers/userController')
 
-const { protect } = require('../middleware/authMiddleware')
+const { protect } = require('../../middlewares/authMiddleware')
   
 // Routes on /api/User/ 
 router.post('/', registerUser)
