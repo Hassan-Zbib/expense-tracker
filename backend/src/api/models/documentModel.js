@@ -2,6 +2,16 @@ const mongoose = require('mongoose')
 
 const documentSchema = mongoose.Schema(
     {
+        model: {
+            type: String,
+            required: [true, 'Please specify a model'],
+            enum: ['Expense', 'Income']
+        },
+        extendes:  {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            refPath: 'model',
+        },
         notes: {
             type: String,
             required: false,
@@ -11,7 +21,10 @@ const documentSchema = mongoose.Schema(
             type: Date,
             required: [true, 'Please add a date'],
         },
-        document: Object
+        document: {
+            type: Object,
+            // required: true,
+        }
     },
     {
         timestamps: true,
