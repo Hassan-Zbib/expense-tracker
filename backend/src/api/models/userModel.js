@@ -24,6 +24,41 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a password'],
         },
+        websiteAddress: {
+            type: String,
+            required: false,
+            default: "",
+        },
+        country: {
+            type: String,
+            required: false,
+            default: "",
+        },
+        city: {
+            type: String,
+            required: false,
+            default: "",
+        },
+        phone: {
+            type: Number,
+            required: false,
+            default: "",
+        },
+        about: {
+            type: String,
+            required: false,
+            default: "",
+        },
+        settings: {
+            emailExports: {
+                type: Boolean,
+                default: true,
+            },
+            publicVisibility: {
+                type: Boolean,
+                default: true,
+            }
+        }
     },
     {
         timestamps: true,
