@@ -15,6 +15,17 @@ async function updateUserIncome(doc) {
     user.save()
 }
 
+async function truncateUserIncome(doc) {
+
+    const user = await User.findById(doc.user._id).select('-password')
+
+    user.transactions -= 1
+    user.totalIncome -= doc.amount
+
+    user.save()
+}
+
 module.exports = {
-    updateUserIncome
+    updateUserIncome,
+    truncateUserIncome
 }
