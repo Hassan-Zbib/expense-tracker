@@ -75,11 +75,20 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const { email, password } = req.body
 
+    if (!email || !password) {
+        res.status(400)
+        throw new Error('Please add all fields')
+      }
+
     // Check for user email
     const user = await User.findOne({ email })
+    if(!user) {
+        res.status(400)
+        throw new Error('User not found')
+    }
 
     // Check password and respond
-    if (user && ( await bcrypt.compare(password, user.password) ) ) {
+    if ( await bcrypt.compare(password, user.password)  ) {
         res.status(201)
         .json({
             orgName: user.orgName,
