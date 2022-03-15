@@ -39,7 +39,7 @@ incomeSchema.path('amount').set(( newValue ) => {
 });
 // Middlewares/Hooks to update the users general stats
 // .post('validate', func) has been validated (but not saved yet)   // this.toJSON()
-incomeSchema.post('validate',  doc  => {
+incomeSchema.post('save',  doc  => {
     
     if (doc.tempAmount) {
         const user = User.findById( doc.user )
