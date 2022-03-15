@@ -6,6 +6,7 @@ const {
   setIncome,
   updateIncome,
   deleteIncome,
+  importIncome,
 } = require("../../controllers/incomeController")
 
 const { protect } = require("../../middlewares/authMiddleware")
@@ -14,6 +15,8 @@ const { protect } = require("../../middlewares/authMiddleware")
 router.route("/")
         .post(protect, setIncome)
         .get(protect, getIncomes)
+
+router.post("/import", protect, importIncome)
 
 router.route("/:id")
         .delete(protect, deleteIncome)

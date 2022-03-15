@@ -74,7 +74,7 @@ res.status(200).json({ id: req.params.id })
 })
 
 // @desc    Import incomes CSV
-// @route   POST /api/incomes/:id
+// @route   POST /api/incomes/import
 // @access  Private
 const importIncome = asyncHandler(async (req, res) => {
 
