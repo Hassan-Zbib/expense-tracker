@@ -30,6 +30,11 @@ const protect = asyncHandler(async (req, res, next) => {
         res.status(401)
         throw new Error('Not authorized')
     }
+
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
 })
 
 module.exports = { protect }
