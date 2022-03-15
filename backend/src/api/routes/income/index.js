@@ -10,13 +10,14 @@ const {
 } = require("../../controllers/incomeController")
 
 const { protect } = require("../../middlewares/authMiddleware")
+const { importCSV } = require("../../middlewares/csvMiddleware")
 
 // Routes on /api/incomes/
 router.route("/")
         .post(protect, setIncome)
         .get(protect, getIncomes)
 
-router.post("/import", protect, importIncome)
+router.post("/import", protect, importCSV.single('file'), importIncome)
 
 router.route("/:id")
         .delete(protect, deleteIncome)

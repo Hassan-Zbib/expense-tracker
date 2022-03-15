@@ -78,7 +78,7 @@ res.status(200).json({ id: req.params.id })
 // @access  Private
 const importIncome = asyncHandler(async (req, res) => {
 
-    res.status(200).json({ message: 'ok' })
+    res.status(200).json({ textFields: req.body, file: req.file })
     })
 
 module.exports = {
