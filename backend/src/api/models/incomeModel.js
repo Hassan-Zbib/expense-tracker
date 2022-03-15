@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./userModel')
 
 const incomeSchema = mongoose.Schema(
     {
@@ -28,5 +29,19 @@ const incomeSchema = mongoose.Schema(
         timestamps: true,
     }
 )
+
+// Custom amount setter
+incomeSchema.path('amount').set(( newValue ) => {
+    this.tempAmount = this.amount
+    this.amount = newValue
+});
+// Middlewares/Hooks to update the users general stats
+// .post('validate', func) has been validated (but not saved yet)   // this.toJSON()
+incomeSchema.post('validate',  doc  => {
+    const user = User.findById( doc.user )
+    const oldValue = Income.Date
+
+    next()
+})
 
 module.exports = mongoose.model('Income', incomeSchema)
