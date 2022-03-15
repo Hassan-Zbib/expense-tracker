@@ -8,6 +8,15 @@ const generateToken = (id) => {
     )
 }
 
+// custom setters don't work with arrow functions
+function amountCustomSetter(newValue) {
+    if (this.amount) {
+        this.tempAmount = this.amount
+    }
+    return newValue
+}
+
 module.exports = {
-    generateToken
+    generateToken,
+    amountCustomSetter
 }

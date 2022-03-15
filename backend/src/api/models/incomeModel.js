@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { updateUserIncome }  = require('../middlewares/transactionMiddleware')
-// const {  } = require('../helpers/common')
+const { amountCustomSetter } = require('../helpers/common')
 
 const incomeSchema = mongoose.Schema(
     {
@@ -31,16 +31,11 @@ const incomeSchema = mongoose.Schema(
     }
 )
 
-// Custom amount setter (doesn't work with arrow func)
-incomeSchema.path('amount').set(function( newValue )  {
-
-    if (this.amount) {
-        this.tempAmount = this.amount
-    }
-    return newValue
-});
+// Custom amount setter
+incomeSchema.path('amount').set(amountCustomSetter);
 
 // Middlewares/Hooks to update the users general stats
+
 // .post('validate', func) has been validated (but not saved yet)
 incomeSchema.post('validate', updateUserIncome)
 
