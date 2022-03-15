@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler')
-
 const Expense = require('../models/expenseModel')
 
 // @desc    Get expenses
