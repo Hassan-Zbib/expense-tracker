@@ -13,10 +13,10 @@ const { protect } = require("../../middlewares/authMiddleware")
 // Routes on /api/incomes/
 router.route("/")
         .post(protect, setIncome)
-        .delete(protect, deleteIncome)
+        .get(protect, getIncomes)
 
 router.route("/:id")
-        .get(protect, getIncomes)
+        .delete(protect, deleteIncome)
         .put(protect, updateIncome)
 
 module.exports = router

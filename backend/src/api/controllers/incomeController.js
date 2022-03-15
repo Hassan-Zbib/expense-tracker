@@ -46,7 +46,7 @@ income.type = req.body.type
 income.amount = req.body.amount
 income.date = req.body.date
 
-const updatedincome = await income.save()
+const updatedIncome = await income.save()
 
 res.status(200).json(updatedIncome)
 })

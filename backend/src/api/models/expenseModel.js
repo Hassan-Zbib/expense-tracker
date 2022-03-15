@@ -21,7 +21,7 @@ const expenseSchema = mongoose.Schema(
         date: {
             type: Date,
             default: () => Date.now(),
-            required: [true, 'Please add a date'],
+            required: false,
         },
     },
     {
