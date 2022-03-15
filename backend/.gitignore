@@ -1,3 +1,9 @@
+# Custom ignored files and dirs
+
+src/api/static/*
+!src/api/static/.gitkeep
+
+
 # Logs
 logs
 *.log
