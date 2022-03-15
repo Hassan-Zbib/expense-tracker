@@ -32,16 +32,22 @@ const incomeSchema = mongoose.Schema(
 
 // Custom amount setter
 incomeSchema.path('amount').set(( newValue ) => {
-    this.tempAmount = this.amount
+    if (this.amount) {
+        this.tempAmount = this.amount
+    }
     this.amount = newValue
 });
 // Middlewares/Hooks to update the users general stats
 // .post('validate', func) has been validated (but not saved yet)   // this.toJSON()
 incomeSchema.post('validate',  doc  => {
-    const user = User.findById( doc.user )
-    const oldValue = Income.Date
+    
+    if (doc.tempAmount) {
+        const user = User.findById( doc.user )
+        const diff = doc.amount - doc.tempAmount
+        user.totalIncome += diff
+        user.save()
+    }
 
-    next()
 })
 
 module.exports = mongoose.model('Income', incomeSchema)
