@@ -2,12 +2,7 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const { generateToken } = require('../helpers/common')
-const {   
-    validatePass,
-    validateEmail,
-    validatePhone,
-    validatewebsiteAddress,
- } = require('../validators/userValidator')
+const validator = require("validator")
 
 // @desc    Register new user
 // @route   POST /api/user
@@ -20,6 +15,25 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Please add all fields')
       }
+
+    // Validate email and password
+    if (!validator.isStrongPassword(password, [{
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+        returnScore: false,
+      }]) ) {
+        res.status(400)
+        throw new Error('Password is not valid')
+      }
+
+      if (!validator.isEmail(email)) {
+        res.status(400)
+        throw new Error('Email is not valid')
+      }
+
 
     // Check if user exists
     const userExists = await User.exists({ $or: [{email: email}, {orgName: orgName}] })
