@@ -1,23 +1,35 @@
+var validator = require("validator")
 
-const validatePass = () => {
-    let regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+const validatePass = (pass) => {
+  // let regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+  // return regex.test(pass)
+
+  return validator.isStrongPassword(pass, {
+    minLength: 8,
+    minLowercase: 1,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    returnScore: false,
+  })
 }
 
-const validateEmail = () => {
-
+const validateEmail = (email) => {
+  // let regex = new RegExp("")  --> removed because it's not fully RFC 822 compliant
+  return validator.isEmail(email)
 }
 
-const validatePhone = () => {
-
+const validatePhone = (phone) => {
+    return validator.isMobilePhone(phone)
 }
 
-const validatewebsiteAddress = () => {
-
+const validatewebsiteAddress = (url) => {
+  return validator.isURL(url)
 }
 
 module.exports = {
-    validatePass,
-    validateEmail,
-    validatePhone,
-    validatewebsiteAddress
+  validatePass,
+  validateEmail,
+  validatePhone,
+  validatewebsiteAddress,
 }
