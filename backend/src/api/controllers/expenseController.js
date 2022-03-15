@@ -56,26 +56,20 @@ res.status(200).json(updatedExpense)
 // @route   DELETE /api/expenses/:id
 // @access  Private
 const deleteExpense = asyncHandler(async (req, res) => {
-const goal = await Goal.findById(req.params.id)
+const expense = await Expense.findById(req.params.id)
 
-if (!goal) {
+if (!expense) {
     res.status(400)
-    throw new Error('Goal not found')
+    throw new Error('expense not found')
 }
 
-// Check for user
-if (!req.user) {
-    res.status(401)
-    throw new Error('User not found')
-}
-
-// Make sure the logged in user matches the goal user
-if (goal.user.toString() !== req.user.id) {
+// Make sure the logged in user matches the expense user
+if (expense.user.toString() !== req.user.id) {
     res.status(401)
     throw new Error('User not authorized')
 }
 
-await goal.remove()
+await expense.remove()
 
 res.status(200).json({ id: req.params.id })
 })
