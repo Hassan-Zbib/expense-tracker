@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const User = require('./userModel')
+const { updateUserIncome }  = require('../middlewares/transactionMiddleware')
+// const {  } = require('../helpers/common')
 
 const incomeSchema = mongoose.Schema(
     {
@@ -38,23 +39,10 @@ incomeSchema.path('amount').set(function( newValue )  {
     }
     return newValue
 });
+
 // Middlewares/Hooks to update the users general stats
-// .post('validate', func) has been validated (but not saved yet)   // this.toJSON()
-incomeSchema.post('validate', test)
+// .post('validate', func) has been validated (but not saved yet)
+incomeSchema.post('validate', updateUserIncome)
 
-async function test(doc) {
-
-    const user = await User.findById(`${doc.user._id}`).select('-password')
-    console.log(doc.tempAmount)
-    if (doc.tempAmount) {
-        const diff = doc.amount - doc.tempAmount
-        user.totalIncome += diff
-    } else {
-        user.totalIncome += doc.amount
-        user.transactions += 1
-    }
-
-    user.save()
-}
 
 module.exports = mongoose.model('Income', incomeSchema)
