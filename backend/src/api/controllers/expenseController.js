@@ -59,7 +59,7 @@ const expense = await Expense.findById(req.params.id)
 
 if (!expense) {
     res.status(400)
-    throw new Error('expense not found')
+    throw new Error('Expense not found')
 }
 
 // Make sure the logged in user matches the expense user

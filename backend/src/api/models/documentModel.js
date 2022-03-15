@@ -19,7 +19,8 @@ const documentSchema = mongoose.Schema(
         },
         date: {
             type: Date,
-            required: [true, 'Please add a date'],
+            required: false,
+            default: () => Date.now(),
         },
         document: {
             type: Object,
