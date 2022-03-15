@@ -46,7 +46,7 @@ const userSchema = mongoose.Schema(
         phone: {
             type: Number,
             required: false,
-            default: "",
+            default: 0,
         },
         about: {
             type: String,
@@ -56,6 +56,7 @@ const userSchema = mongoose.Schema(
         logoURL: {
             type: String,
             required: false,
+            default: ""
         },
         transactions: {
             type: Number,
