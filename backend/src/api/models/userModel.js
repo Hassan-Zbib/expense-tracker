@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { validatePass } = require('../validators/userValidator')
 
 const userSchema = mongoose.Schema(
     {
@@ -45,9 +44,9 @@ const userSchema = mongoose.Schema(
             default: "",
         },
         phone: {
-            type: Number,
+            type: String,
             required: false,
-            default: 0,
+            default: "",
         },
         about: {
             type: String,

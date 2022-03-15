@@ -3,15 +3,14 @@ var validator = require("validator")
 const validatePass = (pass) => {
   // let regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   // return regex.test(pass)
-
-  return validator.isStrongPassword(pass, {
+  return validator.isStrongPassword(pass, [{
     minLength: 8,
     minLowercase: 1,
     minUppercase: 1,
     minNumbers: 1,
     minSymbols: 1,
     returnScore: false,
-  })
+  }])
 }
 
 const validateEmail = (email) => {
@@ -20,14 +19,14 @@ const validateEmail = (email) => {
 }
 
 const validatePhone = (phone) => {
-    return validator.isMobilePhone(phone)
+    return phone ? validator.isMobilePhone(phone) : true
 }
 
 const validatewebsiteAddress = (url) => {
-  return validator.isURL(url)
+  return url ? validator.isURL(url) : true
 }
 
-module.exports = {
+module.exports = {  
   validatePass,
   validateEmail,
   validatePhone,

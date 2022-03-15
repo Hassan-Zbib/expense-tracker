@@ -2,6 +2,12 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const { generateToken } = require('../helpers/common')
+const {   
+    validatePass,
+    validateEmail,
+    validatePhone,
+    validatewebsiteAddress,
+ } = require('../validators/userValidator')
 
 // @desc    Register new user
 // @route   POST /api/user
