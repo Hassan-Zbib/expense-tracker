@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const { updateUserExpense, truncateUserExpense }  = require('../middlewares/transactionMiddleware')
+const { amountCustomSetter } = require('../helpers/common')
 
 const expenseSchema = mongoose.Schema(
     {
@@ -28,5 +30,16 @@ const expenseSchema = mongoose.Schema(
         timestamps: true,
     }
 )
+
+// Custom amount setter
+expenseSchema.path('amount').set(amountCustomSetter);
+
+// Middlewares/Hooks to update the users general stats
+
+// s.post('validate', func) s has been validated (but not saved yet)
+expenseSchema.post('validate', updateUserExpense)
+
+// s.post('remove', func) s has been removed
+expenseSchema.post('remove', truncateUserExpense)
 
 module.exports = mongoose.model('Expense', expenseSchema)
