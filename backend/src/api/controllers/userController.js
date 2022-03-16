@@ -108,10 +108,35 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update a user
-// @route   POST /api/user/update
+// @route   PUT /api/user
 // @access  Private
 const updateUser = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'Under Development'})
+  const user = await User.findById(req.user.id)
+
+  if (!user) {
+    res.status(400)
+    throw new Error('User not found')
+}
+
+  // validate and update inputs
+  user.firstName = firstName ? firstName : user.firstName
+  user.lastName = lastName ? lastName : user.lastName
+  user.email = validator.isEmail(email) ? email : user.email
+  user.websiteAddress = validator.isURL(websiteAddress) ? websiteAddress : user.websiteAddress
+  user.country = country ? country : user.country
+  user.city = city ? city : user.city
+  user.phone = validator.isMobilePhone(phone) ? phone : user.phone
+  user.about = about ? about : user.about
+  user.logoURL = logoURL // needs updating with s3 link
+  user.settings = {
+    emailExports: settings.emailExports ? settings.emailExports : user.settings.emailExports,
+    publicVisibility : settings.publicVisibility ? settings.publicVisibility : user.settings.publicVisibility,
+  }
+
+
+    const updatedUser = await user.save()
+
+    res.status(200).json(updatedUser)
 })
 
 // @desc    Reset a user password
