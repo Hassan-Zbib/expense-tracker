@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const csvtojson = require('csvtojson')
+const json2csv = require('json2csv').parse
 const Income = require('../models/incomeModel')
 const fs = require('fs');
 
@@ -130,6 +131,34 @@ const importIncome = asyncHandler(async (req, res) => {
 // @route   GET /api/incomes/export
 // @access  Private
 const exportIncome = asyncHandler(async (req, res) => {
+    const incomes = await Income.find({ user: req.user.id })
+
+    const fields = ['type', 'amount', 'date', 'createdAt', 'updatedAt'];
+    let csv
+
+    try {
+    csv = json2csv(incomes, { fields })
+    } catch (err) {
+    throw new Error('Something went wrong please try again or contact an administrator')
+    }
+    
+    const dateTime = Date.now() 
+    const filePath =  `./src/api/static/income-${dateTime}.csv`
+    fs.writeFile(filePath, csv, err => {
+    if (err) {
+        throw new Error('Something went wrong please try again or contact an administrator');
+    }
+    else {
+        setTimeout(function () {
+        fs.unlinkSync(filePath, (err) => {
+            if(err) {
+                console.log(err)
+            }
+        }) // delete this file after 30 seconds
+        }, 30000)
+        res.status(200).download(filePath)
+    }
+    })
 
 })
 
