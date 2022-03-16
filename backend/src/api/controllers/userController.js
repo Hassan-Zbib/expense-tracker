@@ -116,7 +116,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 // @desc    Reset a user password
 // @route   POST /api/user/reset
-// @access  Public
+// @access  Private
 const resetPassword = asyncHandler(async (req, res) => {
     const { userId, token, password } = req.body
 
