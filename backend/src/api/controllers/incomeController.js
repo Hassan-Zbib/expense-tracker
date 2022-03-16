@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const csvtojson = require('csvtojson')
 const Income = require('../models/incomeModel')
-const User = require('../models/userModel')
+const fs = require('fs');
 
 // @desc    Get incomes
 // @route   GET /api/incomes
@@ -116,7 +116,14 @@ const importIncome = asyncHandler(async (req, res) => {
     req.user.totalIncome += total
     req.user.save()
 
-    res.status(200).json({ textFields: req.body, file: req.file, incomes: imports })
+    // delete the uploaded csv from the static folder
+    fs.unlink(req.file.path, (err) => {
+        if(err) {
+            console.log(err)
+        }
+    })
+
+    res.status(200).json({ file: req.file, incomes: imports })
     })
 
 module.exports = {
