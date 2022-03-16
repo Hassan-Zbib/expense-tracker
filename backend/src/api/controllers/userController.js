@@ -115,6 +115,20 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route   POST /api/user/reset
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
+    const { email } = req.body
+
+    if (!email) {
+        res.status(400)
+        throw new Error('Please add your email')
+      }
+
+    // Check for user email
+    const user = await User.findOne({ email })
+    if(!user) {
+        res.status(400)
+        throw new Error('User not found')
+    }
+
     res.status(200).json({message: 'Under Development'})
 })
 
