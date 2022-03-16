@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler')
+const csvtojson = require('csvtojson')
 const Income = require('../models/incomeModel')
+const User = require('../models/userModel')
 
 // @desc    Get incomes
 // @route   GET /api/incomes
@@ -78,7 +80,43 @@ res.status(200).json({ id: req.params.id })
 // @access  Private
 const importIncome = asyncHandler(async (req, res) => {
 
-    res.status(200).json({ textFields: req.body, file: req.file })
+    let incomes = []
+    let total = 0
+
+    // read uploaded csv
+    let source = await csvtojson().fromFile(req.file.path)
+
+    // validate each row and append values 
+    source.forEach(row => {
+        let record = {
+            user: req.user.id,
+            type: row.Type,
+            amount: parseInt(row.Amount),
+            date: row.Date
+        }
+
+        if(record.date) {
+            let date = new Date(record.date)
+            let isDate = date instanceof Date
+            if(!isDate){
+                res.status(400)
+                throw new Error(`the record of type '${record.type}' and amount of '${record.amount}' does not have a valid date`)
+            }
+        }
+
+        total += record.amount
+        incomes.push(record)
+    })
+
+    // insert all records
+    const imports = await Income.insertMany(incomes)
+    
+    // update user stats since middleware won't work on .insertMany
+    req.user.transactions += imports.length
+    req.user.totalIncome += total
+    req.user.save()
+
+    res.status(200).json({ textFields: req.body, file: req.file, incomes: imports })
     })
 
 module.exports = {
