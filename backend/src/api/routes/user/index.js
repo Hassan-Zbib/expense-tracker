@@ -13,10 +13,12 @@ const {
 const { protect } = require('../../middlewares/authMiddleware')
   
 // Routes on /api/users/ 
-router.post('/', registerUser)
+router.route('/')
+  .post(registerUser)
+  .put(protect, updateUser)
+  .get(protect, getCurrentUser)
+  
 router.post('/login', loginUser)
-router.get('/me', protect, getCurrentUser)
-router.post('/update', protect, updateUser)
 router.post('/reset', resetPassword)
 router.post('/request.reset', requestResetPassword)
 

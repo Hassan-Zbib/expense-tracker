@@ -251,7 +251,7 @@ const requestResetPassword = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user data
-// @route   GET /api/user/me
+// @route   GET /api/user
 // @access  Private
 const getCurrentUser = asyncHandler(async (req, res) => {
     res.status(200).json(req.user)
