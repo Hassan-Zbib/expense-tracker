@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const Token = require('../models/tokenModel')
+const crypto = require("crypto")
 const { generateToken } = require('../helpers/common')
 const validator = require("validator")
 
@@ -132,6 +134,47 @@ const resetPassword = asyncHandler(async (req, res) => {
     res.status(200).json({message: 'Under Development'})
 })
 
+const requestResetPassword = asyncHandler(async (req, res) => {
+    const { email } = req.body
+
+    if (!email) {
+        res.status(400)
+        throw new Error('Please add your email')
+      }
+
+    // Check for user email
+    const user = await User.findOne({ email })
+    if(!user) {
+        res.status(400)
+        throw new Error('User not found')
+    }
+
+    // check for token and delete if exists
+    let token = await Token.findOne({ userId: user._id })
+    if (token) { 
+          await token.deleteOne()
+    }
+
+    // create new token
+    const resetToken = crypto.randomBytes(32).toString("hex")
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(resetToken, salt)
+
+    // save token
+    await new Token({
+        userId: user._id,
+        token: hash,
+        createdAt: Date.now(),
+      }).save()
+
+    // send email with the reset link
+    const link = `${process.env.CLIENT_URL}/passwordReset?token=${resetToken}&id=${user._id}`
+    const userName = `${user.firstName} ${user.lastName}`
+    sendEmail(user.email,"Password Reset Request",{name: userName,link: link,},"./template/requestResetPassword.handlebars")
+
+    res.status(200).json({ message: 'Email Sent'})
+})
+
 // @desc    Get user data
 // @route   GET /api/user/me
 // @access  Private
@@ -147,4 +190,5 @@ module.exports = {
     updateUser,
     resetPassword,
     getCurrentUser,
+    requestResetPassword,
 }
