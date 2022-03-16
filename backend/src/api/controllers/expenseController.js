@@ -1,4 +1,8 @@
 const asyncHandler = require('express-async-handler')
+const csvtojson = require('csvtojson')
+const json2csv = require('json2csv').parse
+const fs = require('fs');
+const { validateImport } = require('../helpers/common')
 const Expense = require('../models/expenseModel')
 
 // @desc    Get expenses
@@ -73,9 +77,81 @@ await expense.remove()
 res.status(200).json({ id: req.params.id })
 })
 
+// @desc    Import expense CSV
+// @route   POST /api/expenses/import
+// @access  Private
+const importExpense = asyncHandler(async (req, res) => {
+
+    // read uploaded csv
+    let source = await csvtojson().fromFile(req.file.path)
+
+    // validate data and append values 
+    let validated = validateImport(source, req.user.id)
+
+    // insert all records
+    const imports = await Expense.insertMany(validated.data)
+    
+    // update user stats since middleware won't work on .insertMany
+    req.user.transactions += imports.length
+    req.user.totalExpense += validated.totalAmount
+    req.user.save()
+
+    // delete the uploaded csv from the static folder
+    fs.unlink(req.file.path, (err) => {
+        if(err) {
+            console.log(err)
+        }
+    })
+
+    res.status(200).json({ file: req.file, expenses: imports })
+    })
+
+// @desc    Export expense CSV
+// @route   GET /api/expenses/export
+// @access  Private
+const exportExpense = asyncHandler(async (req, res) => {
+    const expenses = await Expense.find({ user: req.user.id })
+
+    // fields to export in csv
+    const fields = ['type', 'amount', 'date', 'createdAt', 'updatedAt'];
+
+    let csv
+    try {
+    // create csv
+    csv = json2csv(expenses, { fields })
+    } catch (err) {
+    throw new Error('Something went wrong please try again or contact an administrator')
+    }
+    
+    // save csv to static folder
+    const dateTime = Date.now() 
+    const filePath =  `./src/api/static/income-${dateTime}.csv`
+    fs.writeFile(filePath, csv, err => {
+    if (err) {
+        throw new Error('Something went wrong please try again or contact an administrator');
+    }
+    else {
+
+        // delete this file after 30 seconds
+        setTimeout(function () {
+        fs.unlinkSync(filePath, (err) => {
+            if(err) {
+                console.log(err)
+            }
+        }) 
+        }, 30000)
+
+        res.status(200).download(filePath)
+    }
+    })
+
+})
+
 module.exports = {
     getExpenses,
     setExpense,
     updateExpense,
     deleteExpense,
+    importExpense,
+    exportExpense
   }
