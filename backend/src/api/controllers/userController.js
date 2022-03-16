@@ -5,6 +5,7 @@ const Token = require('../models/tokenModel')
 const crypto = require("crypto")
 const { generateToken } = require('../helpers/common')
 const validator = require("validator")
+const sendEmail = require('../helpers/sendEmail')
 
 // @desc    Register new user
 // @route   POST /api/user
@@ -117,21 +118,67 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route   POST /api/user/reset
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-    const { email } = req.body
+    const { userId, token, password } = req.body
 
-    if (!email) {
+    if (!userId || !token || !password) {
         res.status(400)
-        throw new Error('Please add your email')
+        throw new Error('Please add all fields')
       }
 
-    // Check for user email
-    const user = await User.findOne({ email })
+    // Check token
+    let passwordResetToken = await Token.findOne({ userId })
+    if (!passwordResetToken) {
+        res.status(400)
+        throw new Error("Invalid or expired password reset token")
+      }
+    
+    const isValid = await bcrypt.compare(token, passwordResetToken.token)
+    if (!isValid) {
+        res.status(400)
+        throw new Error("Invalid or expired password reset token")
+      }
+    
+    // Validate password
+    if (!validator.isStrongPassword(password, [{
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+        returnScore: false,
+    }]) ) {
+        res.status(400)
+        throw new Error('Password is not valid')
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    // Check for user and update 
+    const user = await User.findById({ _id: userId })
     if(!user) {
         res.status(400)
         throw new Error('User not found')
     }
 
-    res.status(200).json({message: 'Under Development'})
+    user.password = hashedPassword
+    user.save()
+
+    // Send success email
+    const userName = `${user.firstName} ${user.lastName}`
+    sendEmail(
+        user.email,
+        "Password reset successfully",
+        {
+          name: userName,
+        },
+        "./template/resetPassword.handlebars"
+      )
+
+    await passwordResetToken.deleteOne();
+
+    res.status(201).json({message: 'Password reset successfully'})
 })
 
 // @desc    Request a reset user password
