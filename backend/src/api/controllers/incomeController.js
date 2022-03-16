@@ -3,6 +3,7 @@ const csvtojson = require('csvtojson')
 const json2csv = require('json2csv').parse
 const Income = require('../models/incomeModel')
 const fs = require('fs');
+const { validateImport } = require('../helpers/common')
 
 // @desc    Get incomes
 // @route   GET /api/incomes
@@ -81,40 +82,18 @@ res.status(200).json({ id: req.params.id })
 // @access  Private
 const importIncome = asyncHandler(async (req, res) => {
 
-    let incomes = []
-    let total = 0
-
     // read uploaded csv
     let source = await csvtojson().fromFile(req.file.path)
 
-    // validate each row and append values 
-    source.forEach(row => {
-        let record = {
-            user: req.user.id,
-            type: row.Type,
-            amount: parseInt(row.Amount),
-            date: row.Date
-        }
-
-        if(record.date) {
-            let date = new Date(record.date)
-            let isDate = date instanceof Date
-            if(!isDate){
-                res.status(400)
-                throw new Error(`the record of type '${record.type}' and amount of '${record.amount}' does not have a valid date`)
-            }
-        }
-
-        total += record.amount
-        incomes.push(record)
-    })
+    // validate data and append values 
+    let validated = validateImport(source, req.user.id)
 
     // insert all records
-    const imports = await Income.insertMany(incomes)
+    const imports = await Income.insertMany(validated.data)
     
     // update user stats since middleware won't work on .insertMany
     req.user.transactions += imports.length
-    req.user.totalIncome += total
+    req.user.totalIncome += validated.totalAmount
     req.user.save()
 
     // delete the uploaded csv from the static folder
@@ -133,15 +112,18 @@ const importIncome = asyncHandler(async (req, res) => {
 const exportIncome = asyncHandler(async (req, res) => {
     const incomes = await Income.find({ user: req.user.id })
 
+    // fields to export in csv
     const fields = ['type', 'amount', 'date', 'createdAt', 'updatedAt'];
-    let csv
 
+    let csv
     try {
+    // create csv
     csv = json2csv(incomes, { fields })
     } catch (err) {
     throw new Error('Something went wrong please try again or contact an administrator')
     }
     
+    // save csv to static folder
     const dateTime = Date.now() 
     const filePath =  `./src/api/static/income-${dateTime}.csv`
     fs.writeFile(filePath, csv, err => {
@@ -149,13 +131,16 @@ const exportIncome = asyncHandler(async (req, res) => {
         throw new Error('Something went wrong please try again or contact an administrator');
     }
     else {
+
+        // delete this file after 30 seconds
         setTimeout(function () {
         fs.unlinkSync(filePath, (err) => {
             if(err) {
                 console.log(err)
             }
-        }) // delete this file after 30 seconds
+        }) 
         }, 30000)
+
         res.status(200).download(filePath)
     }
     })
