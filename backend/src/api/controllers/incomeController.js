@@ -126,10 +126,18 @@ const importIncome = asyncHandler(async (req, res) => {
     res.status(200).json({ file: req.file, incomes: imports })
     })
 
+// @desc    Export incomes CSV
+// @route   GET /api/incomes/export
+// @access  Private
+const exportIncome = asyncHandler(async (req, res) => {
+
+})
+
 module.exports = {
     getIncomes,
     setIncome,
     updateIncome,
     deleteIncome,
     importIncome,
+    exportIncome,
   }

@@ -7,6 +7,7 @@ const {
   updateIncome,
   deleteIncome,
   importIncome,
+  exportIncome,
 } = require("../../controllers/incomeController")
 
 const { protect } = require("../../middlewares/authMiddleware")
@@ -18,6 +19,7 @@ router.route("/")
         .get(protect, getIncomes)
 
 router.post("/import", protect, importCSV.single('file'), importIncome)
+router.get("/export", protect, exportIncome)
 
 router.route("/:id")
         .delete(protect, deleteIncome)
