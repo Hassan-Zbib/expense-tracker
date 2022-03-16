@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer")
+const handlebars = require("handlebars")
+const fs = require("fs")
 
-const sendEmail = async (email, subject, text) => {
+const sendEmail = async (email, subject, payload, template) => {
     try {
         const transporter = nodemailer.createTransport({
             host: process.env.HOST,
@@ -13,16 +15,22 @@ const sendEmail = async (email, subject, text) => {
             },
         })
 
-        await transporter.sendMail({
+        // compile template and set the options
+        const source = fs.readFileSync(template, "utf8")
+        const compiledTemplate = handlebars.compile(source)
+        const options = {
             from: process.env.USER,
             to: email,
             subject: subject,
-            text: text,
-        });
+            html: compiledTemplate(payload),
+        }
+
+        // Send email
+        await transporter.sendMail(options);
 
         console.log("email sent sucessfully")
-    } catch (error) {
-        console.log(error, "email not sent")
+    } catch (err) {
+        console.log(err, "email not sent")
     }
 }
 
