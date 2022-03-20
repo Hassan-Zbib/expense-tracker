@@ -10,6 +10,10 @@ const theme = createTheme({
       main: amber[500],
       contrastText: deepPurple[900],
     },
+    background: {
+      main: '#23242A',
+      contrastText: 'white',
+    }
   },
 })
 
