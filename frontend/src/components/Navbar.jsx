@@ -1,16 +1,18 @@
 import { useState } from "react"
-import { Link as UiLink } from "@mui/material"
-import { useNavigate } from "react-router-dom"
-import AppBar from "@mui/material/AppBar"
-import Box from "@mui/material/Box"
-import Toolbar from "@mui/material/Toolbar"
-import IconButton from "@mui/material/IconButton"
-import Typography from "@mui/material/Typography"
-import Menu from "@mui/material/Menu"
+import {
+  Link as UiLink,
+  Container,
+  Button,
+  Typography,
+  Menu,
+  MenuItem,
+  IconButton,
+  Toolbar,
+  Box,
+  AppBar,
+} from "@mui/material"
+import { Link } from "react-router-dom"
 import MenuIcon from "@mui/icons-material/Menu"
-import Container from "@mui/material/Container"
-import Button from "@mui/material/Button"
-import MenuItem from "@mui/material/MenuItem"
 
 const Navbar = () => {
   const title = "NET"
@@ -24,7 +26,6 @@ const Navbar = () => {
     link: "/Login",
   }
 
-  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = useState(null)
 
   const handleOpenNavMenu = (event) => {
@@ -35,13 +36,9 @@ const Navbar = () => {
     setAnchorElNav(null)
   }
 
-  const goTo = () => {
-    navigate(button.link)
-  }
-
   return (
     <AppBar position="sticky" color="background">
-      <Container maxWidth="false" >
+      <Container maxWidth="false">
         <Toolbar disableGutters>
           {/* small navbar size */}
           <Typography
@@ -109,8 +106,10 @@ const Navbar = () => {
                 key={section.name}
                 onClick={handleCloseNavMenu}
                 component={UiLink}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white", display: "block", width: "auto" }}
                 href={section.id}
+                fullWidth="false"
+                size="medium"
               >
                 {section.name}
               </Button>
@@ -118,12 +117,9 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-          <Button
-          onClick={goTo}
-                  color="primary"
-                >
-                  {button.text}
-                </Button>
+            <Button component={Link} to={button.link} color="primary">
+              {button.text}
+            </Button>
           </Box>
         </Toolbar>
       </Container>
