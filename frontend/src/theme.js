@@ -21,7 +21,7 @@ theme.components = {
   MuiButton: {
     styleOverrides: {
       root: {
-        borderRadius: "10px",
+        borderRadius: "15px",
         textTransform: "none",
       },
       // containedPrimary: {
@@ -69,7 +69,7 @@ theme.components = {
   MuiOutlinedInput: {
     styleOverrides: {
       root: {
-        borderRadius: '10px'
+        borderRadius: '15px'
       }
     },
     defaultProps: {

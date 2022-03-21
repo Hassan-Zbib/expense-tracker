@@ -1,9 +1,16 @@
-import { Button, Divider, TextField, Typography } from "@mui/material"
+import {
+  Button,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+  Box,
+} from "@mui/material"
 import { useFormik } from "formik"
-import  { loginSchema }  from '../validators/userValidator'
+import { Link } from "react-router-dom"
+import { loginSchema } from "../validators/userValidator"
 
 const Login = () => {
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -17,7 +24,31 @@ const Login = () => {
 
   return (
     <>
-    <form onSubmit={formik.handleSubmit}>
+      <Box sx={{ marginBottom: "20px" }}>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          sx={{ margin: "10px 0 20px 0" }}
+        >
+          Sign In
+        </Typography>
+
+          <Typography variant="p" fontWeight="light" fontSize="small" >
+            New User ?
+          </Typography>
+
+          <Button
+            variant="text"
+            component={Link}
+            to="/SignUp"
+            size="small"
+            sx={{ width: "auto" }}
+          >
+            Create Account
+          </Button>
+      </Box>
+
+      <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
           id="email"
@@ -27,9 +58,8 @@ const Login = () => {
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
-          
         />
-        
+
         <TextField
           fullWidth
           id="password"
@@ -40,14 +70,28 @@ const Login = () => {
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
-          sx={{ marginTop: '20px'}}
+          sx={{ marginTop: "20px" }}
         />
-   
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-end"
+        >
+          <Button
+            variant="text"
+            component={Link}
+            to="/ForgotPassword"
+            size="small"
+            sx={{ width: "auto", margin: "10px 0 0 0" }}
+          >
+            Forgot Password ?
+          </Button>
+        </Grid>
         <Divider />
-        <Button color="primary" variant="contained" type="submit" >
-          Submit
+        <Button color="primary" variant="contained" type="submit">
+          Sign In
         </Button>
-        
       </form>
     </>
   )

@@ -70,11 +70,11 @@ const AuthLayout = ({ children }) => {
             container
             spacing={0}
             direction="column"
-            alignItems="start"
+            alignItems="center"
             justifyContent="space-evenly"
             style={{ minHeight: "80vh" }}
           >
-            <Grid item >
+            <Grid item alignSelf="start">
               <Box >
                 <Button color="background" onClick={() => navigate(-1)} >
                   <KeyboardBackspaceIcon />
