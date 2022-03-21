@@ -11,73 +11,87 @@ const theme = createTheme({
       contrastText: deepPurple[900],
     },
     background: {
-      main: '#23242A',
-      contrastText: 'white',
-    }
+      main: "#23242A",
+      contrastText: "white",
+    },
   },
 })
 
-theme.props = {
+theme.components = {
   MuiButton: {
-    // `MuiButton` is the global class name for the <Button /> component
-    // disableElivation: true // this prop disables the drop shadow on all Buttons
-  },
-  MuiInputLabel: {
-    // shrink: true,
-  },
-  MuiInput: {
-    // disableUnderline: true,
+    styleOverrides: {
+      root: {
+        borderRadius: "10px",
+        textTransform: "none",
+      },
+      // containedPrimary: {
+      //   "&:hover": {
+      //     backgroundColor: theme.palette.secondary.main,
+      //     color: theme.palette.primary.dark,
+      //   },
+      // },
+      // containedSecondary: {
+      //     fontWeight: 700,
+      // },
+    },
+    defaultProps: {
+      disableFocusRipple: false,
+      fullWidth: true,
+      size: "large",
+    },
   },
   MuiTooltip: {
-    // arrow: true, 
-  },
-}
-
-theme.overrides = {
-  MuiButton: {
-    root: {
-    //   borderRadius: 0,
-    //   textTransform: "none",
-    },
-    containedPrimary: {
-      "&:hover": {
-        // changes colors for hover state
-        // backgroundColor: theme.palette.secondary.main,
-        // color: theme.palette.primary.dark,
+    styleOverrides: {
+      tooltip: {
+        backgroundColor: "#fff",
+        border: `2px solid ${theme.palette.primary.main}`,
+        color: theme.palette.primary.main,
+      },
+      arrow: {
+        color: theme.palette.primary.main,
       },
     },
-    containedSecondary: {
-        // makes text bold
-      //   fontWeight: 700, 
+    defaultProps: {
+      arrow: true,
     },
   },
   MuiInputLabel: {
-    root: {
-    //   textTransform: 'uppercase',
-    //   fontSize: '1.5rem',
+    styleOverrides: {
+      root: {
+        textTransform: "none",
+        fontSize: "1.1rem",
+      },
     },
+    defaultProps: {
+      shrink: true,
+    },
+  },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: '10px'
+      }
+    },
+    defaultProps: {
+      notched: true
+    }
   },
   MuiInput: {
-    root: {
-    //   top: theme.spacing(2),
-    //   border: `1px solid ${grey[500]}`,
-    //   outline: `1px solid transparent`,
-    //   padding: theme.spacing(1),
-    //   '&$focused': {
-    //     border: `1px solid ${theme.palette.primary.main}`,
-    //     outline: `1px solid ${theme.palette.primary.main}`,
-    //   },
+    styleOverrides: {
+      root: {
+        top: theme.spacing(2),
+        border: `1px solid ${theme.palette.background.main[900]}`,
+        outline: `1px solid transparent`,
+        padding: theme.spacing(1),
+        "&$focused": {
+          border: `1px solid ${theme.palette.primary.main}`,
+          outline: `1px solid ${theme.palette.primary.main}`,
+        },
+      },
     },
-    // we don't need `focused: {}` with overrides
-  },
-  MuiTooltip: {
-    tooltip: {
-    //   backgroundColor: '#fff',
-    //   border: `2px solid ${theme.palette.primary.main}`,
-    //   color: theme.palette.primary.main,
-    },
-    arrow: {
-    //   color: theme.palette.primary.main,
+    defaultProps: {
+      multiline: true,
+      maxRows: '4',
     },
   },
 }

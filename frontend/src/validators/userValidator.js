@@ -12,4 +12,6 @@ const loginSchema = yup.object({
 })
 
 
-export default loginSchema
+export {
+    loginSchema
+}
