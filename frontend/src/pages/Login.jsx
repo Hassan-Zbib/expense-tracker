@@ -1,5 +1,6 @@
 import { Button, TextField } from "@mui/material"
 import { useFormik } from "formik"
+import  loginSchema  from '../validators/userValidator'
 
 const Login = () => {
 
@@ -8,7 +9,7 @@ const Login = () => {
       email: "foobar@example.com",
       password: "foobar",
     },
-    // validationSchema: validationSchema,
+    validationSchema: loginSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2))
     },
