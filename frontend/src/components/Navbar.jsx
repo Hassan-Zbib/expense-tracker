@@ -12,18 +12,18 @@ import Container from "@mui/material/Container"
 import Button from "@mui/material/Button"
 import MenuItem from "@mui/material/MenuItem"
 
-const title = "NET"
-const sections = [
-  { name: "Products", id: "#p" },
-  { name: "Pricing", id: "#p2" },
-  { name: "Blog", id: "#b" },
-]
-const button = {
-  text: "Login",
-  link: "/Login",
-}
-
 const Navbar = () => {
+  const title = "NET"
+  const sections = [
+    { name: "Products", id: "#p" },
+    { name: "Pricing", id: "#p2" },
+    { name: "Blog", id: "#b" },
+  ]
+  const button = {
+    text: "Login",
+    link: "/Login",
+  }
+
   const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = useState(null)
 
@@ -37,7 +37,7 @@ const Navbar = () => {
 
   const goTo = () => {
     navigate(button.link)
-}
+  }
 
   return (
     <AppBar position="sticky" color="background">
