@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <AppBar position="sticky" color="background">
-      <Container maxWidth="xl">
+      <Container maxWidth="false" >
         <Toolbar disableGutters>
           {/* small navbar size */}
           <Typography

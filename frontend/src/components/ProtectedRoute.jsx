@@ -11,7 +11,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
       <Route
         {...restOfProps}
         render={(props) =>
-          user ? <Component {...props} /> : <Navigate to="/" />
+          user ? <Component {...props} /> : <Navigate to="/" replace />
         }
       />
     );

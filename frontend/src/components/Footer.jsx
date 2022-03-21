@@ -5,6 +5,7 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: '5px',
         backgroundColor: theme.palette.background.main,
+        color: "white"
       },
       footer: {
         marginTop: '5px',

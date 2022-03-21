@@ -1,24 +1,28 @@
-import React from 'react';
-import { ThemeProvider } from '@mui/material/styles'
+import React from "react"
+import { ThemeProvider } from "@mui/material/styles"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import theme from './theme'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
+import AuthLayout from "./layouts/AuthLayout"
+import theme from "./theme"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import SignUp from "./pages/SignUp"
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-      <Routes>
-            <Route path="/" element={<Home />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route element={<AuthLayout />}>
             <Route path="/Login" element={<Login />} />
             <Route path="/SignUp" element={<SignUp />} />
-          </Routes>
+          </Route>
+
+        </Routes>
       </Router>
     </ThemeProvider>
-    
-  );
+  )
 }
 
-export default App;
+export default App
