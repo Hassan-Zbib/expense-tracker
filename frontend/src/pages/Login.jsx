@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material"
+import { Button, Divider, TextField } from "@mui/material"
 import { useFormik } from "formik"
 import  { loginSchema }  from '../validators/userValidator'
 
@@ -42,7 +42,8 @@ const Login = () => {
           helperText={formik.touched.password && formik.errors.password}
           sx={{ marginTop: '20px'}}
         />
-        <Button color="primary" variant="contained" type="submit" sx={{ marginTop: '20px'}}>
+        <Divider />
+        <Button color="primary" variant="contained" type="submit" >
           Submit
         </Button>
         

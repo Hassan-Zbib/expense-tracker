@@ -94,6 +94,16 @@ theme.components = {
       maxRows: '4',
     },
   },
+  MuiDivider: {
+    styleOverrides: {
+      root: {
+        margin: '20px 0',
+      }
+    },
+    defaultProps: {
+      variant: 'middle'
+    },
+  }
 }
 
 export default theme
