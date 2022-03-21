@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
+import { Outlet } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   left: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     textTransform: "uppercase",
     fontStyle: "italic",
-    padding: "30px",
+    paddingBottom: "30px",
   },
   text: {
     fontWeight: "medium",
@@ -70,7 +71,7 @@ const AuthLayout = ({ children }) => {
             justifyContent="center"
             style={{ minHeight: "80vh" }}
           >
-            {children}
+            <Outlet />
           </Grid>
         </Grid>
       </Grid>

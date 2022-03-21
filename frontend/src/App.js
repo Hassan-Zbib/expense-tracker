@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route index path="/" element={<Home />} />
 
           <Route element={<AuthLayout />}>
             <Route path="/Login" element={<Login />} />
