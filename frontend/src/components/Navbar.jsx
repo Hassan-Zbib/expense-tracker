@@ -15,9 +15,9 @@ import MenuItem from "@mui/material/MenuItem"
 const Navbar = () => {
   const title = "NET"
   const sections = [
-    { name: "Products", id: "#p" },
-    { name: "Pricing", id: "#p2" },
-    { name: "Blog", id: "#b" },
+    { name: "Stats", id: "#stats" },
+    { name: "NGO's", id: "#ngo" },
+    { name: "About Us", id: "#aboutus" },
   ]
   const button = {
     text: "Login",
