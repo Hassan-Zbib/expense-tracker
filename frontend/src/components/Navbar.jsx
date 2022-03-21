@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link as UiLink } from "@mui/material"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
@@ -9,14 +9,22 @@ import Typography from "@mui/material/Typography"
 import Menu from "@mui/material/Menu"
 import MenuIcon from "@mui/icons-material/Menu"
 import Container from "@mui/material/Container"
-import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
-import Tooltip from "@mui/material/Tooltip"
 import MenuItem from "@mui/material/MenuItem"
 
-const pages = ["Products", "Pricing", "Blog"]
+const title = "NET"
+const sections = [
+  { name: "Products", id: "#p" },
+  { name: "Pricing", id: "#p2" },
+  { name: "Blog", id: "#b" },
+]
+const button = {
+  text: "Login",
+  link: "/Login",
+}
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = useState(null)
 
   const handleOpenNavMenu = (event) => {
@@ -27,21 +35,23 @@ const Navbar = () => {
     setAnchorElNav(null)
   }
 
+  const goTo = () => {
+    navigate(button.link)
+}
 
   return (
     <AppBar position="sticky" color="background">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* small navbar size */}
           <Typography
             variant="h6"
             noWrap
             component="div"
-            color="white"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            NET
+            {title}
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -71,43 +81,49 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {sections.map((section) => (
+                <MenuItem
+                  key={section.name}
+                  onClick={handleCloseNavMenu}
+                  component={UiLink}
+                  href={section.id}
+                >
+                  <Typography textAlign="center">{section.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
+          {/* big navbar size */}
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            {title}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {sections.map((section) => (
               <Button
-                key={page}
+                key={section.name}
                 onClick={handleCloseNavMenu}
+                component={UiLink}
                 sx={{ my: 2, color: "white", display: "block" }}
+                href={section.id}
               >
-                {page}
+                {section.name}
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-            <Button
-                  sx={{ my: 2, color: "white" }}
-                  component={Link}
-                  to={"/Signup"}
+          <Button
+          onClick={goTo}
+                  color="primary"
                 >
-                  Login
+                  {button.text}
                 </Button>
-            </Tooltip>
           </Box>
         </Toolbar>
       </Container>
