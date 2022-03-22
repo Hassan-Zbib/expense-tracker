@@ -198,7 +198,7 @@ const resetPassword = asyncHandler(async (req, res) => {
         {
           name: userName,
         },
-        "./template/resetPassword.handlebars"
+        "src/api/helpers/templates/resetPassword.handlebars"
       )
 
     await passwordResetToken.deleteOne();
