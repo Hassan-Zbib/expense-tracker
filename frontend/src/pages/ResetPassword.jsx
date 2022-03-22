@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import { useFormik } from "formik"
 import { Link } from "react-router-dom"
-import { loginSchema } from "../validators/userValidator"
+import { resetPassSchema } from "../validators/userValidator"
 
 const ResetPassword = () => {
   const formik = useFormik({
@@ -16,7 +16,7 @@ const ResetPassword = () => {
       email: "",
       confirmPass: "",
     },
-    validationSchema: loginSchema,
+    validationSchema: resetPassSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2))
     },
