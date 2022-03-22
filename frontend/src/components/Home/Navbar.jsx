@@ -45,7 +45,7 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" }, fontWeight: "bolder", fontStyle: "italic" }}
           >
             {title}
           </Typography>
@@ -117,7 +117,7 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button component={Link} to={button.link} color="primary">
+            <Button component={Link} to={button.link} color="secondary" variant="outlined">
               {button.text}
             </Button>
           </Box>
