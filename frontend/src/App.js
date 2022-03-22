@@ -12,11 +12,14 @@ import MainLayout from "./layouts/MainLayout"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Spinner from "./components/Spinner"
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Spinner />
+      <ToastContainer />
       <Router>
         <Routes>
 
