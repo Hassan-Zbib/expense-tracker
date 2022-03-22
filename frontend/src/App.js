@@ -6,6 +6,7 @@ import theme from "./theme"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
+import ForgotPassword from "./pages/ForgotPassword"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route element={<AuthLayout />}>
             <Route path="/Login" element={<Login />} />
             <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
           </Route>
 
         </Routes>

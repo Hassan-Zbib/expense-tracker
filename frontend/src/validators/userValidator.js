@@ -45,4 +45,13 @@ const registerSchema = yup.object({
    
 })
 
-export { loginSchema, registerSchema }
+const forgotPassSchema = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required(requiredMsg)
+    .lowercase()
+    .trim(),
+})
+
+export { loginSchema, registerSchema, forgotPassSchema }
