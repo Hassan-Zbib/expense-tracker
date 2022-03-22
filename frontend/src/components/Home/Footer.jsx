@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles"
 
 const useStyles = makeStyles((theme) => ({
   footer:{
-    padding: "10px",
+    padding: "10px 30px",
     color: theme.palette.background.darker,
     fontSize: "small",
   },

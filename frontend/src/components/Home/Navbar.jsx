@@ -96,7 +96,7 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, fontWeight: "bolder", fontStyle: "italic" }}
           >
             {title}
           </Typography>
