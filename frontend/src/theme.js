@@ -111,9 +111,11 @@ theme.components = {
   },
   MuiPaper: {
     styleOverrides: {
-      padding: '5px',
-      backgroundColor: theme.palette.background.main,
-      color: "white"
+      root: {
+        padding: '5px',
+        backgroundColor: theme.palette.background.main,
+        color: "white"
+      }
     },
     defaultProps: {
       square: true,

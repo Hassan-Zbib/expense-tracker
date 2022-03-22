@@ -108,7 +108,7 @@ const Navbar = () => {
                 component={UiLink}
                 sx={{ my: 2, color: "white", display: "block", width: "auto" }}
                 href={section.id}
-                fullWidth="false"
+                fullWidth={false}
                 size="medium"
               >
                 {section.name}
