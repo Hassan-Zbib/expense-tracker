@@ -7,10 +7,34 @@ import {
   Box,
 } from "@mui/material"
 import { useFormik } from "formik"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { register, reset } from '../features/auth/authSlice'
+import { toast } from 'react-toastify'
 import { registerSchema } from "../validators/userValidator"
 
 const SignUp = () => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess || user) {
+      navigate('/Dashboard')
+    }
+
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
   const formik = useFormik({
     initialValues: {
       orgName: "",
@@ -22,7 +46,7 @@ const SignUp = () => {
     },
     validationSchema: registerSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      dispatch(register(values))
     },
   })
 
