@@ -78,10 +78,48 @@ export const get = createAsyncThunk("auth/get", async (_, thunkAPI) => {
   }
 })
 
-// logout user
+// Logout user
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout()
 })
+
+// Request forgot password
+export const forgotPass = createAsyncThunk(
+  "auth/request.reset",
+  async (userData, thunkAPI) => {
+    try {
+      let res = await authService.forgotPass(userData)
+      return thunkAPI.fulfillWithValue(res.message)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+// Reset password
+export const resetPass = createAsyncThunk(
+  "auth/reset",
+  async (userData, thunkAPI) => {
+    try {
+      let res = await authService.resetPass(userData)
+      return thunkAPI.fulfillWithValue(res.message)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
 
 export const authSlice = createSlice({
   name: "auth",
@@ -104,11 +142,12 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.message = action.payload
+        state.user = action.payload
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
+        state.user = null
         state.message = action.payload
       })
       // Login Side effects
@@ -143,13 +182,48 @@ export const authSlice = createSlice({
       .addCase(update.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
+        state.profile = {}
         state.message = action.payload
       })
       // Get Side effects
+      .addCase(get.pending, (state) => {
+        state.isLoading = true
+      })
       .addCase(get.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
         state.profile = action.payload
       })
       .addCase(get.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Reset Pass Side effects
+      .addCase(resetPass.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(resetPass.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.message = action.payload
+      })
+      .addCase(resetPass.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Request reset Pass Side effects
+      .addCase(forgotPass.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(forgotPass.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.message = action.payload
+      })
+      .addCase(forgotPass.rejected, (state, action) => {
+        state.isLoading = false
         state.isError = true
         state.message = action.payload
       })

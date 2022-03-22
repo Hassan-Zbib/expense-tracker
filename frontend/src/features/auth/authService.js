@@ -49,20 +49,20 @@ const get = async (token) => {
   return res.data
 }
 
-// logout user
+// Logout user
 const logout = () => {
   localStorage.removeItem("user")
 }
 
-// request forgot password
+// Request forgot password
 const forgotPass = async (userData) => {
   const res = await axios.post(BASE_URL + "/request.reset", userData)
 
   return res.data
 }
 
-// reset password
-const ResetPass = async (userData) => {
+// Reset password
+const resetPass = async (userData) => {
   const res = await axios.post(BASE_URL + "/reset", userData)
 
   return res.data
@@ -75,7 +75,7 @@ const authService = {
   update,
   get,
   forgotPass,
-  ResetPass,
+  resetPass,
 }
 
 export default authService
