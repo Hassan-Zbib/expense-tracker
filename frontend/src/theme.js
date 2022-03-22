@@ -102,14 +102,6 @@ theme.components = {
       variant: 'middle'
     },
   },
-  MuiTextField: {
-    styleOverrides: {},
-    defaultProps: {
-      size: 'medium',
-      multiline: true,
-      maxRows: '2',
-    }
-  },
   MuiPaper: {
     styleOverrides: {
       root: {

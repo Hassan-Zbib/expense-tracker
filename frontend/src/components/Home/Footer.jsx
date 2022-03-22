@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.darker,
   },
   bottom:{
+    padding: "10px 30px",
+    color: theme.palette.background.darker,
+    fontSize: "small",
     marginLeft:'8%'
   }
 }))
@@ -52,7 +55,7 @@ const Footer = () => {
       </Grid>
 
       <Divider light={true} className={classes.divider} />
-      <Typography component="p" className={[classes.footer,classes.bottom]}>
+      <Typography component="p" className={classes.bottom}>
         © 2021-2022 All Rights Reserved.
       </Typography>
     </Paper>
