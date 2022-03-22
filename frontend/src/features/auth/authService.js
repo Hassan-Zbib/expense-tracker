@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:8000/api/users"
 
 // Register user
 const register = async (userData) => {
-  const res = await axios.post(AUTH_URL, userData)
+  const res = await axios.post(BASE_URL, userData)
 
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data))
@@ -14,7 +14,7 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
-  const res = await axios.post(AUTH_URL + "/login", userData)
+  const res = await axios.post(BASE_URL + "/login", userData)
 
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data))
@@ -31,7 +31,7 @@ const update = async (userData, token) => {
     },
   }
 
-  const res = await axios.put(USER_URL, userData, config)
+  const res = await axios.put(BASE_URL, userData, config)
 
   return res.data
 }
@@ -44,7 +44,7 @@ const get = async (token) => {
     },
   }
 
-  const res = await axios.get(AUTH_URL + "/me", config)
+  const res = await axios.get(BASE_URL + "/me", config)
 
   return res.data
 }
@@ -55,15 +55,15 @@ const logout = () => {
 }
 
 // request forgot password
-const forgotPass = (userData) => {
-    const res = await axios.post(AUTH_URL + "/request.reset", userData)
+const forgotPass = async (userData) => {
+    const res = await axios.post(BASE_URL + "/request.reset", userData)
   
     return res.data
 }
 
 // reset password
-const ResetPass = (userData) => {
-    const res = await axios.post(AUTH_URL + "/reset", userData)
+const ResetPass = async (userData) => {
+    const res = await axios.post(BASE_URL + "/reset", userData)
   
     return res.data
 }
@@ -74,6 +74,8 @@ const authService = {
   login,
   update,
   get,
+  forgotPass,
+  ResetPass,
 }
 
 export default authService

@@ -10,7 +10,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: [],
+  message: "",
 }
 
 // SignUp user
@@ -18,20 +18,14 @@ export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     try {
-      let res = await authService.register(user)
-      return thunkAPI.fulfillWithValue([res.message])
+      return await authService.register(user)
     } catch (error) {
-      let message = []
-      let err = JSON.parse(error.response.data)
-      if (err) {
-        for (let key in err) {
-          err[key].forEach((mes) => {
-            message.push(mes)
-          })
-        }
-      } else {
-        message.push(error.toString())
-      }
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
       return thunkAPI.rejectWithValue(message)
     }
   }
@@ -42,23 +36,10 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
     return await authService.login(user)
   } catch (error) {
-    let message = []
-    let err = error.response.data
-
-    if (err.error) {
-      message = [`${err.error}`]
-    } else {
-      if (err) {
-        for (let key in err) {
-          err[key].forEach((mes) => {
-            message.push(mes)
-          })
-        }
-      } else {
-        message.push(error.toString())
-      }
-    }
-
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
     return thunkAPI.rejectWithValue(message)
   }
 })
@@ -114,7 +95,7 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.isError = false
       state.isSuccess = false
-      state.message = []
+      state.message = ""
       state.profile = {}
     },
   },
