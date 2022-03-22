@@ -11,10 +11,12 @@ import ResetPassword from "./pages/ResetPassword"
 import MainLayout from "./layouts/MainLayout"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
+import Spinner from "./components/Spinner"
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <Spinner />
       <Router>
         <Routes>
 
