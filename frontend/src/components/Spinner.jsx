@@ -8,16 +8,6 @@ function Spinner() {
     (state) => state.auth
   )
 
-  // const LoadingState = false
-
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     LoadingState = true
-  //   }
-
-  // }, [isLoading])
-
-
   return (
     <>
       {

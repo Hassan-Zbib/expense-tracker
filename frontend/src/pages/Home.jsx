@@ -5,6 +5,8 @@ import Footer from "../components/Home/Footer"
 import Ngos from "../components/Home/Ngos"
 import Stats from "../components/Home/Stats"
 import Welcome from "../components/Home/Welcome"
+import { useSelector } from "react-redux"
+import { Navigate } from "react-router-dom"
 
 function ScrollTop(props) {
   const { children, window } = props
@@ -41,6 +43,15 @@ function ScrollTop(props) {
 }
 
 const Home = () => {
+
+  const { user } = useSelector(
+    (state) => state.auth
+  )
+
+  if( user ) {
+    return <Navigate to="/Dashboard" replace />
+  }
+  
   return (
     <>
       <Navbar  />
