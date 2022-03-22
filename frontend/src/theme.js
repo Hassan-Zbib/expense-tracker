@@ -108,6 +108,17 @@ theme.components = {
       multiline: true,
       maxRows: '2',
     }
+  },
+  MuiPaper: {
+    styleOverrides: {
+      padding: '5px',
+      backgroundColor: theme.palette.background.main,
+      color: "white"
+    },
+    defaultProps: {
+      square: true,
+      elevation: 0
+    }
   }
 }
 
