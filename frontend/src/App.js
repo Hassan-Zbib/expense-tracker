@@ -9,13 +9,16 @@ import SignUp from "./pages/SignUp"
 import ForgotPassword from "./pages/ForgotPassword"
 import ResetPassword from "./pages/ResetPassword"
 import MainLayout from "./layouts/MainLayout"
-import Dashboard from './pages/Dashboard'
+import Dashboard from "./pages/Dashboard"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
+
+          {/* Public Routes */}
           <Route index path="/" element={<Home />} />
 
           <Route element={<AuthLayout />}>
@@ -25,8 +28,11 @@ function App() {
             <Route path="/ResetPassword" element={<ResetPassword />} />
           </Route>
 
-          <Route element={<MainLayout />}>
-            <Route path="/Dashboard" element={<Dashboard />} />
+          {/* Private Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<MainLayout />}>
+              <Route path="/Dashboard" element={<Dashboard />} />
+            </Route>
           </Route>
 
         </Routes>

@@ -1,4 +1,4 @@
-import { Navigate, Route } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 function ProtectedRoute({ component: Component, ...restOfProps }) {
@@ -7,14 +7,11 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
         (state) => state.auth
       )
   
-    return (
-      <Route
-        {...restOfProps}
-        render={(props) =>
-          user ? <Component {...props} /> : <Navigate to="/" replace />
-        }
-      />
-    );
+      if( !user ) {
+        return <Navigate to="/" replace />
+      }
+
+      return <Outlet />
   }
 
 
