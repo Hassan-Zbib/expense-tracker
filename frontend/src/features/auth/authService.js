@@ -56,16 +56,16 @@ const logout = () => {
 
 // request forgot password
 const forgotPass = async (userData) => {
-    const res = await axios.post(BASE_URL + "/request.reset", userData)
-  
-    return res.data
+  const res = await axios.post(BASE_URL + "/request.reset", userData)
+
+  return res.data
 }
 
 // reset password
 const ResetPass = async (userData) => {
-    const res = await axios.post(BASE_URL + "/reset", userData)
-  
-    return res.data
+  const res = await axios.post(BASE_URL + "/reset", userData)
+
+  return res.data
 }
 
 const authService = {
