@@ -37,7 +37,7 @@ const AuthLayout = ({ children }) => {
     <>
       <Grid
         container
-        spacing={2}
+        spacing={0}
         direction="row"
         alignItems="center"
         justifyContent="center"
@@ -50,7 +50,7 @@ const AuthLayout = ({ children }) => {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            style={{ minHeight: "80vh" }}
+            style={{ minHeight: "90vh" }}
           >
             <Grid item>
               <Typography variant="h4" className={classes.title}>
@@ -72,9 +72,9 @@ const AuthLayout = ({ children }) => {
             direction="column"
             alignItems="center"
             justifyContent="space-evenly"
-            style={{ minHeight: "80vh" }}
+            style={{ minHeight: "90vh" }}
           >
-            <Grid item alignSelf="start">
+            <Grid item alignSelf="flex-start">
               <Box >
                 <Button color="background" onClick={() => navigate(-1)} >
                   <KeyboardBackspaceIcon />
@@ -83,7 +83,7 @@ const AuthLayout = ({ children }) => {
 
             </Grid>
             {/* Children components */}
-            <Grid item>
+            <Grid item minWidth='100%'>
               <Outlet />
             </Grid>
           </Grid>

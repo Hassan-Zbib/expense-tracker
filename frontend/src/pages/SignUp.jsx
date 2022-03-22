@@ -81,7 +81,7 @@ const SignUp = () => {
             onChange={formik.handleChange}
             error={formik.touched.firstName && Boolean(formik.errors.firstName)}
             helperText={formik.touched.firstName && formik.errors.firstName}
-            sx={{ margin: "10px 2px 0 0" }}
+            sx={{ margin: "10px 2px 0 0", width: '45%' }}
           />
           <TextField
             id="lastName"
@@ -92,7 +92,7 @@ const SignUp = () => {
             onChange={formik.handleChange}
             error={formik.touched.lastName && Boolean(formik.errors.lastName)}
             helperText={formik.touched.lastName && formik.errors.lastName}
-            sx={{ margin: "10px 0 0 2px" }}
+            sx={{ margin: "10px 0 0 2px", width: '45%'  }}
           />
         </Grid>
 

@@ -89,10 +89,7 @@ theme.components = {
         },
       },
     },
-    defaultProps: {
-      multiline: true,
-      maxRows: '4',
-    },
+    defaultProps: {},
   },
   MuiDivider: {
     styleOverrides: {
@@ -103,6 +100,14 @@ theme.components = {
     defaultProps: {
       variant: 'middle'
     },
+  },
+  MuiTextField: {
+    styleOverrides: {},
+    defaultProps: {
+      size: 'medium',
+      multiline: true,
+      maxRows: '2',
+    }
   }
 }
 
