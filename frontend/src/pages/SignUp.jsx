@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import { useFormik } from "formik"
 import { Link } from "react-router-dom"
-// import { registerSchema } from "../validators/userValidator"
+import { registerSchema } from "../validators/userValidator"
 
 const SignUp = () => {
   const formik = useFormik({
@@ -20,7 +20,7 @@ const SignUp = () => {
       password: "",
       confirmPass: "",
     },
-    // validationSchema: loginSchema,
+    validationSchema: registerSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2))
     },
@@ -65,29 +65,35 @@ const SignUp = () => {
           helperText={formik.touched.orgName && formik.errors.orgName}
         />
 
-        <Grid container direction='row' alignItems='center' justifyContent="space-between" spacing={0}>
-        <TextField
-          id="firstName"
-          name="firstName"
-          label="First Name"
-          type="text"
-          value={formik.values.firstName}
-          onChange={formik.handleChange}
-          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-          helperText={formik.touched.firstName && formik.errors.firstName}
-          sx={{ margin: "10px 2px 0 0" }}
-        />
-        <TextField
-          id="lastName"
-          name="lastName"
-          label="Last Name"
-          type="text"
-          value={formik.values.lastName}
-          onChange={formik.handleChange}
-          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-          helperText={formik.touched.lastName && formik.errors.lastName}
-          sx={{ margin: "10px 0 0 2px" }}
-        />
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={0}
+        >
+          <TextField
+            id="firstName"
+            name="firstName"
+            label="First Name"
+            type="text"
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+            sx={{ margin: "10px 2px 0 0" }}
+          />
+          <TextField
+            id="lastName"
+            name="lastName"
+            label="Last Name"
+            type="text"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+            sx={{ margin: "10px 0 0 2px" }}
+          />
         </Grid>
 
         <TextField
@@ -112,6 +118,18 @@ const SignUp = () => {
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
+          sx={{ marginTop: "10px" }}
+        />
+        <TextField
+          fullWidth
+          id="confirmPass"
+          name="confirmPass"
+          label="Confirm Password"
+          type="password"
+          value={formik.values.confirmPass}
+          onChange={formik.handleChange}
+          error={formik.touched.confirmPass && Boolean(formik.errors.confirmPass)}
+          helperText={formik.touched.confirmPass && formik.errors.confirmPass}
           sx={{ marginTop: "10px" }}
         />
         <Divider />
