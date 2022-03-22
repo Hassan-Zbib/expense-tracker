@@ -31,7 +31,8 @@ const ForgotPassword = () => {
         </Typography>
 
           <Typography variant="p" fontWeight="light" fontSize="small" >
-          Enter the email address you used when you joined and we'll send you instructions to reset your password. For security reasons, we do NOT store your password. So rest assured that we will never send your password via email.
+          Enter the email address you used when you joined and we'll send you instructions to reset your password.
+          For security reasons, we do NOT store your password. So rest assured that we will never send your password via email.
           </Typography>
 
       </Box>

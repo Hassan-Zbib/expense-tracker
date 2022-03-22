@@ -83,7 +83,7 @@ const AuthLayout = ({ children }) => {
 
             </Grid>
             {/* Children components */}
-            <Grid item minWidth='100%'>
+            <Grid item>
               <Outlet />
             </Grid>
           </Grid>
