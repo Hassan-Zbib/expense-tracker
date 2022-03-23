@@ -1,5 +1,6 @@
 import * as React from "react"
 import {
+  Grid,
   Box,
   CssBaseline,
   List,
@@ -10,6 +11,7 @@ import {
   ListItemText,
   ListItemButton,
   Toolbar,
+  Button,
 } from "@mui/material"
 import { styled, useTheme } from "@mui/material/styles"
 import MuiDrawer from "@mui/material/Drawer"
@@ -17,11 +19,11 @@ import MuiAppBar from "@mui/material/AppBar"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import PieChartIcon from '@mui/icons-material/PieChart'
-import FlourescentIcon from '@mui/icons-material/Flourescent'
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
-import PersonIcon from '@mui/icons-material/Person'
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import PieChartIcon from "@mui/icons-material/PieChart"
+import FlourescentIcon from "@mui/icons-material/Flourescent"
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
+import PersonIcon from "@mui/icons-material/Person"
+import TravelExploreIcon from "@mui/icons-material/TravelExplore"
 
 const drawerWidth = 240
 
@@ -105,7 +107,7 @@ export default function MainLayout() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" color="light" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -119,9 +121,39 @@ export default function MainLayout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
-          </Typography>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+            spacing={2}
+          >
+            <Grid item>
+              <Typography variant="h6" noWrap component="div">
+                Logo
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="column"
+                alignItems="flex-start"
+                justifyContent="center"
+              >
+                <Typography variant="h6" noWrap component="div">
+                  FirstName LastName
+                </Typography>{" "}
+                <Typography variant="p" noWrap component="div">
+                  NGO Name
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+            <Button variant="outlined" color="secondary" size="small">
+              Logout
+            </Button>
+          </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -133,7 +165,7 @@ export default function MainLayout() {
           >
             Expense Tracker
           </Typography>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} color="primary">
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
