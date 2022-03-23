@@ -1,16 +1,12 @@
-import * as React from "react"
-import { useNavigate, Outlet } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { logout, reset } from '../features/auth/authSlice'
+import { useState } from "react"
+import { Outlet } from 'react-router-dom'
 import {
-  Grid,
   Box,
   CssBaseline,
   Typography,
   IconButton,
   Divider,
   Toolbar,
-  Button,
 } from "@mui/material"
 import { styled, useTheme } from "@mui/material/styles"
 import MuiDrawer from "@mui/material/Drawer"
@@ -18,8 +14,6 @@ import MuiAppBar from "@mui/material/AppBar"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import Avatar from '@mui/material/Avatar'
-
 import NavList from '../components/Main/NavList'
 import ProfileHeader from '../components/Main/ProfileHeader'
 
@@ -91,18 +85,9 @@ const Drawer = styled(MuiDrawer, {
 }))
 
 export default function MainLayout() {
-  
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const onLogout = () => {
-    dispatch(logout())
-    dispatch(reset())
-    navigate('/')
-  }
 
   const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -129,37 +114,7 @@ export default function MainLayout() {
           >
             <MenuIcon />
           </IconButton>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-end"
-            spacing={2}
-          >
-            <Grid item>
-            <Avatar >HZ</Avatar>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="column"
-                alignItems="flex-start"
-                justifyContent="center"
-              >
-                <Typography variant="h6" noWrap component="div" fontSize="medium">
-                  Hassan Zbib
-                </Typography>{" "}
-                <Typography variant="p" noWrap component="div" fontSize="small">
-                  NGO Name
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-            <Button variant="outlined" color="secondary" size="small" onClick={onLogout}>
-              Logout
-            </Button>
-          </Grid>
-          </Grid>
+          <ProfileHeader />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
