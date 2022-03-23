@@ -7,10 +7,34 @@ import {
   Box,
 } from "@mui/material"
 import { useFormik } from "formik"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { resetPass, reset } from '../features/auth/authSlice'
+import { toast } from 'react-toastify'
 import { resetPassSchema } from "../validators/userValidator"
 
 const ResetPassword = () => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess) {
+      toast.success(message)
+    }
+
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,7 +42,7 @@ const ResetPassword = () => {
     },
     validationSchema: resetPassSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      dispatch(resetPass(values))
     },
   })
 
