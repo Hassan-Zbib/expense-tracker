@@ -243,7 +243,7 @@ const requestResetPassword = asyncHandler(async (req, res) => {
       }).save()
 
     // send email with the reset link
-    const link = `${process.env.CLIENT_URL}/ResetPassword?token=${resetToken}&id=${user._id}`
+    const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&id=${user._id}`
     const userName = `${user.firstName} ${user.lastName}`
     sendEmail(user.email,"Password Reset Request",{name: userName,link: link,},"src/api/helpers/templates/resetPassword.handlebars")
 
