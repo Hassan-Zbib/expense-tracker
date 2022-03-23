@@ -23,7 +23,7 @@ const Navbar = (props) => {
   ]
   const button = {
     text: "Login",
-    link: "/Login",
+    link: "/login",
   }
 
   const [anchorElNav, setAnchorElNav] = useState(null)

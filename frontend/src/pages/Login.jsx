@@ -29,7 +29,7 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
-      navigate('/Dashboard')
+      navigate('/dashboard')
     }
 
     dispatch(reset())
@@ -64,7 +64,7 @@ const Login = () => {
           <Button
             variant="text"
             component={Link}
-            to="/SignUp"
+            to="/sign-up"
             size="small"
             sx={{ width: "auto" }}
           >
@@ -105,7 +105,7 @@ const Login = () => {
           <Button
             variant="text"
             component={Link}
-            to="/ForgotPassword"
+            to="/forgot-password"
             size="small"
             sx={{ width: "auto", margin: "10px 0 0 0" }}
           >

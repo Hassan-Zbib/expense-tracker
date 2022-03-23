@@ -16,7 +16,7 @@ const Home = () => {
   )
 
   if( user ) {
-    return <Navigate to="/Dashboard" replace />
+    return <Navigate to="/dashboard" replace />
   }
   
   return (

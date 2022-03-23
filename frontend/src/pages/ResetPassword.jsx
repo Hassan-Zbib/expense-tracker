@@ -108,7 +108,7 @@ const ResetPassword = () => {
           <Button
             variant="text"
             component={Link}
-            to="/Login"
+            to="/login"
             size="small"
             sx={{ width: "auto", margin: "10px 0 0 0" }}
           >

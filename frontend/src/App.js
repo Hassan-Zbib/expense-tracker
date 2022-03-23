@@ -27,16 +27,16 @@ function App() {
           <Route index path="/" element={<Home />} />
 
           <Route element={<AuthLayout />}>
-            <Route path="/Login" element={<Login />} />
-            <Route path="/SignUp" element={<SignUp />} />
-            <Route path="/ForgotPassword" element={<ForgotPassword />} />
-            <Route path="/ResetPassword" element={<ResetPassword />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Route>
 
           {/* Private Routes */}
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
-              <Route path="/Dashboard" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Route>
           </Route>
 

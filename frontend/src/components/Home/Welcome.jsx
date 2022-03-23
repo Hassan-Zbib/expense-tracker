@@ -21,7 +21,7 @@ const Welcome = () => {
           </Typography>
           <Button
                 component={Link}
-                to='/SignUp'
+                to='/sign-up'
                 fullWidth={false}
                 variant="contained"
               >

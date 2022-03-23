@@ -29,7 +29,7 @@ const SignUp = () => {
     }
 
     if (isSuccess || user) {
-      navigate('/Dashboard')
+      navigate('/dashboard')
     }
 
     dispatch(reset())
@@ -68,7 +68,7 @@ const SignUp = () => {
         <Button
           variant="text"
           component={Link}
-          to="/Login"
+          to="/login"
           size="small"
           sx={{ width: "auto" }}
         >
