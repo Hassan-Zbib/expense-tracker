@@ -7,16 +7,16 @@ import Stats from "../components/Home/Stats"
 import Welcome from "../components/Home/Welcome"
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
+import PropTypes from "prop-types"
 
 function ScrollTop(props) {
-  const { children, window } = props
+  const { children } = props;
   const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
     disableHysteresis: true,
-    threshold: 100,
-  })
+    threshold: 100
+  });
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     const anchor = (event.target.ownerDocument || document).querySelector(
       "#back-to-top-anchor"
     )
@@ -42,6 +42,10 @@ function ScrollTop(props) {
   )
 }
 
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired
+};
+
 const Home = () => {
 
   const { user } = useSelector(
@@ -54,16 +58,16 @@ const Home = () => {
   
   return (
     <>
-      <Navbar  />
-      <Welcome id="back-to-top-anchor"/>
+      <Navbar id="back-to-top-anchor"/>
+      <Welcome />
       <Stats />
       <Ngos />
       <Footer />
-      {/* <ScrollTop >
+      <ScrollTop>
         <Fab color="primary" size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
         </Fab>
-      </ScrollTop> */}
+      </ScrollTop>
     </>
   )
 }

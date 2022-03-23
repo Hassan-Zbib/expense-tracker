@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom"
 import MenuIcon from "@mui/icons-material/Menu"
 
-const Navbar = () => {
+const Navbar = (props) => {
   const title = "NET"
   const sections = [
     { name: "Stats", id: "#stats" },
@@ -37,7 +37,7 @@ const Navbar = () => {
   }
 
   return (
-    <AppBar position="sticky" color="background">
+    <AppBar position="sticky" color="background" id={props.id}>
       <Container maxWidth="false">
         <Toolbar disableGutters>
           {/* small navbar size */}
