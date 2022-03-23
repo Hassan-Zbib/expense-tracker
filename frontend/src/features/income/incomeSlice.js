@@ -12,10 +12,10 @@ const initialState = {
 // Create new income
 export const createIncome = createAsyncThunk(
   'Income/create',
-  async (goalData, thunkAPI) => {
+  async (incomeData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
-      return await goalService.createGoal(goalData, token)
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await incomeService.createIncome(incomeData, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -29,12 +29,12 @@ export const createIncome = createAsyncThunk(
 )
 
 // Get user incomes
-export const getIncome = createAsyncThunk(
+export const getIncomes = createAsyncThunk(
   'Income/getAll',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
-      return await goalService.getGoals(token)
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await incomeService.getIncomes(token)
     } catch (error) {
       const message =
         (error.response &&
@@ -52,8 +52,8 @@ export const deleteIncome = createAsyncThunk(
   'Income/delete',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
-      return await goalService.deleteGoal(id, token)
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await incomeService.deleteIncome(id, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -87,15 +87,15 @@ export const incomeSlice = createSlice({
         state.isError = true
         state.message = action.payload
       })
-      .addCase(getIncome.pending, (state) => {
+      .addCase(getIncomes.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(getIncome.fulfilled, (state, action) => {
+      .addCase(getIncomes.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.data = action.payload
       })
-      .addCase(getIncome.rejected, (state, action) => {
+      .addCase(getIncomes.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
