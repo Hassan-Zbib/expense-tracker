@@ -8,6 +8,10 @@ import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import ForgotPassword from "./pages/ForgotPassword"
 import ResetPassword from "./pages/ResetPassword"
+import Income from './pages/Income'
+import Expenses from './pages/Expenses'
+import Profile from './pages/Profile'
+import Discover from './pages/Discover'
 import MainLayout from "./layouts/MainLayout"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
@@ -37,6 +41,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/income" element={<Income />} />
+              <Route path="/expenses" element={<Expenses />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/discover" element={<Discover />} />
             </Route>
           </Route>
 
