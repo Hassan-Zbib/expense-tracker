@@ -1,4 +1,7 @@
 import * as React from "react"
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout, reset } from '../features/auth/authSlice'
 import {
   Grid,
   Box,
@@ -93,6 +96,16 @@ const Drawer = styled(MuiDrawer, {
 }))
 
 export default function MainLayout() {
+  
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
+
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
 
@@ -149,7 +162,7 @@ export default function MainLayout() {
               </Grid>
             </Grid>
             <Grid item>
-            <Button variant="outlined" color="secondary" size="small">
+            <Button variant="outlined" color="secondary" size="small" onClick={onLogout}>
               Logout
             </Button>
           </Grid>
