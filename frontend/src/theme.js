@@ -119,6 +119,15 @@ theme.components = {
       square: true,
       elevation: 0
     }
+  },
+  MuiAvatar: {
+    styleOverrides: {
+      root: {
+        backgroundColor: theme.palette.primary.main,
+        color: "white"
+      }
+    },
+    defaultProps: {}
   }
 }
 

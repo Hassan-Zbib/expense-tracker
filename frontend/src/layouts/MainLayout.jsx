@@ -27,6 +27,7 @@ import FlourescentIcon from "@mui/icons-material/Flourescent"
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
 import PersonIcon from "@mui/icons-material/Person"
 import TravelExploreIcon from "@mui/icons-material/TravelExplore"
+import Avatar from '@mui/material/Avatar'
 
 const drawerWidth = 240
 
@@ -142,9 +143,7 @@ export default function MainLayout() {
             spacing={2}
           >
             <Grid item>
-              <Typography variant="h6" noWrap component="div">
-                Logo
-              </Typography>
+            <Avatar >HZ</Avatar>
             </Grid>
             <Grid item>
               <Grid
@@ -153,10 +152,10 @@ export default function MainLayout() {
                 alignItems="flex-start"
                 justifyContent="center"
               >
-                <Typography variant="h6" noWrap component="div">
-                  FirstName LastName
+                <Typography variant="h6" noWrap component="div" fontSize="medium">
+                  Hassan Zbib
                 </Typography>{" "}
-                <Typography variant="p" noWrap component="div">
+                <Typography variant="p" noWrap component="div" fontSize="small">
                   NGO Name
                 </Typography>
               </Grid>
