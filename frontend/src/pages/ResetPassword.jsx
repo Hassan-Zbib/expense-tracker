@@ -7,7 +7,7 @@ import {
   Box,
 } from "@mui/material"
 import { useFormik } from "formik"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { resetPass, reset } from '../features/auth/authSlice'
@@ -19,11 +19,20 @@ const ResetPassword = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [params, setParams] = useSearchParams()
+
+  const token = params.get('token')
+  const id = params.get('id')
+
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   )
 
   useEffect(() => {
+    if (!token || !id) {
+      navigate('/')
+    }
+
     if (isError) {
       toast.error(message)
     }
@@ -33,16 +42,20 @@ const ResetPassword = () => {
     }
 
     dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch])
+  }, [token, id, user, isError, isSuccess, message, navigate, dispatch])
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      password: "",
       confirmPass: "",
     },
     validationSchema: resetPassSchema,
     onSubmit: (values) => {
-      dispatch(resetPass(values))
+      dispatch(resetPass({
+        token: token,
+        password: values.password,
+        userId: id,
+      }))
     },
   })
 
