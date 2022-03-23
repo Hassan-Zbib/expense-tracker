@@ -1,18 +1,14 @@
 import * as React from "react"
-import { Link, useNavigate, Outlet } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
 import {
   Grid,
   Box,
   CssBaseline,
-  List,
   Typography,
   IconButton,
   Divider,
-  ListItemIcon,
-  ListItemText,
-  ListItemButton,
   Toolbar,
   Button,
 } from "@mui/material"
@@ -22,12 +18,10 @@ import MuiAppBar from "@mui/material/AppBar"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import PieChartIcon from "@mui/icons-material/PieChart"
-import FlourescentIcon from "@mui/icons-material/Flourescent"
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
-import PersonIcon from "@mui/icons-material/Person"
-import TravelExploreIcon from "@mui/icons-material/TravelExplore"
 import Avatar from '@mui/material/Avatar'
+
+import NavList from '../components/Main/NavList'
+import ProfileHeader from '../components/Main/ProfileHeader'
 
 const drawerWidth = 240
 
@@ -186,111 +180,7 @@ export default function MainLayout() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            component={Link}
-            to={'/dashboard'}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <PieChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            component={Link}
-            to={'/income'}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <FlourescentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Income" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            component={Link}
-            to={'/expenses'}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <MonetizationOnIcon />
-            </ListItemIcon>
-            <ListItemText primary="Expenses" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            component={Link}
-            to={'/profile'}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </List>
-        <Divider />
-        <List>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            component={Link}
-            to={'/discover'}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <TravelExploreIcon />
-            </ListItemIcon>
-            <ListItemText primary="Discover" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </List>
+        <NavList open={open} />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
