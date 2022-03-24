@@ -1,62 +1,62 @@
-import { Typography } from "@mui/material"
+import { Button, Typography, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
 import DataTable from "../components/DataTable"
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {
+  createIncome,
+  getIncomes,
+  deleteIncome,
+  updateIncome,
+} from "../features/auth/authSlice"
+import { toast } from "react-toastify"
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  }
-}
+// import { loginSchema } from "../validators/userValidator"
 
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-]
+const rows = [{
+  _id: 1,
+  type: 'invoice',
+  amount: 100,
+  date: '1/1/2022',
+  createdAt: '1/1/2022',
+  updatedAt: '1/1/2022',
+}]
 
 const headCells = [
   {
-    id: "name",
+    id: "_id",
     numeric: false,
-    disablePadding: true,
-    label: "Dessert(100g serving)",
-  },
-  {
-    id: "calories",
-    numeric: true,
-    disablePadding: true,
-    label: "Calories",
-  },
-  {
-    id: "fat",
-    numeric: true,
     disablePadding: false,
-    label: "Fat(g)",
+    label: "ID",
   },
   {
-    id: "carbs",
-    numeric: true,
+    id: "type",
+    numeric: false,
     disablePadding: false,
-    label: "Carbs(g)",
+    label: "Type",
   },
   {
-    id: "protein",
-    numeric: true,
+    id: "amount",
+    numeric: false,
     disablePadding: false,
-    label: "Protein(g)",
+    label: "Amount ($)",
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date",
+  },
+  {
+    id: "createdAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Created At",
+  },
+  {
+    id: "updatedAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Updated At",
   },
   {
     id: "action",
@@ -91,8 +91,74 @@ const addNew = () => {
 }
 
 const Income = () => {
+  const [addOpen, setAddOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false)
+
+  const handleAddClickOpen = () => {
+    setAddOpen(true)
+  }
+
+  const handleAddClose = () => {
+    setAddOpen(false)
+  }
+
+  const handleEditClickOpen = () => {
+    setAddOpen(true)
+  }
+
+  const handleEditClose = () => {
+    setAddOpen(false)
+  }
+
   return (
     <>
+      <Dialog open={addOpen} onClose={handleAddClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleAddClose}>Cancel</Button>
+          <Button onClick={handleAddClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={editOpen} onClose={handleEditClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleEditClose}>Cancel</Button>
+          <Button onClick={handleEditClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+
+
       <Typography variant="h4" fontWeight="bold">
         Income
       </Typography>
@@ -100,11 +166,11 @@ const Income = () => {
         headCells={headCells}
         rows={rows}
         onDelete={onDelete}
-        onEdit={onEdit}
+        onEdit={handleEditClickOpen}
         documents={documents}
         importData={importData}
         exportData={exportData}
-        addNew={addNew}
+        addNew={handleAddClickOpen}
       />
     </>
   )

@@ -127,19 +127,19 @@ export default function DataTable(props) {
                   const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
-                    <TableRow hover tabIndex={-1} key={row.name}>
+                    <TableRow hover tabIndex={-1} key={row._id}>
                       <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
                       >
-                        {row.name}
+                        {row._id}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="left">{row.type}</TableCell>
+                      <TableCell align="left">{row.amount}</TableCell>
+                      <TableCell align="left">{row.date}</TableCell>
+                      <TableCell align="left">{row.createdAt}</TableCell>
+                      <TableCell align="left">{row.updatedAt}</TableCell>
                       <TableCell align="center">
                         <ButtonGroup
                           variant="outlined"
