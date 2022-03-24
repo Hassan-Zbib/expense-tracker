@@ -76,6 +76,19 @@ const onEdit = () => {
 const documents = () => {
   return true
 }
+
+const importData = () => {
+  return true
+}
+
+const exportData = () => {
+  return true
+}
+
+const addNew = () => {
+  return true
+}
+
 const Income = () => {
   return (
     <DataTable
@@ -84,6 +97,9 @@ const Income = () => {
       onDelete={onDelete}
       onEdit={onEdit}
       documents={documents}
+      importData={importData}
+      exportData={exportData}
+      addNew={addNew}
     />
   )
 }

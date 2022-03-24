@@ -11,15 +11,14 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Grid,
 } from "@mui/material"
-import TableHeader from '../components/TableHeader'
-// import FormControlLabel from "@mui/material/FormControlLabel"
-// import Switch from "@mui/material/Switch"
-// import IconButton from "@mui/material/IconButton"
-// import DeleteIcon from "@mui/icons-material/Delete"
-// import FilterListIcon from "@mui/icons-material/FilterList"
-// import Tooltip from "@mui/material/Tooltip"
-// import Typography from "@mui/material/Typography"
+import TableHeader from "../components/TableHeader"
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
+import FileDownloadIcon from "@mui/icons-material/FileDownload"
+import FileUploadIcon from "@mui/icons-material/FileUpload"
+import AddIcon from "@mui/icons-material/Add"
+import EditIcon from "@mui/icons-material/Edit"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -55,7 +54,16 @@ export default function DataTable(props) {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
-  const { headCells, rows, onDelete, onEdit, documents } = props
+  const {
+    headCells,
+    rows,
+    onDelete,
+    onEdit,
+    documents,
+    importData,
+    exportData,
+    addNew,
+  } = props
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc"
@@ -78,6 +86,18 @@ export default function DataTable(props) {
 
   return (
     <Box sx={{ width: "100%" }}>
+      <Box sx={{ marginBottom: "5px" }}>
+        <Button
+          variant="contained"
+          size="medium"
+          fullWidth={false}
+          sx={{ borderRadius: "5px", marginBottom: "5px" }}
+          onClick={(event) => addNew(event)}
+        >
+          <AddIcon fontSize="small" />
+          Add New
+        </Button>
+      </Box>
       <Paper
         sx={{
           width: "100%",
@@ -127,7 +147,7 @@ export default function DataTable(props) {
                           aria-label="outlined primary button group"
                         >
                           <Button
-                          variant="contained"
+                            variant="contained"
                             size="small"
                             sx={{ borderRadius: "5px" }}
                             onClick={(event) => documents(event, row.name)}
@@ -139,9 +159,15 @@ export default function DataTable(props) {
                             color="secondary"
                             onClick={(event) => onEdit(event, row.name)}
                           >
+                            <EditIcon fontSize="small" />
                             Edit
                           </Button>
-                          <Button sx={{ borderRadius: "5px" }} color="danger"  onClick={(event) => onDelete(event, row.name)}>
+                          <Button
+                            sx={{ borderRadius: "5px" }}
+                            color="danger"
+                            onClick={(event) => onDelete(event, row.name)}
+                          >
+                            <DeleteOutlineIcon fontSize="small" />
                             Delete
                           </Button>
                         </ButtonGroup>
@@ -171,10 +197,33 @@ export default function DataTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      {/* <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      /> */}
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-end"
+        justifyContent="center"
+      >
+        <ButtonGroup
+          variant="contained"
+          size="medium"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            sx={{ borderRadius: "5px" }}
+            onClick={(event) => importData(event)}
+          >
+            <FileUploadIcon fontSize="small" />
+            Import
+          </Button>
+          <Button
+            sx={{ borderRadius: "5px" }}
+            onClick={(event) => exportData(event)}
+          >
+            <FileDownloadIcon fontSize="small" />
+            Export
+          </Button>
+        </ButtonGroup>
+      </Grid>
     </Box>
   )
 }
@@ -185,4 +234,7 @@ DataTable.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   documents: PropTypes.func.isRequired,
+  importData: PropTypes.func.isRequired,
+  exportData: PropTypes.func.isRequired,
+  addNew: PropTypes.func.isRequired,
 }
