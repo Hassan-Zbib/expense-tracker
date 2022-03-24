@@ -129,6 +129,13 @@ theme.components = {
       }
     },
     defaultProps: {}
+  },
+  MuiListItemIcon: {
+    styleOverrides: {
+      root: {
+        color: theme.palette.primary.main
+      }
+    }
   }
 }
 

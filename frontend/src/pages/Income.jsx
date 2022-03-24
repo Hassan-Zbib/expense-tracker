@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material"
 import DataTable from "../components/DataTable"
 
 function createData(name, calories, fat, carbs, protein) {
@@ -91,16 +92,21 @@ const addNew = () => {
 
 const Income = () => {
   return (
-    <DataTable
-      headCells={headCells}
-      rows={rows}
-      onDelete={onDelete}
-      onEdit={onEdit}
-      documents={documents}
-      importData={importData}
-      exportData={exportData}
-      addNew={addNew}
-    />
+    <>
+      <Typography variant="h4" fontWeight="bold">
+        Income
+      </Typography>
+      <DataTable
+        headCells={headCells}
+        rows={rows}
+        onDelete={onDelete}
+        onEdit={onEdit}
+        documents={documents}
+        importData={importData}
+        exportData={exportData}
+        addNew={addNew}
+      />
+    </>
   )
 }
 export default Income
