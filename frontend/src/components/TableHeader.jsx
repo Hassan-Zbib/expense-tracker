@@ -1,10 +1,12 @@
 import PropTypes from "prop-types"
-import TableSortLabel from "@mui/material/TableSortLabel"
-import TableHead from "@mui/material/TableHead"
-import Box from "@mui/material/Box"
-import TableCell from "@mui/material/TableCell"
-import TableRow from "@mui/material/TableRow"
 import { visuallyHidden } from "@mui/utils"
+import {
+  Box,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableSortLabel,
+} from "@mui/material"
 
 function TableHeader(props) {
   const { order, orderBy, onRequestSort, cells } = props

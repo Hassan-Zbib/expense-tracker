@@ -1,21 +1,24 @@
 import { useState } from "react"
-import Box from "@mui/material/Box"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TablePagination from "@mui/material/TablePagination"
-import TableRow from "@mui/material/TableRow"
-import Paper from "@mui/material/Paper"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Switch from "@mui/material/Switch"
-import IconButton from "@mui/material/IconButton"
-import DeleteIcon from "@mui/icons-material/Delete"
-import FilterListIcon from "@mui/icons-material/FilterList"
-import Tooltip from "@mui/material/Tooltip"
-import Typography from "@mui/material/Typography"
-import { Button, ButtonGroup } from "@mui/material"
+import {
+  Paper,
+  Box,
+  ButtonGroup,
+  Button,
+  Table,
+  TableContainer,
+  TablePagination,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material"
 import TableHeader from '../components/TableHeader'
+// import FormControlLabel from "@mui/material/FormControlLabel"
+// import Switch from "@mui/material/Switch"
+// import IconButton from "@mui/material/IconButton"
+// import DeleteIcon from "@mui/icons-material/Delete"
+// import FilterListIcon from "@mui/icons-material/FilterList"
+// import Tooltip from "@mui/material/Tooltip"
+// import Typography from "@mui/material/Typography"
 
 function createData(name, calories, fat, carbs, protein) {
   return {
