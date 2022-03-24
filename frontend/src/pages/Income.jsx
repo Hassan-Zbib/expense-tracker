@@ -10,7 +10,6 @@ import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 import TableSortLabel from "@mui/material/TableSortLabel"
 import Paper from "@mui/material/Paper"
-import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Switch from "@mui/material/Switch"
@@ -46,36 +45,6 @@ const rows = [
   createData("Oreo", 437, 18.0, 63, 4.0),
 ]
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
-  return 0
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index])
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0])
-    if (order !== 0) {
-      return order
-    }
-    return a[1] - b[1]
-  })
-  return stabilizedThis.map((el) => el[0])
-}
-
 const headCells = [
   {
     id: "name",
@@ -109,13 +78,38 @@ const headCells = [
   },
 ]
 
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1
+  }
+  return 0
+}
+
+function getComparator(order, orderBy) {
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy)
+}
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index])
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0])
+    if (order !== 0) {
+      return order
+    }
+    return a[1] - b[1]
+  })
+  return stabilizedThis.map((el) => el[0])
+}
+
 function EnhancedTableHead(props) {
   const {
-    onSelectAllClick,
     order,
     orderBy,
-    numSelected,
-    rowCount,
     onRequestSort,
   } = props
   const createSortHandler = (property) => (event) => {
@@ -125,17 +119,6 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -163,12 +146,9 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 }
 
 export default function EnhancedTable() {
@@ -182,15 +162,6 @@ export default function EnhancedTable() {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
     setOrderBy(property)
-  }
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name)
-      setSelected(newSelecteds)
-      return
-    }
-    setSelected([])
   }
 
   const handleClick = (event, name) => {
@@ -239,16 +210,11 @@ export default function EnhancedTable() {
             size={"medium"}
           >
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
@@ -259,21 +225,11 @@ export default function EnhancedTable() {
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
