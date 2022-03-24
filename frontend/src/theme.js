@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles"
-import { deepPurple, blue } from "@mui/material/colors"
+import { deepPurple, blue, red } from "@mui/material/colors"
 
 const theme = createTheme({
   palette: {
@@ -8,6 +8,10 @@ const theme = createTheme({
     },
     secondary: {
       main: blue[900],
+      contrastText: deepPurple[900],
+    },
+    danger: {
+      main: red[900],
       contrastText: deepPurple[900],
     },
     background: {
@@ -30,12 +34,9 @@ theme.components = {
         borderRadius: "15px",
         textTransform: "none",
       },
-      // containedPrimary: {
-      //   "&:hover": {
-      //     backgroundColor: theme.palette.secondary.main,
-      //     color: theme.palette.primary.dark,
-      //   },
-      // },
+      containedPrimary: {
+          textTransform: "none",
+      },
       // containedSecondary: {
       //     fontWeight: 700,
       // },

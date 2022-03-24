@@ -18,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import FilterListIcon from "@mui/icons-material/FilterList"
 import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
+import { Button, ButtonGroup } from "@mui/material"
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -76,6 +77,12 @@ const headCells = [
     disablePadding: false,
     label: "Protein(g)",
   },
+  {
+    id: "action",
+    numeric: false,
+    disablePadding: false,
+    label: "",
+  },
 ]
 
 function descendingComparator(a, b, orderBy) {
@@ -107,11 +114,7 @@ function stableSort(array, comparator) {
 }
 
 function EnhancedTableHead(props) {
-  const {
-    order,
-    orderBy,
-    onRequestSort,
-  } = props
+  const { order, orderBy, onRequestSort } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
   }
@@ -154,7 +157,6 @@ EnhancedTableHead.propTypes = {
 export default function EnhancedTable() {
   const [order, setOrder] = useState("asc")
   const [orderBy, setOrderBy] = useState("calories")
-  const [selected, setSelected] = useState([])
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
@@ -165,23 +167,7 @@ export default function EnhancedTable() {
   }
 
   const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name)
-    let newSelected = []
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      )
-    }
-
-    setSelected(newSelected)
+    alert(name)
   }
 
   const handleChangePage = (event, newPage) => {
@@ -193,15 +179,21 @@ export default function EnhancedTable() {
     setPage(0)
   }
 
-  const isSelected = (name) => selected.indexOf(name) !== -1
-
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper
-        sx={{ width: "100%", mb: 2, color: "black", backgroundColor: "white" }}
+        sx={{
+          width: "100%",
+          mb: 2,
+          color: "black",
+          backgroundColor: "white",
+          border: "0.1px solid #CCC",
+          borderRadius: " 5px",
+        }}
       >
         <TableContainer>
           <Table
@@ -218,18 +210,10 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name)
                   const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
+                    <TableRow hover tabIndex={-1} key={row.name}>
                       <TableCell
                         component="th"
                         id={labelId}
@@ -242,6 +226,31 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.fat}</TableCell>
                       <TableCell align="right">{row.carbs}</TableCell>
                       <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="center">
+                        <ButtonGroup
+                          variant="outlined"
+                          size="small"
+                          aria-label="outlined primary button group"
+                        >
+                          <Button
+                          variant="contained"
+                            size="small"
+                            onClick={(event) => handleClick(event, row.name)}
+                            sx={{ borderRadius: "5px" }}
+                          >
+                            Documents
+                          </Button>
+                          <Button
+                            sx={{ borderRadius: "5px" }}
+                            color="secondary"
+                          >
+                            Edit
+                          </Button>
+                          <Button sx={{ borderRadius: "5px" }} color="danger">
+                            Delete
+                          </Button>
+                        </ButtonGroup>
+                      </TableCell>
                     </TableRow>
                   )
                 })}
