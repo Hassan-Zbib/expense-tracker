@@ -1,16 +1,12 @@
 import { useState } from "react"
-import PropTypes from "prop-types"
 import Box from "@mui/material/Box"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
 import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
-import TableSortLabel from "@mui/material/TableSortLabel"
 import Paper from "@mui/material/Paper"
-import { visuallyHidden } from "@mui/utils"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Switch from "@mui/material/Switch"
 import IconButton from "@mui/material/IconButton"
@@ -19,6 +15,7 @@ import FilterListIcon from "@mui/icons-material/FilterList"
 import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import { Button, ButtonGroup } from "@mui/material"
+import TableHeader from '../components/TableHeader'
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -113,47 +110,6 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0])
 }
 
-function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } = props
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property)
-  }
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  )
-}
-
-EnhancedTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-}
-
 export default function EnhancedTable() {
   const [order, setOrder] = useState("asc")
   const [orderBy, setOrderBy] = useState("calories")
@@ -201,7 +157,8 @@ export default function EnhancedTable() {
             aria-labelledby="tableTitle"
             size={"medium"}
           >
-            <EnhancedTableHead
+            <TableHeader
+              cells={headCells}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
