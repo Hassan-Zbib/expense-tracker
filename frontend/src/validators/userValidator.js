@@ -11,7 +11,10 @@ const loginSchema = yup.object({
     .trim(),
   password: yup
     .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    )
     .required(requiredMsg),
 })
 
@@ -24,7 +27,10 @@ const registerSchema = yup.object({
     .trim(),
   password: yup
     .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    )
     .required(requiredMsg),
   orgName: yup
     .string("Enter your organization's name")
@@ -50,7 +56,10 @@ const forgotPassSchema = yup.object({
 const resetPassSchema = yup.object({
   password: yup
     .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    )
     .required(requiredMsg),
   confirmPass: yup
     .string("Confirm your password")
