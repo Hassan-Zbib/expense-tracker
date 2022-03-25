@@ -97,17 +97,14 @@ const Income = () => {
   const handleAddClickOpen = () => {
     setAddOpen(true)
   }
-
   const handleAddClose = () => {
     setAddOpen(false)
   }
-
   const handleEditClickOpen = () => {
-    setAddOpen(true)
+    setEditOpen(true)
   }
-
   const handleEditClose = () => {
-    setAddOpen(false)
+    setEditOpen(false)
   }
 
   return (
