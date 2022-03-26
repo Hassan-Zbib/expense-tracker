@@ -117,7 +117,15 @@ const Income = () => {
     setAddOpen(false)
     AddForm.resetForm()
   }
-  const handleEditClickOpen = () => {
+  const handleEditClickOpen = (event, id) => {
+    let record = data.filter(obj => {
+      return obj._id === id
+    })[0]
+
+    EditForm.setFieldValue("id", record._id)
+    EditForm.setFieldValue("amount", record.amount)
+    EditForm.setFieldValue("type", record.type)
+    EditForm.setFieldValue("date", record.date)
     setEditOpen(true)
   }
   const handleEditClose = () => {
@@ -135,6 +143,22 @@ const Income = () => {
       dispatch(createIncome(values))
       AddForm.resetForm()
       setAddOpen(false)
+    },
+  })
+
+  const EditForm = useFormik({
+    initialValues: {
+      id: 0,
+      type: "",
+      amount: 0,
+      date: new Date().toISOString(),
+    },
+    validationSchema: transactionSchema,
+    onSubmit: (values) => {
+
+      dispatch(updateIncome(values))
+      EditForm.resetForm()
+      setEditOpen(false)
     },
   })
 
@@ -208,26 +232,66 @@ const Income = () => {
       </Dialog>
 
       <Dialog open={editOpen} onClose={handleEditClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
+      <DialogContent>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: "20px" }}>
+            Edit record
+          </Typography>
+          <form onSubmit={EditForm.handleSubmit}>
+            <TextField
+              fullWidth
+              id="type"
+              name="type"
+              label="Type"
+              type="text"
+              value={EditForm.values.type}
+              onChange={EditForm.handleChange}
+              error={EditForm.touched.type && Boolean(EditForm.errors.type)}
+              helperText={EditForm.touched.type && EditForm.errors.type}
+            />
+
+            <TextField
+              fullWidth
+              id="amount"
+              name="amount"
+              label="Amount ($)"
+              type="number"
+              value={EditForm.values.amount}
+              onChange={EditForm.handleChange}
+              error={EditForm.touched.amount && Boolean(EditForm.errors.amount)}
+              helperText={EditForm.touched.amount && EditForm.errors.amount}
+              sx={{ marginTop: "20px" }}
+            />
+
+            <Box sx={{ marginTop: "20px" }}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="Date"
+                  value={EditForm.values.date}
+                  onChange={(value) => {
+                    EditForm.setFieldValue("date", value)
+                  }}
+                />
+              </LocalizationProvider>
+            </Box>
+            <Divider />
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              <Grid item>
+                <Button onClick={handleEditClose}>Cancel</Button>
+              </Grid>
+              <Grid item>
+                <Button color="primary" variant="contained" type="submit">
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleEditClose}>Cancel</Button>
-          <Button onClick={handleEditClose}>Subscribe</Button>
-        </DialogActions>
       </Dialog>
 
       <Typography variant="h4" fontWeight="bold">

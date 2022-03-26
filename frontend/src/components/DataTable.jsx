@@ -158,7 +158,7 @@ export default function DataTable(props) {
                           <Button
                             sx={{ borderRadius: "5px" }}
                             color="secondary"
-                            onClick={(event) => onEdit(event, row.name)}
+                            onClick={(event) => onEdit(event, row._id)}
                           >
                             <EditIcon fontSize="small" />
                             Edit

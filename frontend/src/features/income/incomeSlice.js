@@ -69,8 +69,10 @@ export const deleteIncome = createAsyncThunk(
 // Update user income
 export const updateIncome = createAsyncThunk(
     'Income/update',
-    async (id, incomeData, thunkAPI) => {
+    async (incomeData, thunkAPI) => {
       try {
+        const id = incomeData.id
+        delete incomeData.id
         const token = thunkAPI.getState().auth.user.accessToken
         return await incomeService.updateIncome(id, incomeData, token)
       } catch (error) {
