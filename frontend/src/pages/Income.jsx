@@ -3,10 +3,7 @@ import {
   Typography,
   TextField,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   Grid,
   Box,
@@ -21,6 +18,7 @@ import {
   deleteIncome,
   updateIncome,
   reset,
+  uploadData,
 } from "../features/income/incomeSlice"
 import { toast } from "react-toastify"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
@@ -29,10 +27,6 @@ import DatePicker from "@mui/lab/DatePicker"
 import { transactionSchema } from "../validators/transactionValidator"
 
 const documents = () => {
-  return true
-}
-
-const importData = () => {
   return true
 }
 
@@ -119,6 +113,13 @@ const Income = () => {
 
   const onDelete = (event, id) => {
     dispatch(deleteIncome(id))
+  }
+
+  const onImport = (event) => {
+    const file = event.target.files[0]
+    const formData = new FormData()
+    formData.append("file", file)
+    dispatch(uploadData(formData))
   }
 
   return (
@@ -257,7 +258,7 @@ const Income = () => {
         onDelete={onDelete}
         onEdit={handleEditClickOpen}
         documents={documents}
-        importData={importData}
+        importData={onImport}
         exportData={exportData}
         addNew={handleAddClickOpen}
       />

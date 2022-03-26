@@ -12,6 +12,7 @@ import {
   TableRow,
   TableCell,
   Grid,
+  Input,
 } from "@mui/material"
 import TableHeader from "../components/TableHeader"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
@@ -19,7 +20,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
-import { format, parseISO } from 'date-fns'
+import { format, parseISO } from "date-fns"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -55,16 +56,8 @@ export default function DataTable(props) {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
-  const {
-    headCells,
-    rows,
-    onDelete,
-    onEdit,
-    documents,
-    importData,
-    exportData,
-    addNew,
-  } = props
+  const { rows, onDelete, onEdit, documents, importData, exportData, addNew } =
+    props
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc"
@@ -128,18 +121,20 @@ export default function DataTable(props) {
 
                   return (
                     <TableRow hover tabIndex={-1} key={row._id}>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                      >
+                      <TableCell component="th" id={labelId} scope="row">
                         {row._id}
                       </TableCell>
                       <TableCell align="left">{row.type}</TableCell>
                       <TableCell align="left">{row.amount}</TableCell>
-                      <TableCell align="left">{format(parseISO(row.date), 'MM/dd/yyyy')}</TableCell>
-                      <TableCell align="left">{format(parseISO(row.createdAt), 'MM/dd/yyyy')}</TableCell>
-                      <TableCell align="left">{format(parseISO(row.updatedAt), 'MM/dd/yyyy')}</TableCell>
+                      <TableCell align="left">
+                        {format(parseISO(row.date), "MM/dd/yyyy")}
+                      </TableCell>
+                      <TableCell align="left">
+                        {format(parseISO(row.createdAt), "MM/dd/yyyy")}
+                      </TableCell>
+                      <TableCell align="left">
+                        {format(parseISO(row.updatedAt), "MM/dd/yyyy")}
+                      </TableCell>
                       <TableCell align="center">
                         <ButtonGroup
                           variant="outlined"
@@ -208,16 +203,26 @@ export default function DataTable(props) {
           size="medium"
           aria-label="outlined primary button group"
         >
+          <input
+          color="primary"
+          accept=".csv"
+          type="file"
+          onChange={importData}
+          id="icon-button-file"
+          style={{ display: 'none', }}
+        />
+        <label htmlFor="icon-button-file">
           <Button
-            sx={{ borderRadius: "5px" }}
-            onClick={(event) => importData(event)}
+            sx={{ borderRadius: "5px 0 0 5px" }}
+            component="span"
           >
             <FileUploadIcon fontSize="small" />
             Import
           </Button>
+        </label>
           <Button
-            sx={{ borderRadius: "5px" }}
-            onClick={(event) => exportData(event)}
+            sx={{ borderRadius: "0 5px 5px 0" }}
+            onClick={exportData}
           >
             <FileDownloadIcon fontSize="small" />
             Export
