@@ -20,12 +20,13 @@ import {
   getIncomes,
   deleteIncome,
   updateIncome,
-} from "../features/auth/authSlice"
+  reset,
+} from "../features/income/incomeSlice"
 import { toast } from "react-toastify"
 
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
+import DatePicker from "@mui/lab/DatePicker"
 
 // import { loginSchema } from "../validators/userValidator"
 
@@ -112,7 +113,23 @@ const addNew = () => {
 const Income = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
-  const [value, setValue] = useState(new Date())
+  const dispatch = useDispatch()
+
+  const { data, isError, isSuccess, message } = useSelector(
+    (state) => state.income
+  )
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess) {
+      toast.success("Record Added")
+    }
+
+    dispatch(reset)
+  }, [isError, isSuccess, message, dispatch])
 
   const handleAddClickOpen = () => {
     setAddOpen(true)
@@ -131,21 +148,21 @@ const Income = () => {
     initialValues: {
       type: "",
       amount: 0,
-      date: (new Date).toISOString()
+      date: new Date().toISOString(),
     },
     // validationSchema: loginSchema,
     onSubmit: (values) => {
-      // dispatch(login(values))
-      alert(JSON.stringify(values, null, 2));
+      dispatch(createIncome(values))
+      setAddOpen(false)
     },
   })
 
   return (
     <>
-      <Dialog open={addOpen} onClose={handleAddClose} >
+      <Dialog open={addOpen} onClose={handleAddClose}>
         <DialogContent>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: "20px" }}>
-            Sign In
+            Add a new record
           </Typography>
           <form onSubmit={formik.handleSubmit}>
             <TextField
@@ -180,22 +197,29 @@ const Income = () => {
                   label="Date"
                   value={formik.values.date}
                   onChange={(value) => {
-                    formik.setFieldValue('date', value);
-                    }}
+                    formik.setFieldValue("date", value)
+                  }}
                 />
               </LocalizationProvider>
             </Box>
-
             <Divider />
-            <Button color="primary" variant="contained" type="submit">
-              Sign In
-            </Button>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              <Grid item>
+                <Button onClick={handleAddClose}>Cancel</Button>
+              </Grid>
+              <Grid item>
+                <Button color="primary" variant="contained" type="submit">
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleAddClose}>Cancel</Button>
-          <Button onClick={handleAddClose}>Subscribe</Button>
-        </DialogActions>
       </Dialog>
 
       <Dialog open={editOpen} onClose={handleEditClose}>
