@@ -116,7 +116,6 @@ export default function DataTable(props) {
             size={"medium"}
           >
             <TableHeader
-              cells={headCells}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -230,7 +229,6 @@ export default function DataTable(props) {
 }
 
 DataTable.propTypes = {
-  headCells: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,

@@ -8,8 +8,53 @@ import {
   TableSortLabel,
 } from "@mui/material"
 
+const headCells = [
+  {
+    id: "_id",
+    numeric: false,
+    disablePadding: false,
+    label: "ID",
+  },
+  {
+    id: "type",
+    numeric: false,
+    disablePadding: false,
+    label: "Type",
+  },
+  {
+    id: "amount",
+    numeric: false,
+    disablePadding: false,
+    label: "Amount ($)",
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date",
+  },
+  {
+    id: "createdAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Created At",
+  },
+  {
+    id: "updatedAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Updated At",
+  },
+  {
+    id: "action",
+    numeric: false,
+    disablePadding: false,
+    label: "",
+  },
+]
+
 function TableHeader(props) {
-  const { order, orderBy, onRequestSort, cells } = props
+  const { order, orderBy, onRequestSort } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
   }
@@ -17,7 +62,7 @@ function TableHeader(props) {
   return (
     <TableHead>
       <TableRow>
-        {cells.map((headCell) => (
+        {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
@@ -44,7 +89,6 @@ function TableHeader(props) {
 }
 
 TableHeader.propTypes = {
-  cells: PropTypes.array.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
