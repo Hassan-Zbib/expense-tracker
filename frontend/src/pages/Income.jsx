@@ -90,10 +90,6 @@ const onDelete = (event, name) => {
   alert(name)
 }
 
-const onEdit = () => {
-  return true
-}
-
 const documents = () => {
   return true
 }
@@ -103,10 +99,6 @@ const importData = () => {
 }
 
 const exportData = () => {
-  return true
-}
-
-const addNew = () => {
   return true
 }
 
@@ -144,7 +136,7 @@ const Income = () => {
     setEditOpen(false)
   }
 
-  const formik = useFormik({
+  const AddForm = useFormik({
     initialValues: {
       type: "",
       amount: 0,
@@ -153,6 +145,7 @@ const Income = () => {
     // validationSchema: loginSchema,
     onSubmit: (values) => {
       dispatch(createIncome(values))
+      AddForm.resetForm()
       setAddOpen(false)
     },
   })
@@ -164,17 +157,17 @@ const Income = () => {
           <Typography variant="h6" fontWeight="bold" sx={{ mb: "20px" }}>
             Add a new record
           </Typography>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={AddForm.handleSubmit}>
             <TextField
               fullWidth
               id="type"
               name="type"
               label="Type"
               type="text"
-              value={formik.values.type}
-              onChange={formik.handleChange}
-              error={formik.touched.type && Boolean(formik.errors.type)}
-              helperText={formik.touched.type && formik.errors.type}
+              value={AddForm.values.type}
+              onChange={AddForm.handleChange}
+              error={AddForm.touched.type && Boolean(AddForm.errors.type)}
+              helperText={AddForm.touched.type && AddForm.errors.type}
             />
 
             <TextField
@@ -183,10 +176,10 @@ const Income = () => {
               name="amount"
               label="Amount"
               type="number"
-              value={formik.values.amount}
-              onChange={formik.handleChange}
-              error={formik.touched.amount && Boolean(formik.errors.amount)}
-              helperText={formik.touched.amount && formik.errors.amount}
+              value={AddForm.values.amount}
+              onChange={AddForm.handleChange}
+              error={AddForm.touched.amount && Boolean(AddForm.errors.amount)}
+              helperText={AddForm.touched.amount && AddForm.errors.amount}
               sx={{ marginTop: "20px" }}
             />
 
@@ -195,9 +188,9 @@ const Income = () => {
                 <DatePicker
                   renderInput={(props) => <TextField {...props} />}
                   label="Date"
-                  value={formik.values.date}
+                  value={AddForm.values.date}
                   onChange={(value) => {
-                    formik.setFieldValue("date", value)
+                    AddForm.setFieldValue("date", value)
                   }}
                 />
               </LocalizationProvider>
