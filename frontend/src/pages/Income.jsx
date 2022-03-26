@@ -23,9 +23,9 @@ import {
 } from "../features/auth/authSlice"
 import { toast } from "react-toastify"
 
-import AdapterDateFns from "@mui/lab/AdapterDateFns"
-import LocalizationProvider from "@mui/lab/LocalizationProvider"
-import DateTimePicker from "@mui/lab/DateTimePicker"
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
 // import { loginSchema } from "../validators/userValidator"
 
@@ -129,9 +129,9 @@ const Income = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
-      date: ""
+      type: "",
+      amount: 0,
+      date: (new Date).toISOString()
     },
     // validationSchema: loginSchema,
     onSubmit: (values) => {
@@ -165,7 +165,7 @@ const Income = () => {
               id="amount"
               name="amount"
               label="Amount"
-              type="text"
+              type="number"
               value={formik.values.amount}
               onChange={formik.handleChange}
               error={formik.touched.amount && Boolean(formik.errors.amount)}
@@ -175,10 +175,10 @@ const Income = () => {
 
             <Box sx={{ marginTop: "20px" }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
+                <DatePicker
                   renderInput={(props) => <TextField {...props} />}
                   label="Date"
-                  value={formik.values.amount}
+                  value={formik.values.date}
                   onChange={(value) => {
                     formik.setFieldValue('date', value);
                     }}
