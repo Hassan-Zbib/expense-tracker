@@ -19,6 +19,7 @@ import {
   updateIncome,
   reset,
   uploadData,
+  exportData,
 } from "../features/income/incomeSlice"
 import { toast } from "react-toastify"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
@@ -27,10 +28,6 @@ import DatePicker from "@mui/lab/DatePicker"
 import { transactionSchema } from "../validators/transactionValidator"
 
 const documents = () => {
-  return true
-}
-
-const exportData = () => {
   return true
 }
 
@@ -120,6 +117,10 @@ const Income = () => {
     const formData = new FormData()
     formData.append("file", file)
     dispatch(uploadData(formData))
+  }
+
+  const onExport = () => {
+    dispatch(exportData())
   }
 
   return (
@@ -259,7 +260,7 @@ const Income = () => {
         onEdit={handleEditClickOpen}
         documents={documents}
         importData={onImport}
-        exportData={exportData}
+        exportData={onExport}
         addNew={handleAddClickOpen}
       />
     </>

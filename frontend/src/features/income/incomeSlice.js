@@ -109,7 +109,7 @@ export const uploadData = createAsyncThunk(
 // Export income data
 export const exportData = createAsyncThunk(
   "Income/export",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
       return await incomeService.exportData(token)

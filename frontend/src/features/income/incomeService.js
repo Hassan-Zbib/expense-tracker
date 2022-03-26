@@ -79,7 +79,7 @@ const exportData = async (token) => {
       },
     }
   
-    const response = await axios.get(BASE_URL + `/import`, config)
+    const response = await axios.get(BASE_URL + `/export`, config)
 
     fileDownload(response.data, `Income-${format(Date.now(), "MM/dd/yyyy")}.csv`)
 }
