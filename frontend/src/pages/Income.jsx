@@ -28,7 +28,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
 
-// import { loginSchema } from "../validators/userValidator"
+import { transactionSchema } from "../validators/transactionValidator"
 
 const rows = [
   {
@@ -128,6 +128,7 @@ const Income = () => {
   }
   const handleAddClose = () => {
     setAddOpen(false)
+    AddForm.resetForm()
   }
   const handleEditClickOpen = () => {
     setEditOpen(true)
@@ -142,7 +143,7 @@ const Income = () => {
       amount: 0,
       date: new Date().toISOString(),
     },
-    // validationSchema: loginSchema,
+    validationSchema: transactionSchema,
     onSubmit: (values) => {
       dispatch(createIncome(values))
       AddForm.resetForm()
@@ -174,7 +175,7 @@ const Income = () => {
               fullWidth
               id="amount"
               name="amount"
-              label="Amount"
+              label="Amount ($)"
               type="number"
               value={AddForm.values.amount}
               onChange={AddForm.handleChange}
