@@ -137,6 +137,14 @@ theme.components = {
       }
     }
   }
+  ,MuiDialog: {
+    styleOverrides: {
+      paper: {
+        backgroundColor: theme.palette.light.main,
+        color: theme.palette.light.contrastText
+      }
+    }
+  }
 }
 
 export default theme
