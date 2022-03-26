@@ -23,23 +23,10 @@ import {
   reset,
 } from "../features/income/incomeSlice"
 import { toast } from "react-toastify"
-
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
-
 import { transactionSchema } from "../validators/transactionValidator"
-
-const rows = [
-  {
-    _id: 1,
-    type: "invoice",
-    amount: 100,
-    date: "1/1/2022",
-    createdAt: "1/1/2022",
-    updatedAt: "1/1/2022",
-  },
-]
 
 const headCells = [
   {
@@ -107,6 +94,10 @@ const Income = () => {
   const [editOpen, setEditOpen] = useState(false)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getIncomes())
+  }, [])
+  
   const { data, isError, isSuccess, message } = useSelector(
     (state) => state.income
   )
@@ -117,7 +108,7 @@ const Income = () => {
     }
 
     if (isSuccess) {
-      toast.success("Record Added")
+      toast.success("Done!")
     }
 
     dispatch(reset())
@@ -244,7 +235,7 @@ const Income = () => {
       </Typography>
       <DataTable
         headCells={headCells}
-        rows={rows}
+        rows={data}
         onDelete={onDelete}
         onEdit={handleEditClickOpen}
         documents={documents}
