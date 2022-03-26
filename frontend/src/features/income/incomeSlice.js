@@ -89,7 +89,12 @@ export const incomeSlice = createSlice({
   name: 'income',
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: (state) => {
+      state.isLoading = false
+      state.isError = false
+      state.isSuccess = false
+      state.message = ""
+    },
   },
   extraReducers: (builder) => {
     builder

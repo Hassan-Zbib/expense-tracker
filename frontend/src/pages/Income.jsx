@@ -128,7 +128,7 @@ const Income = () => {
       toast.success("Record Added")
     }
 
-    dispatch(reset)
+    dispatch(reset())
   }, [isError, isSuccess, message, dispatch])
 
   const handleAddClickOpen = () => {
