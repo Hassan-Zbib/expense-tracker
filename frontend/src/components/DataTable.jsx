@@ -19,6 +19,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
+import { format, parseISO } from 'date-fns'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -49,8 +50,8 @@ function stableSort(array, comparator) {
 }
 
 export default function DataTable(props) {
-  const [order, setOrder] = useState("asc")
-  const [orderBy, setOrderBy] = useState("calories")
+  const [order, setOrder] = useState("desc")
+  const [orderBy, setOrderBy] = useState("createdAt")
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
@@ -137,9 +138,9 @@ export default function DataTable(props) {
                       </TableCell>
                       <TableCell align="left">{row.type}</TableCell>
                       <TableCell align="left">{row.amount}</TableCell>
-                      <TableCell align="left">{row.date}</TableCell>
-                      <TableCell align="left">{row.createdAt}</TableCell>
-                      <TableCell align="left">{row.updatedAt}</TableCell>
+                      <TableCell align="left">{format(parseISO(row.date), 'MM/dd/yyyy')}</TableCell>
+                      <TableCell align="left">{format(parseISO(row.createdAt), 'MM/dd/yyyy')}</TableCell>
+                      <TableCell align="left">{format(parseISO(row.updatedAt), 'MM/dd/yyyy')}</TableCell>
                       <TableCell align="center">
                         <ButtonGroup
                           variant="outlined"
