@@ -73,10 +73,6 @@ const headCells = [
   },
 ]
 
-const onDelete = (event, name) => {
-  alert(name)
-}
-
 const documents = () => {
   return true
 }
@@ -141,6 +137,10 @@ const Income = () => {
       setAddOpen(false)
     },
   })
+
+  const onDelete = (event, id) => {
+    dispatch(deleteIncome(id))
+  }
 
   return (
     <>

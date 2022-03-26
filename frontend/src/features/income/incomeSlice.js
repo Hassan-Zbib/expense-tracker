@@ -118,7 +118,6 @@ export const incomeSlice = createSlice({
       })
       .addCase(getIncomes.fulfilled, (state, action) => {
         state.isLoading = false
-        state.isSuccess = true
         state.data = action.payload
       })
       .addCase(getIncomes.rejected, (state, action) => {

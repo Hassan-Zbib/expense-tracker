@@ -166,7 +166,7 @@ export default function DataTable(props) {
                           <Button
                             sx={{ borderRadius: "5px" }}
                             color="danger"
-                            onClick={(event) => onDelete(event, row.name)}
+                            onClick={(event) => onDelete(event, row._id)}
                           >
                             <DeleteOutlineIcon fontSize="small" />
                             Delete
