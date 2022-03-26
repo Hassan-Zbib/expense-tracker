@@ -1,17 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import incomeService from './incomeService'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import incomeService from "./incomeService"
 
 const initialState = {
   data: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: '',
+  message: "",
 }
 
 // Create new income
 export const createIncome = createAsyncThunk(
-  'Income/create',
+  "Income/create",
   async (incomeData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -30,7 +30,7 @@ export const createIncome = createAsyncThunk(
 
 // Get user incomes
 export const getIncomes = createAsyncThunk(
-  'Income/getAll',
+  "Income/getAll",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -49,7 +49,7 @@ export const getIncomes = createAsyncThunk(
 
 // Delete user income
 export const deleteIncome = createAsyncThunk(
-  'Income/delete',
+  "Income/delete",
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -68,27 +68,46 @@ export const deleteIncome = createAsyncThunk(
 
 // Update user income
 export const updateIncome = createAsyncThunk(
-    'Income/update',
-    async (incomeData, thunkAPI) => {
-      try {
-        const id = incomeData.id
-        delete incomeData.id
-        const token = thunkAPI.getState().auth.user.accessToken
-        return await incomeService.updateIncome(id, incomeData, token)
-      } catch (error) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString()
-        return thunkAPI.rejectWithValue(message)
-      }
+  "Income/update",
+  async (incomeData, thunkAPI) => {
+    try {
+      const id = incomeData.id
+      delete incomeData.id
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await incomeService.updateIncome(id, incomeData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
     }
-  )
+  }
+)
+
+// Upload income data
+export const uploadData = createAsyncThunk(
+  "Income/import",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await incomeService.uploadData(formData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
 
 export const incomeSlice = createSlice({
-  name: 'income',
+  name: "income",
   initialState,
   reducers: {
     reset: (state) => {
@@ -100,7 +119,7 @@ export const incomeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        // Post Side effects
+      // Post Side effects
       .addCase(createIncome.pending, (state) => {
         state.isLoading = true
       })
@@ -150,15 +169,30 @@ export const incomeSlice = createSlice({
       .addCase(updateIncome.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.data = state.data.map(
-          (income) => {
-              if (income._id === action.payload._id) {
-                  return action.payload
-              }
-              return income
+        state.data = state.data.map((income) => {
+          if (income._id === action.payload._id) {
+            return action.payload
+          }
+          return income
         })
       })
       .addCase(updateIncome.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Update Side effects
+      .addCase(uploadData.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(uploadData.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        action.payload.incomes.forEach((record) => {
+          state.data.push(record)
+        })
+      })
+      .addCase(uploadData.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

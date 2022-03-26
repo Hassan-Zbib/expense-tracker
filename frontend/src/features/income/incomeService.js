@@ -54,11 +54,26 @@ const updateIncome = async (incomeId, incomeData, token) => {
       return response.data
 }
 
+// Upload income data
+const uploadData = async (formData, token) => {
+  const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data"
+      },
+    }
+  
+    const response = await axios.post(BASE_URL + `/import`, formData, config)
+  
+    return response.data
+}
+
 const goalService = {
     createIncome,
     getIncomes,
     deleteIncome,
     updateIncome,
+    uploadData,
 }
 
 export default goalService
