@@ -155,6 +155,7 @@ export const incomeSlice = createSlice({
               if (income._id === action.payload._id) {
                   return action.payload
               }
+              return income
         })
       })
       .addCase(updateIncome.rejected, (state, action) => {
