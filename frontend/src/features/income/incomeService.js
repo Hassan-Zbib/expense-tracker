@@ -1,4 +1,6 @@
 import axios from 'axios'
+import fileDownload from 'js-file-download'
+import { format, parseISO } from "date-fns"
 
 const BASE_URL = "http://localhost:5000/api/incomes"
 
@@ -68,12 +70,27 @@ const uploadData = async (formData, token) => {
     return response.data
 }
 
+// Export income data
+const exportData = async (token) => {
+  const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        responseType: 'blob',
+      },
+    }
+  
+    const response = await axios.get(BASE_URL + `/import`, config)
+
+    fileDownload(response.data, `Income-${format(Date.now(), "MM/dd/yyyy")}.csv`)
+}
+
 const goalService = {
     createIncome,
     getIncomes,
     deleteIncome,
     updateIncome,
     uploadData,
+    exportData,
 }
 
 export default goalService

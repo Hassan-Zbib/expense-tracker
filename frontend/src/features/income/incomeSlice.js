@@ -106,6 +106,25 @@ export const uploadData = createAsyncThunk(
   }
 )
 
+// Export income data
+export const exportData = createAsyncThunk(
+  "Income/export",
+  async (thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await incomeService.exportData(token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const incomeSlice = createSlice({
   name: "income",
   initialState,
@@ -181,7 +200,7 @@ export const incomeSlice = createSlice({
         state.isError = true
         state.message = action.payload
       })
-      // Update Side effects
+      // Upload Side effects
       .addCase(uploadData.pending, (state) => {
         state.isLoading = true
       })
@@ -193,6 +212,18 @@ export const incomeSlice = createSlice({
         })
       })
       .addCase(uploadData.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Export Side effects
+      .addCase(exportData.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(exportData.fulfilled, (state, action) => {
+        state.isLoading = false
+      })
+      .addCase(exportData.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
