@@ -287,6 +287,30 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 })
 
+// @desc    Get public users
+// @route   GET /api/user/public
+// @access  Public
+const getPublicUsers = asyncHandler(async (req, res) => {
+
+    // get users with publicVisibility
+    const users = await User.find(
+      { "settings.publicVisibility": true },
+      {
+        _id: 1,
+        orgName: 1,
+        country: 1,
+        city: 1,
+        totalIncome: 1,
+        totalExpenses: 1,
+        logoURL: 1,
+        createdAt: 1,
+      }
+    )
+
+
+  res.status(200).json(users)
+})
+
 module.exports = {
   registerUser,
   loginUser,
@@ -294,4 +318,5 @@ module.exports = {
   resetPassword,
   getCurrentUser,
   requestResetPassword,
+  getPublicUsers,
 }
