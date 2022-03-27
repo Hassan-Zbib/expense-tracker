@@ -23,8 +23,9 @@ const documentSchema = mongoose.Schema(
             default: () => Date.now(),
         },
         document: {
-            type: Object,
-            // required: true,
+            type: String,
+            required: true,
+            default: ""
         }
     },
     {
