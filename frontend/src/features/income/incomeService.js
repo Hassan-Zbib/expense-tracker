@@ -1,6 +1,6 @@
-import axios from 'axios'
-import fileDownload from 'js-file-download'
-import { format, parseISO } from "date-fns"
+import axios from "axios"
+import fileDownload from "js-file-download"
+import { format } from "date-fns"
 
 const BASE_URL = "http://localhost:5000/api/incomes"
 
@@ -45,52 +45,56 @@ const deleteIncome = async (incomeId, token) => {
 
 // Update user income
 const updateIncome = async (incomeId, incomeData, token) => {
-    const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    
-      const response = await axios.put(BASE_URL + `/${incomeId}`, incomeData, config)
-    
-      return response.data
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.put(
+    BASE_URL + `/${incomeId}`,
+    incomeData,
+    config
+  )
+
+  return response.data
 }
 
 // Upload income data
 const uploadData = async (formData, token) => {
   const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data"
-      },
-    }
-  
-    const response = await axios.post(BASE_URL + `/import`, formData, config)
-  
-    return response.data
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+
+  const response = await axios.post(BASE_URL + `/import`, formData, config)
+
+  return response.data
 }
 
 // Export income data
 const exportData = async (token) => {
   const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        responseType: 'blob',
-      },
-    }
-  
-    const response = await axios.get(BASE_URL + `/export`, config)
+    headers: {
+      Authorization: `Bearer ${token}`,
+      responseType: "blob",
+    },
+  }
 
-    fileDownload(response.data, `Income-${format(Date.now(), "MM/dd/yyyy")}.csv`)
+  const response = await axios.get(BASE_URL + `/export`, config)
+
+  fileDownload(response.data, `Income-${format(Date.now(), "MM/dd/yyyy")}.csv`)
 }
 
 const goalService = {
-    createIncome,
-    getIncomes,
-    deleteIncome,
-    updateIncome,
-    uploadData,
-    exportData,
+  createIncome,
+  getIncomes,
+  deleteIncome,
+  updateIncome,
+  uploadData,
+  exportData,
 }
 
 export default goalService

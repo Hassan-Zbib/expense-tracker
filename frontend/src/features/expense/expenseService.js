@@ -1,4 +1,6 @@
 import axios from "axios"
+import fileDownload from "js-file-download"
+import { format } from "date-fns"
 
 const BASE_URL = "http://localhost:5000/api/expenses"
 
@@ -58,11 +60,41 @@ const updateExpense = async (expenseId, expenseData, token) => {
   return response.data
 }
 
+// Upload expense data
+const uploadData = async (formData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+
+  const response = await axios.post(BASE_URL + `/import`, formData, config)
+
+  return response.data
+}
+
+// Export income data
+const exportData = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      responseType: "blob",
+    },
+  }
+
+  const response = await axios.get(BASE_URL + `/export`, config)
+
+  fileDownload(response.data, `Expenses-${format(Date.now(), "MM/dd/yyyy")}.csv`)
+}
+
 const goalService = {
   createExpense,
   getExpenses,
   deleteExpense,
   updateExpense,
+  uploadData,
+  exportData,
 }
 
 export default goalService
