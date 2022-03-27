@@ -1,0 +1,50 @@
+const asyncHandler = require("express-async-handler")
+const Income = require("../models/incomeModel")
+const Expense = require("../models/expenseModel")
+const User = require("../models/userModel")
+
+// @desc    Get general stats
+// @route   GET /api/stats
+// @access  Public
+const getGeneral = asyncHandler(async (req, res) => {
+
+  const users = await User.find(
+    { "settings.publicVisibility": true },
+    {
+      _id: 1,
+      orgName: 1,
+      country: 1,
+      city: 1,
+      totalIncome: 1,
+      totalExpenses: 1,
+      logoURL: 1,
+    }
+  )
+
+  let userIds = users.map((user) => {
+    return user._id
+  })
+
+  const expenses = await Expense.find({ user: { $in: userIds } } ,{ _id: 0, type: 1, amount: 1, date: 1 })
+
+  const incomes = await Income.find({ user: { $in: userIds } } ,{ _id: 0, type: 1, amount: 1, date: 1 })
+
+  const recentUsers = users
+
+  const highIncomeUsers = users
+
+  const resData = {
+      users : {
+          recent : recentUsers,
+          highestIncome: highIncomeUsers,
+      },
+      incomes : incomes,
+      expenses: expenses,
+  }
+
+  res.status(200).json(resData)
+})
+
+module.exports = {
+  getGeneral,
+}
