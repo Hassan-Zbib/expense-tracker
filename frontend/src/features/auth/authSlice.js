@@ -63,11 +63,11 @@ export const update = createAsyncThunk(
   }
 )
 
-// Get user
-export const get = createAsyncThunk("auth/get", async (_, thunkAPI) => {
+// Get current user
+export const getCurrent = createAsyncThunk("auth/get/me", async (_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.accessToken
-    let res = await authService.get(token)
+    let res = await authService.getCurrent(token)
     return thunkAPI.fulfillWithValue(res)
   } catch (error) {
     const message =
@@ -185,16 +185,16 @@ export const authSlice = createSlice({
         state.profile = {}
         state.message = action.payload
       })
-      // Get Side effects
-      .addCase(get.pending, (state) => {
+      // getCurrent Side effects
+      .addCase(getCurrent.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(get.fulfilled, (state, action) => {
+      .addCase(getCurrent.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
       })
-      .addCase(get.rejected, (state, action) => {
+      .addCase(getCurrent.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

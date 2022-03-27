@@ -36,8 +36,8 @@ const update = async (userData, token) => {
   return res.data
 }
 
-// Get user
-const get = async (token) => {
+// get current user
+const getCurrent = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ const authService = {
   logout,
   login,
   update,
-  get,
+  getCurrent,
   forgotPass,
   resetPass,
 }
