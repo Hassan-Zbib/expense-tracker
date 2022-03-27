@@ -57,29 +57,65 @@ const getGeneral = asyncHandler(async (req, res) => {
         _id: null,
         totalIncome: { $sum: "$totalIncome" },
         totalExpenses: { $sum: "$totalExpenses" },
-        count: { $count: {} }
+        count: { $count: {} },
       },
     },
   ])
 
   usersStats = usersStats[0]
-  
+
+  // construct res
+  const resData = {
+    usersCount: usersStats.count,
+    totalIncome: usersStats.totalIncome,
+    totalExpenses: usersStats.totalExpenses,
+    users: {
+      recent: recentUsers,
+      highestIncome: highIncomeUsers,
+    },
+    incomes: incomes,
+    expenses: expenses,
+  }
+
+  res.status(200).json(resData)
+})
+
+const getUserStats = asyncHandler(async (req, res) => {
+  // get expenses stats
+  let expenseStats = await Expense.aggregate(
+    [
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+          total: { $sum: "$amount" },
+        },
+      },
+    ]
+  )
+
+  // get incomes stats
+  let incomeStats = await Income.aggregate(
+    [
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+          total: { $sum: "$amount" },
+        },
+      },
+    ]
+  )
+
     // construct res
     const resData = {
-        usersCount: usersStats.count,
-        totalIncome: usersStats.totalIncome,
-        totalExpenses: usersStats.totalExpenses,
-      users: {
-        recent: recentUsers,
-        highestIncome: highIncomeUsers,
-      },
-      incomes: incomes,
-      expenses: expenses,
-    }
+        incomes: incomeStats,
+        expenses: expenseStats,
+      }
+  
 
   res.status(200).json(resData)
 })
 
 module.exports = {
   getGeneral,
+  getUserStats,
 }
