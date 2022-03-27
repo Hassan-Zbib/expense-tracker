@@ -50,15 +50,32 @@ const getGeneral = asyncHandler(async (req, res) => {
     })
     .slice(0, 5)
 
-  // construct res
-  const resData = {
-    users: {
-      recent: recentUsers,
-      highestIncome: highIncomeUsers,
+  // get count and total stats
+  let usersStats = await User.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalIncome: { $sum: "$totalIncome" },
+        totalExpenses: { $sum: "$totalExpenses" },
+        count: { $count: {} }
+      },
     },
-    incomes: incomes,
-    expenses: expenses,
-  }
+  ])
+
+  usersStats = usersStats[0]
+  
+    // construct res
+    const resData = {
+        usersCount: usersStats.count,
+        totalIncome: usersStats.totalIncome,
+        totalExpenses: usersStats.totalExpenses,
+      users: {
+        recent: recentUsers,
+        highestIncome: highIncomeUsers,
+      },
+      incomes: incomes,
+      expenses: expenses,
+    }
 
   res.status(200).json(resData)
 })
