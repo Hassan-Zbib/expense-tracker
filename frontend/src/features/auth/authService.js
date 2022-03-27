@@ -44,7 +44,7 @@ const getCurrent = async (token) => {
     },
   }
 
-  const res = await axios.get(BASE_URL + "/me", config)
+  const res = await axios.get(BASE_URL + "/", config)
 
   return res.data
 }
