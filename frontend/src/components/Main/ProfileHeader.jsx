@@ -3,11 +3,21 @@ import { Grid, Typography, Button } from "@mui/material"
 import { useDispatch } from "react-redux"
 import { logout, reset } from "../../features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
+import { getCurrent } from '../../features/auth/authSlice'
+import { useSelector, useDispatch } from "react-redux"
 
 const ProfileHeader = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    useEffect(() => {
+      dispatch(getCurrent())
+    }, [])
+  
+    const { profile } = useSelector(
+      (state) => state.auth
+    )
   
     const onLogout = () => {
       dispatch(logout())

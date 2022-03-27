@@ -16,8 +16,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import NavList from '../components/Main/NavList'
 import ProfileHeader from '../components/Main/ProfileHeader'
-import { getCurrent } from '../features/auth/authSlice'
-import { useSelector, useDispatch } from "react-redux"
 
 const drawerWidth = 240
 
@@ -87,15 +85,7 @@ const Drawer = styled(MuiDrawer, {
 }))
 
 export default function MainLayout() {
-  const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getCurrent())
-  }, [])
-
-  const { profile } = useSelector(
-    (state) => state.auth
-  )
   const theme = useTheme()
   const [open, setOpen] = useState(false)
 
