@@ -1,17 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import expenseService from './expenseService'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import expenseService from "./expenseService"
 
 const initialState = {
   data: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: '',
+  message: "",
 }
 
 // Create new expense
 export const createExpense = createAsyncThunk(
-  'Expense/create',
+  "Expense/create",
   async (expenseData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -30,7 +30,7 @@ export const createExpense = createAsyncThunk(
 
 // Get user expenses
 export const getExpenses = createAsyncThunk(
-  'Expense/getAll',
+  "Expense/getAll",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -49,7 +49,7 @@ export const getExpenses = createAsyncThunk(
 
 // Delete user expense
 export const deleteExpense = createAsyncThunk(
-  'Expense/delete',
+  "Expense/delete",
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -68,32 +68,77 @@ export const deleteExpense = createAsyncThunk(
 
 // Update user expense
 export const updateExpense = createAsyncThunk(
-    'Expense/update',
-    async (id, expenseData, thunkAPI) => {
-      try {
-        const token = thunkAPI.getState().auth.user.accessToken
-        return await expenseService.updateExpense(id, expenseData, token)
-      } catch (error) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString()
-        return thunkAPI.rejectWithValue(message)
-      }
+  "Expense/update",
+  async (expenseData, thunkAPI) => {
+    try {
+      const id = expenseData.id
+      delete expenseData.id
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await expenseService.updateExpense(id, expenseData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
     }
-  )
+  }
+)
+
+// Upload expense data
+export const uploadData = createAsyncThunk(
+  "Expense/import",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await expenseService.uploadData(formData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+// Export expense data
+export const exportData = createAsyncThunk(
+  "Expense/export",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await expenseService.exportData(token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
 
 export const expenseSlice = createSlice({
-  name: 'expense',
+  name: "expense",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: (state) => {
+      state.isLoading = false
+      state.isError = false
+      state.isSuccess = false
+      state.message = ""
+    },
   },
   extraReducers: (builder) => {
     builder
-        // Post Side effects
+      // Post Side effects
       .addCase(createExpense.pending, (state) => {
         state.isLoading = true
       })
@@ -113,7 +158,6 @@ export const expenseSlice = createSlice({
       })
       .addCase(getExpenses.fulfilled, (state, action) => {
         state.isLoading = false
-        state.isSuccess = true
         state.data = action.payload
       })
       .addCase(getExpenses.rejected, (state, action) => {
@@ -144,14 +188,42 @@ export const expenseSlice = createSlice({
       .addCase(updateExpense.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.data = state.data.map(
-          (expense) => {
-              if (expense._id === action.payload._id) {
-                  return action.payload
-              }
+        state.data = state.data.map((expense) => {
+          if (expense._id === action.payload._id) {
+            return action.payload
+          }
+          return expense
         })
       })
       .addCase(updateExpense.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Upload Side effects
+      .addCase(uploadData.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(uploadData.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        action.payload.expenses.forEach((record) => {
+          state.data.push(record)
+        })
+      })
+      .addCase(uploadData.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Export Side effects
+      .addCase(exportData.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(exportData.fulfilled, (state, action) => {
+        state.isLoading = false
+      })
+      .addCase(exportData.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
