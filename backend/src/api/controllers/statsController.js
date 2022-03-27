@@ -7,7 +7,7 @@ const User = require("../models/userModel")
 // @route   GET /api/stats
 // @access  Public
 const getGeneral = asyncHandler(async (req, res) => {
-
+  // get users with publicVisibility
   const users = await User.find(
     { "settings.publicVisibility": true },
     {
@@ -18,6 +18,7 @@ const getGeneral = asyncHandler(async (req, res) => {
       totalIncome: 1,
       totalExpenses: 1,
       logoURL: 1,
+      createdAt: 1,
     }
   )
 
@@ -25,21 +26,38 @@ const getGeneral = asyncHandler(async (req, res) => {
     return user._id
   })
 
-  const expenses = await Expense.find({ user: { $in: userIds } } ,{ _id: 0, type: 1, amount: 1, date: 1 })
+  // get expenses and incomes of above users
+  const expenses = await Expense.find(
+    { user: { $in: userIds } },
+    { _id: 0, type: 1, amount: 1, date: 1 }
+  )
 
-  const incomes = await Income.find({ user: { $in: userIds } } ,{ _id: 0, type: 1, amount: 1, date: 1 })
+  const incomes = await Income.find(
+    { user: { $in: userIds } },
+    { _id: 0, type: 1, amount: 1, date: 1 }
+  )
 
+  // sort users into most recent registered and highest income users
   const recentUsers = users
+    .sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt)
+    })
+    .slice(0, 5)
 
   const highIncomeUsers = users
+    .sort((a, b) => {
+      return b.totalIncome - a.totalIncome
+    })
+    .slice(0, 5)
 
+  // construct res
   const resData = {
-      users : {
-          recent : recentUsers,
-          highestIncome: highIncomeUsers,
-      },
-      incomes : incomes,
-      expenses: expenses,
+    users: {
+      recent: recentUsers,
+      highestIncome: highIncomeUsers,
+    },
+    incomes: incomes,
+    expenses: expenses,
   }
 
   res.status(200).json(resData)
