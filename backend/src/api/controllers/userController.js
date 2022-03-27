@@ -217,13 +217,15 @@ const resetPassword = asyncHandler(async (req, res) => {
 
   // Send success email
   const userName = `${user.firstName} ${user.lastName}`
+  const link = `${process.env.CLIENT_URL}/login`
   sendEmail(
     user.email,
     "Password reset successfully",
     {
       name: userName,
+      link: link
     },
-    "src/api/helpers/templates/resetPassword.handlebars"
+    "src/api/helpers/templates/resetDone.handlebars"
   )
 
   await passwordResetToken.deleteOne()
