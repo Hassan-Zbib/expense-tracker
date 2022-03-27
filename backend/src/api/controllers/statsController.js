@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler")
 const Income = require("../models/incomeModel")
 const Expense = require("../models/expenseModel")
 const User = require("../models/userModel")
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
 // @desc    Get general stats
 // @route   GET /api/stats
@@ -81,6 +81,9 @@ const getGeneral = asyncHandler(async (req, res) => {
   res.status(200).json(resData)
 })
 
+// @desc    Get user general stats
+// @route   GET /api/stats/me
+// @access  Private
 const getUserStats = asyncHandler(async (req, res) => {
   // get expenses stats
   console.log(req.user.id)
