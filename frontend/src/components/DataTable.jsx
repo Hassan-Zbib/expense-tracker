@@ -12,7 +12,6 @@ import {
   TableRow,
   TableCell,
   Grid,
-  Input,
 } from "@mui/material"
 import TableHeader from "../components/TableHeader"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
@@ -21,6 +20,7 @@ import FileUploadIcon from "@mui/icons-material/FileUpload"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 import { format, parseISO } from "date-fns"
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -49,6 +49,10 @@ function stableSort(array, comparator) {
   })
   return stabilizedThis.map((el) => el[0])
 }
+
+// function getTotal(data) {
+//   return data.map(({ price }) => price).reduce((sum, i) => sum + i, 0)
+// }
 
 export default function DataTable(props) {
   const [order, setOrder] = useState("desc")
@@ -125,7 +129,7 @@ export default function DataTable(props) {
                         {row._id}
                       </TableCell>
                       <TableCell align="left">{row.type}</TableCell>
-                      <TableCell align="left">{row.amount}</TableCell>
+                      <TableCell align="left">$ {row.amount}</TableCell>
                       <TableCell align="left">
                         {format(parseISO(row.date), "MM/dd/yyyy")}
                       </TableCell>
@@ -204,26 +208,20 @@ export default function DataTable(props) {
           aria-label="outlined primary button group"
         >
           <input
-          color="primary"
-          accept=".csv"
-          type="file"
-          onChange={importData}
-          id="icon-button-file"
-          style={{ display: 'none', }}
-        />
-        <label htmlFor="icon-button-file">
-          <Button
-            sx={{ borderRadius: "5px 0 0 5px" }}
-            component="span"
-          >
-            <FileUploadIcon fontSize="small" />
-            Import
-          </Button>
-        </label>
-          <Button
-            sx={{ borderRadius: "0 5px 5px 0" }}
-            onClick={exportData}
-          >
+            color="primary"
+            accept=".csv"
+            type="file"
+            onChange={importData}
+            id="icon-button-file"
+            style={{ display: "none" }}
+          />
+          <label htmlFor="icon-button-file">
+            <Button sx={{ borderRadius: "5px 0 0 5px" }} component="span">
+              <FileUploadIcon fontSize="small" />
+              Import
+            </Button>
+          </label>
+          <Button sx={{ borderRadius: "0 5px 5px 0" }} onClick={exportData}>
             <FileDownloadIcon fontSize="small" />
             Export
           </Button>
