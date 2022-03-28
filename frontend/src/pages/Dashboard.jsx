@@ -124,11 +124,11 @@ const Dashboard = () => {
         spacing={2}
         sx={{ padding: "30px" }}
       >
-        <Grid item>
+        <Grid item sx={{ minWidth: '50%' }}>
           <BarChart title="Income Report" dataSets={data.incomes} />
         </Grid>
 
-        <Grid item>
+        <Grid item sx={{ minWidth: '50%' }}>
           <BarChart title="Expenses Report" dataSets={data.expenses}/>
         </Grid>
       </Grid>
