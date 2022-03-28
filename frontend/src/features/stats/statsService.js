@@ -23,9 +23,23 @@ const getUserStats = async (token) => {
   return response.data
 }
 
+// Get public users
+const getDiscoverUsers = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.get(BASE_URL + `/discover`, config)
+
+  return response.data
+}
+
 const goalService = {
     getPublic,
     getUserStats,
+    getDiscoverUsers,
 }
 
 export default goalService

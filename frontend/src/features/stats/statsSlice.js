@@ -46,6 +46,25 @@ export const getUserStats = createAsyncThunk(
   }
 )
 
+// Get user stats
+export const getDiscoverUsers = createAsyncThunk(
+  "Stats/discover",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      return await statsService.getDiscoverUsers(token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const statsSlice = createSlice({
   name: "stats",
   initialState,
@@ -83,6 +102,19 @@ export const statsSlice = createSlice({
         state.data = action.payload
       })
       .addCase(getUserStats.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Get Public Users
+      .addCase(getDiscoverUsers.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getDiscoverUsers.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.data = action.payload
+      })
+      .addCase(getDiscoverUsers.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
