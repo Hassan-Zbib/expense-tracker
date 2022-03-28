@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const Welcome = () => {
   return (
-    <Paper>
+    <Paper id="back-to-top-anchor" >
       <Container maxWidth="true">
         <Grid
           container

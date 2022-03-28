@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material"
+import { Card, CardContent, Grid, Typography } from "@mui/material"
 import BarChart from "../BarChart"
 
 const Stats = (props) => {

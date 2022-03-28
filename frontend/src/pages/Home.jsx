@@ -23,7 +23,7 @@ const Home = () => {
 
   return (
     <>
-      <Navbar id="back-to-top-anchor" />
+      <Navbar />
       <Welcome />
       <Stats data={data} />
       <Ngos />
