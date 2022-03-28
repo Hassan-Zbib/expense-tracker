@@ -132,6 +132,12 @@ export const authSlice = createSlice({
       state.message = ""
       state.profile = {}
     },
+    resetLoaders: (state) => {
+      state.isLoading = false
+      state.isError = false
+      state.isSuccess = false
+      state.message = ""
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -182,7 +188,6 @@ export const authSlice = createSlice({
       .addCase(update.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
-        state.profile = {}
         state.message = action.payload
       })
       // getCurrent Side effects
@@ -230,5 +235,5 @@ export const authSlice = createSlice({
   },
 })
 
-export const { reset } = authSlice.actions
+export const { reset, resetLoaders } = authSlice.actions
 export default authSlice.reducer
