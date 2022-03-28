@@ -45,8 +45,8 @@ export default function DiscoverTable(props) {
                 </TableCell>
                 <TableCell align="center">{row.country}</TableCell>
                 <TableCell align="center">{row.city}</TableCell>
-                <TableCell align="center">{row.totalIncome}</TableCell>
-                <TableCell align="center">{row.totalExpenses}</TableCell>
+                <TableCell align="center">$ {row.totalIncome}</TableCell>
+                <TableCell align="center">$ {row.totalExpenses}</TableCell>
               </TableRow>
             ))}
           </TableBody>
