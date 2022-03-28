@@ -26,7 +26,7 @@ const Home = () => {
       <Navbar />
       <Welcome />
       <Stats data={data} />
-      <Ngos />
+      <Ngos data={data} />
       <Footer />
       <ScrollTop>
         <Fab color="primary" size="small" aria-label="scroll back to top">

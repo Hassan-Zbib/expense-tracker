@@ -20,7 +20,6 @@ import FileUploadIcon from "@mui/icons-material/FileUpload"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 import { format, parseISO } from "date-fns"
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
