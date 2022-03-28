@@ -28,15 +28,25 @@ const getGeneral = asyncHandler(async (req, res) => {
   })
 
   // get expenses and incomes of above users
-  const expenses = await Expense.find(
-    { user: { $in: userIds } },
-    { _id: 0, type: 1, amount: 1, date: 1 }
-  )
+  const expenses = await Expense.aggregate([
+    { $match: { user: { $in: userIds } } },
+    {
+      $group: {
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+        total: { $sum: "$amount" },
+      },
+    },
+  ])
 
-  const incomes = await Income.find(
-    { user: { $in: userIds } },
-    { _id: 0, type: 1, amount: 1, date: 1 }
-  )
+  const incomes = await Income.aggregate([
+    { $match: { user: { $in: userIds } } },
+    {
+      $group: {
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+        total: { $sum: "$amount" },
+      },
+    },
+  ])
 
   // sort users into most recent registered and highest income users
   const recentUsers = users
