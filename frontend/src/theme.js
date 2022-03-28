@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles"
-import { deepPurple, blue, red } from "@mui/material/colors"
+import { deepPurple, blue, red, orange, yellow, green } from "@mui/material/colors"
 
 const theme = createTheme({
   palette: {
@@ -24,6 +24,16 @@ const theme = createTheme({
       contrastText: "#23242A",
       darker: "#9B9393",
     },
+    green: {
+      main : green[400],
+    },
+    orange: {
+      main: orange[400],
+    },
+    yellow: {
+      main: yellow[400],
+    },
+
   },
 })
 
@@ -150,9 +160,7 @@ theme.components = {
       root: {
         backgroundColor: 'white',
         color: theme.palette.background.darker,
-        borderRadius: '10px',
-        minHeight: '172px',
-        minWidth: '278px',
+        borderRadius: '15px',
       }
     },
     defaultProps: {
