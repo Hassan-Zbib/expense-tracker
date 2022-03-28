@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,50 +7,44 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
+} from "chart.js"
+import { Bar } from "react-chartjs-2"
+import { useTheme } from "@mui/styles"
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
+const BarChart = (props) => {
+
+  const theme = useTheme()
+
+  const { title, dataSet } = props
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: title,
+      },
     },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
+  }
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
+  const data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Dataset 2",
+        data: [8, 9, 0, 12, 34, 32, 66],
+        backgroundColor: theme.palette.primary.main,
+      },
+    ],
+  }
 
-export function App() {
-  return <Bar options={options} data={data} />;
+  return <Bar options={options} data={data} />
 }
+
+export default BarChart
