@@ -134,26 +134,13 @@ const updateUser = asyncHandler(async (req, res) => {
   // validate and update inputs
   user.firstName = firstName ? firstName : user.firstName
   user.lastName = lastName ? lastName : user.lastName
-  user.email = email
-    ? validator.isEmail(email)
-      ? email
-      : user.email
-    : user.email
-  user.websiteAddress = websiteAddress
-    ? validator.isURL(websiteAddress)
-      ? websiteAddress
-      : user.websiteAddress
-    : user.websiteAddress
+  user.email = email ? email : user.email
+  user.websiteAddress = websiteAddress ? websiteAddress : user.websiteAddress
   user.country = country ? country : user.country
   user.city = city ? city : user.city
-  user.phone = phone
-    ? validator.isMobilePhone(phone)
-      ? phone
-      : user.phone
-    : user.phone
+  user.phone = phone ? phone : user.phone
   user.about = about ? about : user.about
-  user.logoURL = logoURL ?  logoURL : user.logoURL// needs updating with s3 link
-  user.settings = settings ? settings : user.settings 
+  user.settings = settings ? settings : user.settings
 
   const updatedUser = await user.save()
 
@@ -223,7 +210,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     "Password reset successfully",
     {
       name: userName,
-      link: link
+      link: link,
     },
     "src/api/helpers/templates/resetDone.handlebars"
   )
@@ -293,22 +280,20 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 // @route   GET /api/user/public
 // @access  Public
 const getPublicUsers = asyncHandler(async (req, res) => {
-
-    // get users with publicVisibility
-    const users = await User.find(
-      { "settings.publicVisibility": true },
-      {
-        _id: 1,
-        orgName: 1,
-        country: 1,
-        city: 1,
-        totalIncome: 1,
-        totalExpenses: 1,
-        logoURL: 1,
-        createdAt: 1,
-      }
-    )
-
+  // get users with publicVisibility
+  const users = await User.find(
+    { "settings.publicVisibility": true },
+    {
+      _id: 1,
+      orgName: 1,
+      country: 1,
+      city: 1,
+      totalIncome: 1,
+      totalExpenses: 1,
+      logoURL: 1,
+      createdAt: 1,
+    }
+  )
 
   res.status(200).json(users)
 })
