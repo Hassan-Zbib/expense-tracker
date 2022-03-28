@@ -17,7 +17,7 @@ const BarChart = (props) => {
 
   const theme = useTheme()
 
-  const { title, dataSet } = props
+  const { title, dataSets } = props
 
   const options = {
     responsive: true,
@@ -33,18 +33,26 @@ const BarChart = (props) => {
   }
 
 
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "Dataset 2",
-        data: [8, 9, 0, 12, 34, 32, 66],
-        backgroundColor: theme.palette.primary.main,
-      },
-    ],
+  if(dataSets) {
+    const data = {
+      labels: [],
+      datasets: [
+        {
+          label: "Amount",
+          data: [],
+          backgroundColor: theme.palette.primary.main,
+        },
+      ],
+    }
+  
+    dataSets.forEach(set => {
+      data.labels.push(set._id)
+      data.datasets[0].data.push(set.total)
+    });
+  
+    return <Bar options={options} data={data} />
   }
-
-  return <Bar options={options} data={data} />
+  return null
 }
 
 export default BarChart

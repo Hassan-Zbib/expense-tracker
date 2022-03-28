@@ -83,11 +83,11 @@ const Stats = (props) => {
         sx={{ padding: "30px" }}
       >
         <Grid item md={6} xs={12}>
-          <BarChart title="Income Monthly Report" />
+          <BarChart title="Income Report" dataSets={data.incomes} />
         </Grid>
 
         <Grid item md={6} xs={12}>
-          <BarChart title="Expenses Monthly Report" />
+          <BarChart title="Expenses Report" dataSets={data.expenses}/>
         </Grid>
       </Grid>
     </div>
