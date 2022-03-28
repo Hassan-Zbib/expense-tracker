@@ -8,7 +8,7 @@ const validator = require("validator")
 const sendEmail = require("../helpers/sendEmail")
 
 // @desc    Register new user
-// @route   POST /api/user
+// @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { orgName, firstName, lastName, email, password } = req.body
@@ -75,7 +75,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Authenticate a user
-// @route   POST /api/user/login
+// @route   POST /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -108,7 +108,7 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update a user
-// @route   PUT /api/user
+// @route   PUT /api/users
 // @access  Private
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id)
@@ -148,7 +148,7 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Reset a user password
-// @route   POST /api/user/reset
+// @route   POST /api/users/reset
 // @access  Private
 const resetPassword = asyncHandler(async (req, res) => {
   const { userId, token, password } = req.body
@@ -221,7 +221,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 })
 
 // @desc    Request a reset user password
-// @route   POST /api/user/request.reset
+// @route   POST /api/users/request.reset
 // @access  Public
 const requestResetPassword = asyncHandler(async (req, res) => {
   const { email } = req.body
@@ -270,14 +270,14 @@ const requestResetPassword = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user data
-// @route   GET /api/user
+// @route   GET /api/users
 // @access  Private
 const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 })
 
 // @desc    Get public users
-// @route   GET /api/user/public
+// @route   GET /api/users/public
 // @access  Public
 const getPublicUsers = asyncHandler(async (req, res) => {
   // get users with publicVisibility
