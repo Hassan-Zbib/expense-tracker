@@ -118,17 +118,17 @@ const Dashboard = () => {
 
       <Grid
         container
-        direction="column"
+        direction="row"
         alignItems="center"
         justifyContent="center"
         spacing={2}
         sx={{ padding: "30px" }}
       >
-        <Grid item sx={{ minWidth: '50%' }}>
+        <Grid item xs={12} md={6}>
           <BarChart title="Income Report" dataSets={data.incomes} />
         </Grid>
 
-        <Grid item sx={{ minWidth: '50%' }}>
+        <Grid item xs={12} md={6}>
           <BarChart title="Expenses Report" dataSets={data.expenses}/>
         </Grid>
       </Grid>
