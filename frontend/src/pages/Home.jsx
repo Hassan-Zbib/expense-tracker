@@ -5,13 +5,25 @@ import Footer from "../components/Home/Footer"
 import Ngos from "../components/Home/Ngos"
 import Stats from "../components/Home/Stats"
 import Welcome from "../components/Home/Welcome"
-import ScrollTop from '../components/ScrollTop'
+import ScrollTop from "../components/ScrollTop"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { getPublic } from "../features/stats/statsSlice"
 
 const Home = () => {
-  
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getPublic())
+  }, [])
+
+  const { data, isError, isSuccess, message } = useSelector(
+    (state) => state.stats
+  )
+
   return (
     <>
-      <Navbar id="back-to-top-anchor"/>
+      <Navbar id="back-to-top-anchor" />
       <Welcome />
       <Stats />
       <Ngos />
