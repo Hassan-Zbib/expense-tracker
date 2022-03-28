@@ -96,7 +96,6 @@ const getGeneral = asyncHandler(async (req, res) => {
 // @access  Private
 const getUserStats = asyncHandler(async (req, res) => {
   // get expenses stats
-  console.log(req.user.id)
   let expenseStats = await Expense.aggregate([
     { $match: { user: mongoose.Types.ObjectId(req.user.id) } },
     {
