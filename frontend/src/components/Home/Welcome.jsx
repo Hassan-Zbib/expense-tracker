@@ -13,20 +13,21 @@ const Welcome = () => {
           spacing={0}
           sx={{ minHeight: "90vh" }}
         >
-          <Typography variant="h6" >
+          <Typography variant="h6" sx={{ margin: "30px" }}>
             NGO EXPENSE TRACKER
           </Typography>
-          <Typography variant="h2" textAlign='center'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <Typography variant="h2" textAlign="center" sx={{ margin: "30px" }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </Typography>
           <Button
-                component={Link}
-                to='/sign-up'
-                fullWidth={false}
-                variant="contained"
-              >
-                SIGN UP
-              </Button>
+            component={Link}
+            to="/sign-up"
+            fullWidth={false}
+            variant="contained"
+            sx={{ margin: "30px" }}
+          >
+            SIGN UP
+          </Button>
         </Grid>
       </Container>
     </Paper>
