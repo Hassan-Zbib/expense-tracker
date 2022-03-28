@@ -115,6 +115,23 @@ const Dashboard = () => {
           </Card>
         </Grid>
       </Grid>
+
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        spacing={2}
+        sx={{ padding: "30px" }}
+      >
+        <Grid item>
+          <BarChart title="Income Report" dataSets={data.incomes} />
+        </Grid>
+
+        <Grid item>
+          <BarChart title="Expenses Report" dataSets={data.expenses}/>
+        </Grid>
+      </Grid>
     </>
   )
 }
