@@ -144,7 +144,21 @@ theme.components = {
         color: theme.palette.light.contrastText
       }
     }
-  }
+  },
+  MuiCard: {
+    styleOverrides: {
+      root: {
+        backgroundColor: 'white',
+        color: theme.palette.background.darker,
+        borderRadius: '10px',
+        minHeight: '172px',
+        minWidth: '278px',
+      }
+    },
+    defaultProps: {
+      raised: true
+    }
+  },
 }
 
 export default theme

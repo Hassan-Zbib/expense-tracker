@@ -25,7 +25,7 @@ const Home = () => {
     <>
       <Navbar id="back-to-top-anchor" />
       <Welcome />
-      <Stats />
+      <Stats data={data} />
       <Ngos />
       <Footer />
       <ScrollTop>
