@@ -3,7 +3,8 @@ const router = express.Router()
 
 const {
     getGeneral,
-    getUserStats
+    getUserStats,
+    getDiscoverUsers,
   } = require('../../controllers/statsController')
 
 const { protect } = require('../../middlewares/authMiddleware')
@@ -12,6 +13,7 @@ const { protect } = require('../../middlewares/authMiddleware')
 router.get('/', getGeneral)
   
 router.get('/me', protect,  getUserStats)
+router.get('/discover', protect,  getDiscoverUsers)
 
 
 module.exports = router

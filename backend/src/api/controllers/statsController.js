@@ -127,7 +127,30 @@ const getUserStats = asyncHandler(async (req, res) => {
   res.status(200).json(resData)
 })
 
+// @desc    Get user general stats
+// @route   GET /api/stats/me
+// @access  Private
+const getDiscoverUsers = asyncHandler(async (req, res) => {
+  // get expenses stats
+  const users = await User.find(
+    { "settings.publicVisibility": true },
+    {
+      _id: 1,
+      orgName: 1,
+      country: 1,
+      city: 1,
+      totalIncome: 1,
+      totalExpenses: 1,
+      logoURL: 1,
+      createdAt: 1,
+    }
+  ).sort('-createdAt')
+
+  res.status(200).json(users)
+})
+
 module.exports = {
   getGeneral,
   getUserStats,
+  getDiscoverUsers,
 }
