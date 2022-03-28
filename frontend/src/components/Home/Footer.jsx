@@ -22,7 +22,7 @@ const Footer = () => {
   const classes = useStyles()
 
   return (
-    <Paper>
+    <Paper id="aboutus">
       <Grid
         container
         direction="row"

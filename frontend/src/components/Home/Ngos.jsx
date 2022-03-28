@@ -1,4 +1,4 @@
 const Ngos = () => {
-  return <div>Ngos</div>;
+  return <div id="ngo">Ngos</div>;
 };
 export default Ngos;

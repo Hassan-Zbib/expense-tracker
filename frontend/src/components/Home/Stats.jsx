@@ -1,11 +1,11 @@
-import { Card, CardContent, Grid, Typography } from "@mui/material"
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material"
 import BarChart from "../BarChart"
 
 const Stats = (props) => {
   const { data } = props
 
   return (
-    <>
+    <div id="stats">
       <Grid
         container
         direction="row"
@@ -90,7 +90,7 @@ const Stats = (props) => {
           <BarChart title="Expenses Monthly Report" />
         </Grid>
       </Grid>
-    </>
+    </div>
   )
 }
 export default Stats
