@@ -127,11 +127,11 @@ const getUserStats = asyncHandler(async (req, res) => {
   res.status(200).json(resData)
 })
 
-// @desc    Get user general stats
-// @route   GET /api/stats/me
+// @desc    Get public users
+// @route   GET /api/stats/discover
 // @access  Private
 const getDiscoverUsers = asyncHandler(async (req, res) => {
-  // get expenses stats
+
   const users = await User.find(
     { "settings.publicVisibility": true },
     {
