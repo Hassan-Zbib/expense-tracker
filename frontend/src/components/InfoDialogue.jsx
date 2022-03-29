@@ -8,6 +8,8 @@ import {
   Divider,
   Grid,
 } from "@mui/material"
+import { format, parseISO } from "date-fns"
+import { withStyles } from "@mui/styles"
 
 const InfoDialogue = ({ id }) => {
   const dispatch = useDispatch()
@@ -18,32 +20,63 @@ const InfoDialogue = ({ id }) => {
 
   const { publicUser } = useSelector((state) => state.stats)
 
-  if(!publicUser.orgName) {
-      return null
+  if (!publicUser.orgName) {
+    return null
   }
+
+  const CustomTextField = withStyles({
+    root: {
+      margin: "8px",
+    },
+  })(TextField)
 
   return (
     <DialogContent>
       <Typography variant="h6" fontWeight="bold" sx={{ mb: "20px" }}>
-        {publicUser.orgName}
+        Name: {publicUser.orgName}
       </Typography>
 
       <Divider />
 
-      <TextField
-        disabled
-        label="Country"
+      <CustomTextField label="Country" type="text" value={publicUser.country} />
+
+      <CustomTextField label="City" type="text" value={publicUser.city} />
+
+      <CustomTextField label="Phone" type="text" value={publicUser.phone} />
+
+      <CustomTextField
+        label="Joined At"
         type="text"
-        value={publicUser.country}
+        value={format(parseISO(publicUser.createdAt), "MM/dd/yyyy")}
       />
 
-      <TextField
-        disabled
-        label="City"
+      <CustomTextField
+        label="Total Income"
         type="text"
-        value={publicUser.city}
+        value={"$" + publicUser.totalIncome}
       />
 
+      <CustomTextField
+        label="Total Expenses"
+        type="text"
+        value={"$" + publicUser.totalExpenses}
+      />
+
+      <Grid container direction="column">
+        <CustomTextField
+          label="About"
+          type="text"
+          multiline
+          rows={3}
+          value={publicUser.about}
+        />
+
+        <CustomTextField
+          label="Web Address"
+          type="text"
+          value={publicUser.websiteAddress}
+        />
+      </Grid>
     </DialogContent>
   )
 }
