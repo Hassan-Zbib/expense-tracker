@@ -5,17 +5,17 @@ import {
   TextField,
   Typography,
   Box,
+  Tooltip,
 } from "@mui/material"
 import { useFormik } from "formik"
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { register, reset } from '../features/auth/authSlice'
-import { toast } from 'react-toastify'
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { register, reset } from "../features/auth/authSlice"
+import { toast } from "react-toastify"
 import { registerSchema } from "../validators/userValidator"
 
 const SignUp = () => {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ const SignUp = () => {
     }
 
     if (isSuccess || user) {
-      navigate('/dashboard')
+      navigate("/dashboard")
     }
 
     dispatch(reset())
@@ -77,17 +77,19 @@ const SignUp = () => {
       </Box>
 
       <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          id="orgName"
-          name="orgName"
-          label="NGO Name"
-          type="text"
-          value={formik.values.orgName}
-          onChange={formik.handleChange}
-          error={formik.touched.orgName && Boolean(formik.errors.orgName)}
-          helperText={formik.touched.orgName && formik.errors.orgName}
-        />
+        <Tooltip title="Your Organization's Name Cannot Be Changed Later">
+          <TextField
+            fullWidth
+            id="orgName"
+            name="orgName"
+            label="NGO Name"
+            type="text"
+            value={formik.values.orgName}
+            onChange={formik.handleChange}
+            error={formik.touched.orgName && Boolean(formik.errors.orgName)}
+            helperText={formik.touched.orgName && formik.errors.orgName}
+          />
+        </Tooltip>
 
         <Grid
           container
@@ -105,7 +107,7 @@ const SignUp = () => {
             onChange={formik.handleChange}
             error={formik.touched.firstName && Boolean(formik.errors.firstName)}
             helperText={formik.touched.firstName && formik.errors.firstName}
-            sx={{ margin: "10px 2px 0 0", width: '45%' }}
+            sx={{ margin: "10px 2px 0 0", width: "45%" }}
           />
           <TextField
             id="lastName"
@@ -116,7 +118,7 @@ const SignUp = () => {
             onChange={formik.handleChange}
             error={formik.touched.lastName && Boolean(formik.errors.lastName)}
             helperText={formik.touched.lastName && formik.errors.lastName}
-            sx={{ margin: "10px 0 0 2px", width: '45%'  }}
+            sx={{ margin: "10px 0 0 2px", width: "45%" }}
           />
         </Grid>
 
@@ -152,7 +154,9 @@ const SignUp = () => {
           type="password"
           value={formik.values.confirmPass}
           onChange={formik.handleChange}
-          error={formik.touched.confirmPass && Boolean(formik.errors.confirmPass)}
+          error={
+            formik.touched.confirmPass && Boolean(formik.errors.confirmPass)
+          }
           helperText={formik.touched.confirmPass && formik.errors.confirmPass}
           sx={{ marginTop: "10px" }}
         />
