@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   Switch,
   FormControl,
-  FormLabel,
   FormGroup,
   FormHelperText,
 } from "@mui/material"
@@ -35,19 +34,34 @@ const Profile = () => {
       toast.success(message)
     }
 
+    formik.setValues(
+      {
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+        websiteAddress: profile.websiteAddress,
+        country: profile.country,
+        city: profile.city,
+        phone: profile.phone,
+        about: profile.about,
+        settings: profile.settings,
+      },
+      false
+    )
+
     dispatch(resetLoaders())
   }, [profile, isError, isSuccess, message])
 
   const formik = useFormik({
     initialValues: {
-      firstName: null,
-      lastName: null,
-      email: null,
-      websiteAddress: null,
-      country: null,
-      city: null,
-      phone: null,
-      about: null,
+      firstName: "",
+      lastName: "",
+      email: "",
+      websiteAddress: "",
+      country: "",
+      city: "",
+      phone: "",
+      about: "",
       settings: {
         emailExports: true,
         publicVisibility: true,
@@ -58,6 +72,9 @@ const Profile = () => {
       dispatch(update(values))
     },
   })
+
+  if (profile.settings) {
+  }
 
   return (
     <>
@@ -307,4 +324,5 @@ const Profile = () => {
     </>
   )
 }
+
 export default Profile
