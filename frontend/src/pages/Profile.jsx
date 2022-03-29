@@ -17,13 +17,22 @@ import { useFormik } from "formik"
 import { update, resetLoaders } from "../features/auth/authSlice"
 import { toast } from "react-toastify"
 import { profileSchema } from "../validators/userValidator"
+import { useNavigate } from "react-router-dom"
 
 const Profile = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const { profile, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   )
+
+  useEffect(() => {
+    if( Object.keys(profile).length === 0) {
+      navigate('/dashboard')
+    }
+  }, [])
+
 
   useEffect(() => {
     if (isError) {
