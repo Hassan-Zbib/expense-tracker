@@ -36,10 +36,19 @@ const getDiscoverUsers = async (token) => {
   return response.data
 }
 
+// Get public user info
+const getPublicUserInfo = async (id) => {
+
+  const response = await axios.get(BASE_URL + `/${id}`)
+
+  return response.data
+}
+
 const goalService = {
     getPublic,
     getUserStats,
     getDiscoverUsers,
+    getPublicUserInfo,
 }
 
 export default goalService

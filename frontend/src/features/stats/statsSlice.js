@@ -3,6 +3,7 @@ import statsService from "./statsService"
 
 const initialState = {
   data: {},
+  publicUser: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -65,6 +66,24 @@ export const getDiscoverUsers = createAsyncThunk(
   }
 )
 
+// Get public user info
+export const getPublicUserInfo = createAsyncThunk(
+  "Stats/public/user",
+  async (id, thunkAPI) => {
+    try {
+      return await statsService.getPublicUserInfo(id)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const statsSlice = createSlice({
   name: "stats",
   initialState,
@@ -75,6 +94,7 @@ export const statsSlice = createSlice({
       state.isSuccess = false
       state.message = ""
       state.data = {}
+      state.publicUser = {}
     },
   },
   extraReducers: (builder) => {
@@ -115,6 +135,19 @@ export const statsSlice = createSlice({
         state.data = action.payload
       })
       .addCase(getDiscoverUsers.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Get Public User Info
+      .addCase(getPublicUserInfo.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getPublicUserInfo.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.publicUser = action.payload
+      })
+      .addCase(getPublicUserInfo.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
