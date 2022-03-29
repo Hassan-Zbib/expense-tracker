@@ -67,4 +67,28 @@ const resetPassSchema = yup.object({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 })
 
-export { loginSchema, registerSchema, forgotPassSchema, resetPassSchema }
+const profileSchema = yup.object({
+  firstName: yup.string("Enter your first name").trim(),
+  lastName: yup.string("Enter your last name").trim(),
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .lowercase()
+    .trim(),
+  websiteAddress: yup
+    .string("Enter your organization's website address")
+    .url("Enter a valid url")
+    .trim(),
+  country: yup.string("Enter your country").trim(),
+  city: yup.string("Enter your city").trim(),
+  phone: yup.string("Enter your phone number").trim(),
+  about: yup.string("Enter your a description of your organization").trim(),
+})
+
+export {
+  loginSchema,
+  registerSchema,
+  forgotPassSchema,
+  resetPassSchema,
+  profileSchema,
+}

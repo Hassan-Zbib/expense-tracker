@@ -196,7 +196,6 @@ export const authSlice = createSlice({
       })
       .addCase(getCurrent.fulfilled, (state, action) => {
         state.isLoading = false
-        state.isSuccess = true
         state.profile = action.payload
       })
       .addCase(getCurrent.rejected, (state, action) => {

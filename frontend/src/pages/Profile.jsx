@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useFormik } from "formik"
 import { update, resetLoaders } from "../features/auth/authSlice"
 import { toast } from "react-toastify"
-// import { registerSchema } from "../validators/userValidator"
+import { profileSchema } from "../validators/userValidator"
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -67,7 +67,7 @@ const Profile = () => {
         publicVisibility: true,
       },
     },
-    // validationSchema: registerSchema,
+    validationSchema: profileSchema,
     onSubmit: (values) => {
       dispatch(update(values))
     },
