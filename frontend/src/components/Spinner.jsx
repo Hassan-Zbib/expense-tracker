@@ -4,15 +4,27 @@ import { useSelector } from 'react-redux'
   
 function Spinner() {
 
-  const { isLoading } = useSelector(
+  const auth = useSelector(
     (state) => state.auth
+  )
+
+  const income = useSelector(
+    (state) => state.income
+  )
+
+  const expense = useSelector(
+    (state) => state.expense
+  )
+
+  const stats = useSelector(
+    (state) => state.stats
   )
 
   return (
     <>
       {
 
-        isLoading ? (
+        auth.isLoading || income.isLoading  || expense.isLoading  || stats.isLoading  ? (
           <div className='loadingSpinnerContainer'>
           <div className='loadingSpinner'></div>
         </div>
