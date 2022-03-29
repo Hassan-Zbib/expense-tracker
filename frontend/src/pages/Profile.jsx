@@ -5,6 +5,12 @@ import {
   Divider,
   Grid,
   Tooltip,
+  FormControlLabel,
+  Switch,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  FormHelperText,
 } from "@mui/material"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
@@ -42,7 +48,10 @@ const Profile = () => {
       city: null,
       phone: null,
       about: null,
-      settings: null,
+      settings: {
+        emailExports: true,
+        publicVisibility: true,
+      },
     },
     // validationSchema: registerSchema,
     onSubmit: (values) => {
@@ -59,6 +68,9 @@ const Profile = () => {
         justifyContent="center"
       >
         <form onSubmit={formik.handleSubmit}>
+          <Typography variant="h6" fontWeight="bold" sx={{ m: "20px 0" }}>
+            Profile
+          </Typography>
           <Grid
             container
             direction="row"
@@ -97,7 +109,7 @@ const Profile = () => {
                   helperText={
                     formik.touched.firstName && formik.errors.firstName
                   }
-                  sx={{ width: '100%'}}
+                  sx={{ width: "100%" }}
                 />
               </Grid>
               <Grid item md={6} xs={12}>
@@ -112,22 +124,36 @@ const Profile = () => {
                     formik.touched.lastName && Boolean(formik.errors.lastName)
                   }
                   helperText={formik.touched.lastName && formik.errors.lastName}
-                  sx={{ width: '100%' }}
+                  sx={{ width: "100%" }}
                 />
               </Grid>
             </Grid>
+            <Tooltip title="Your Email Must Be Unique">
+              <TextField
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+                sx={{ marginTop: "15px" }}
+              />
+            </Tooltip>
 
-            <TextField
-              fullWidth
-              id="email"
-              name="email"
-              label="Email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-              sx={{ marginTop: "15px" }}
-            />
+            <Grid container direction="column">
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                sx={{ m: "20px 0 0 0" }}
+              >
+                Basic Information
+              </Typography>
+              <FormHelperText>
+                Add the basic information about your company
+              </FormHelperText>
+            </Grid>
 
             <TextField
               fullWidth
@@ -182,18 +208,82 @@ const Profile = () => {
               helperText={formik.touched.phone && formik.errors.phone}
               sx={{ marginTop: "15px" }}
             />
+
+            <Grid container direction="column">
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                sx={{ m: "20px 0 0 0" }}
+              >
+                About
+              </Typography>
+              <FormHelperText>
+                Add a short description about your organization
+              </FormHelperText>
+            </Grid>
+
             <TextField
               fullWidth
               id="about"
               name="about"
               label="Description"
               type="text"
+              multiline
+              rows={3}
               value={formik.values.about}
               onChange={formik.handleChange}
               error={formik.touched.about && Boolean(formik.errors.about)}
               helperText={formik.touched.about && formik.errors.about}
               sx={{ marginTop: "15px" }}
             />
+
+            <Typography variant="h6" fontWeight="bold" sx={{ m: "20px 0" }}>
+              Settings
+            </Typography>
+
+            <FormControl component="fieldset" variant="standard" fullWidth>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={() => {
+                        formik.values.settings.publicVisibility
+                          ? formik.setFieldValue(
+                              "settings.publicVisibility",
+                              false
+                            )
+                          : formik.setFieldValue(
+                              "settings.publicVisibility",
+                              true
+                            )
+                      }}
+                      checked={formik.values.settings.publicVisibility}
+                    />
+                  }
+                  label="Allow Public Visibility"
+                />
+                <FormHelperText>
+                  Send me an export copy via email
+                </FormHelperText>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={() => {
+                        formik.values.settings.emailExports
+                          ? formik.setFieldValue("settings.emailExports", false)
+                          : formik.setFieldValue("settings.emailExports", true)
+                      }}
+                      checked={formik.values.settings.emailExports}
+                    />
+                  }
+                  label="Enable Email Exports"
+                />
+                <FormHelperText>
+                  Allow users and non users to access your general information
+                </FormHelperText>
+              </FormGroup>
+            </FormControl>
+
             <Divider />
             <Grid
               container
@@ -208,7 +298,7 @@ const Profile = () => {
                 type="submit"
                 fullWidth={false}
               >
-                Submit
+                Update Profile
               </Button>
             </Grid>
           </Grid>
