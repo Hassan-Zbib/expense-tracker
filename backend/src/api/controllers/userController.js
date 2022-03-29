@@ -135,11 +135,11 @@ const updateUser = asyncHandler(async (req, res) => {
   user.firstName = firstName ? firstName : user.firstName
   user.lastName = lastName ? lastName : user.lastName
   user.email = email ? email : user.email
-  user.websiteAddress = websiteAddress ? websiteAddress : user.websiteAddress
-  user.country = country ? country : user.country
-  user.city = city ? city : user.city
-  user.phone = phone ? phone : user.phone
-  user.about = about ? about : user.about
+  user.websiteAddress = websiteAddress
+  user.country = country
+  user.city = city
+  user.phone = phone
+  user.about = about
   user.settings = settings ? settings : user.settings
 
   const updatedUser = await user.save()
