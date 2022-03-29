@@ -6,8 +6,11 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  IconButton,
+  Tooltip,
   Avatar,
 } from "@mui/material"
+import InfoIcon from "@mui/icons-material/Info"
 
 export default function DiscoverTable(props) {
   const { rows } = props
@@ -32,6 +35,7 @@ export default function DiscoverTable(props) {
               <TableCell align="center">City</TableCell>
               <TableCell align="center">Total Income</TableCell>
               <TableCell align="center">Total Expenses</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,6 +51,13 @@ export default function DiscoverTable(props) {
                 <TableCell align="center">{row.city}</TableCell>
                 <TableCell align="center">$ {row.totalIncome}</TableCell>
                 <TableCell align="center">$ {row.totalExpenses}</TableCell>
+                <TableCell align="center">
+                  <Tooltip title="Check Info">
+                    <IconButton aria-label="info" onClick={() => console.log("sfdg")}>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
