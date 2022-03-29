@@ -10,6 +10,7 @@ import {
 } from "@mui/material"
 import { format, parseISO } from "date-fns"
 import { withStyles } from "@mui/styles"
+import { toast } from "react-toastify"
 
 const InfoDialogue = ({ id }) => {
   const dispatch = useDispatch()
@@ -18,7 +19,14 @@ const InfoDialogue = ({ id }) => {
     dispatch(getPublicUserInfo(id))
   }, [])
 
-  const { publicUser } = useSelector((state) => state.stats)
+  const { publicUser, isError, isSuccess, message } = useSelector((state) => state.stats)
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+  }, [publicUser, isError, isSuccess, message])
 
   if (!publicUser.orgName) {
     return null
