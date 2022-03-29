@@ -86,7 +86,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   // Check for user email
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email } , { orgName: 1, password: 1, firstName: 1, lastName: 1, email: 1 })
   if (!user) {
     res.status(400)
     throw new Error("User not found")
