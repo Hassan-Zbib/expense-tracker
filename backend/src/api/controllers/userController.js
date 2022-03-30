@@ -127,9 +127,17 @@ const updateUser = asyncHandler(async (req, res) => {
     city,
     phone,
     about,
-    logoURL,
     settings,
   } = req.body
+
+  // check email
+  if(email) {
+    const userExists = await User.exists({ email: email })
+    if (userExists) {
+      res.status(400)
+      throw new Error("Email Taken")
+    }
+  }
 
   // validate and update inputs
   user.firstName = firstName ? firstName : user.firstName
