@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: expense-tracker-frontend
+    ports:
+      - 3000:3000
+    container_name: frontend
+    networks:
+      - expense-tracker-stack
+    volumes:
+      - ./frontend/src:/usr/app/src
+      - ./frontend/public:/usr/app/public
+    depends_on:
+      - backend
+
+ 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: expense-tracker-backend
+    restart: unless-stopped
+    ports:
+      - 3080:3080
+    container_name: backend
+    networks:
+      - expense-tracker-stack
+    volumes:
+      - ./backend/src:/usr/app/src
+    depends_on:
+      - db
+ 
+  db:
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    container_name: mongo-db
+    networks:
+      - expense-tracker-stack
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  expense-tracker-stack:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
