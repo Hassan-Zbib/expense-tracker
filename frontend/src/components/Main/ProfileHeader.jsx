@@ -1,9 +1,13 @@
 import Avatar from "@mui/material/Avatar"
 import { Grid, Typography, Button } from "@mui/material"
 import { logout, reset, resetLoaders, getCurrent } from "../../features/auth/authSlice"
+import { reset as resetStats } from "../../features/stats/statsSlice"
+import { reset as resetIncome} from "../../features/income/incomeSlice"
+import { reset as resetExpense} from "../../features/expense/expenseSlice"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
+import { toast } from "react-toastify"
 
 const ProfileHeader = () => {
   const navigate = useNavigate()
@@ -46,6 +50,9 @@ const ProfileHeader = () => {
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
+    dispatch(resetStats())
+    dispatch(resetIncome())
+    dispatch(resetExpense())
     navigate("/")
   }
 
@@ -59,7 +66,9 @@ const ProfileHeader = () => {
         spacing={2}
       >
         <Grid item>
-          <Avatar>{getInitials()}</Avatar>
+          {
+            !profile.logoURL ? (<Avatar>{getInitials()}</Avatar>) : (<Avatar src={profile.logoURL}></Avatar>)
+          }
         </Grid>
         <Grid item>
           <Grid

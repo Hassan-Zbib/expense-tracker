@@ -15,6 +15,16 @@ import InfoIcon from "@mui/icons-material/Info"
 import InfoDialogue from "./InfoDialogue"
 import { useState } from "react"
 
+const getInitials = (user) => {
+  const first = user.firstName
+    ? user.firstName.substring(0, 1).toUpperCase()
+    : "U"
+  const last = user.lastName
+    ? user.lastName.substring(0, 1).toUpperCase()
+    : "N"
+  return first + last
+}
+
 export default function DiscoverTable(props) {
   const [Open, setOpen] = useState(false)
   const [Id, setId] = useState(0)
@@ -48,7 +58,8 @@ export default function DiscoverTable(props) {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>NGO Name</TableCell>
+                <TableCell></TableCell>
+                <TableCell align="left">NGO Name</TableCell>
                 <TableCell align="center">Country</TableCell>
                 <TableCell align="center">City</TableCell>
                 <TableCell align="center">Total Income</TableCell>
@@ -63,8 +74,13 @@ export default function DiscoverTable(props) {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.orgName}
+                    {!row.logoURL ? (
+                      <Avatar>{getInitials(row)}</Avatar>
+                    ) : (
+                      <Avatar src={row.logoURL}></Avatar>
+                    )}
                   </TableCell>
+                  <TableCell align="left">{row.orgName}</TableCell>
                   <TableCell align="center">{row.country}</TableCell>
                   <TableCell align="center">{row.city}</TableCell>
                   <TableCell align="center">$ {row.totalIncome}</TableCell>
