@@ -32,10 +32,10 @@ services:
     volumes:
       - ./backend/src:/usr/app/src
     depends_on:
-      - db
+      - mongodb
  
-  db:
-    image: mongo
+  mongodb:
+    image: mongo:latest
     restart: unless-stopped
     ports:
       - 27017:27017
