@@ -5,15 +5,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: expense-tracker-frontend
     ports:
       - 3000:3000
     container_name: frontend
     networks:
-      - expense-tracker-stack
-    volumes:
-      - ./frontend/src:/usr/app/src
-      - ./frontend/public:/usr/app/public
+      - frontend
     depends_on:
       - backend
 
@@ -22,33 +18,36 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: expense-tracker-backend
     restart: unless-stopped
     ports:
       - 3080:3080
     container_name: backend
     networks:
-      - expense-tracker-stack
+      - backend
+      - frontend 
     volumes:
-      - ./backend/src:/usr/app/src
+      - db:/data/db
     depends_on:
       - mongodb
  
   mongodb:
-    image: mongo:latest
+    image: mongo:5.0.2
     restart: unless-stopped
     ports:
       - 27017:27017
     container_name: mongo-db
+    env_file: ./.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
     networks:
-      - expense-tracker-stack
+      - backend
     volumes:
-      - mongo-data:/data/db
+      - db:/data/db
 
 networks:
-  expense-tracker-stack:
-    driver: bridge
+  backend:
+  frontend:
 
 volumes:
-  mongo-data:
-    driver: local
+  db:
