@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer")
 const handlebars = require("handlebars")
 const fs = require("fs")
 
-const sendEmail = async (email, subject, payload, template) => {
+const sendEmail = async (email, subject, payload, template, attachments) => {
     try {
         const transporter = nodemailer.createTransport({
             // host: process.env.HOST,
@@ -23,7 +23,12 @@ const sendEmail = async (email, subject, payload, template) => {
             to: email,
             subject: subject,
             html: compiledTemplate(payload),
+            attachments: []
         }
+
+        attachments.forEach(file => {
+            options.attachments.push(file)
+        });
 
         // Send email
         await transporter.sendMail(options);

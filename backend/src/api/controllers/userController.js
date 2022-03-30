@@ -131,7 +131,7 @@ const updateUser = asyncHandler(async (req, res) => {
   } = req.body
 
   // check email
-  if(email) {
+  if(email && email != user.email) {
     const userExists = await User.exists({ email: email })
     if (userExists) {
       res.status(400)
