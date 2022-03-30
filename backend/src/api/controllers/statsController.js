@@ -36,7 +36,7 @@ const getGeneral = asyncHandler(async (req, res) => {
         total: { $sum: "$amount" },
       },
     },
-  ])
+  ]).limit(15).sort({ _id: 1 })
 
   const incomes = await Income.aggregate([
     { $match: { user: { $in: userIds } } },
@@ -46,7 +46,7 @@ const getGeneral = asyncHandler(async (req, res) => {
         total: { $sum: "$amount" },
       },
     },
-  ])
+  ]).limit(15).sort({ _id: 1 })
 
   // sort users into most recent registered and highest income users
   const recentUsers = users
@@ -132,7 +132,7 @@ const getUserStats = asyncHandler(async (req, res) => {
 const getDiscoverUsers = asyncHandler(async (req, res) => {
 
   const users = await User.find(
-    { "settings.publicVisibility": true },
+    { "settings.publicVisibility": true, _id: { $ne: req.user.id } },
     {
       _id: 1,
       orgName: 1,
@@ -143,7 +143,7 @@ const getDiscoverUsers = asyncHandler(async (req, res) => {
       logoURL: 1,
       createdAt: 1,
     }
-  ).sort('-createdAt')
+  ).sort({ createdAt: -1 })
 
   res.status(200).json(users)
 })
