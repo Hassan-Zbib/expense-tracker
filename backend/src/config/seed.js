@@ -2,11 +2,14 @@ const { faker } = require("@faker-js/faker")
 const bcrypt = require("bcryptjs")
 const colors = require("colors")
 const mongoose = require("mongoose")
-const dotenv = require("dotenv").config()
+const path = require("path")
+const dotenv = require("dotenv")
 const connectDB = require("./db")
 const Income = require("../api/models/incomeModel")
 const Expense = require("../api/models/expenseModel")
 const User = require("../api/models/userModel")
+const Document = require("../api/models/documentModel")
+const Token = require("../api/models/tokenModel")
 
 const hashPassword = async (pass) => {
   const salt = await bcrypt.genSalt(10)
@@ -14,18 +17,27 @@ const hashPassword = async (pass) => {
   return hashedPassword
 }
 
-const seedDB = async (usersCount, transactionsPerUser, password) => {
-  await connectDB()
-
+const seedDB = async (usersCount, transactionsPerUser) => {
   try {
+    if (!process.env.NODE_ENV) {
+      process.env.NODE_ENV = 'development'
+    }
+    dotenv.config({
+      path: path.join(__dirname, `../../.env.${process.env.NODE_ENV}`),
+    })
+
+    await connectDB()
+
     // clean DB
     await User.deleteMany({})
     await Income.deleteMany({})
     await Expense.deleteMany({})
-    console.log("DB Cleaned".underline.blue)
+    await Document.deleteMany({})
+    await Token.deleteMany({})
+    console.log("DB Cleaned".bold.green)
 
     // Create random users
-    const hashedPassword = await hashPassword(password)
+    const hashedPassword = await hashPassword(process.env.DB_SEED_USERS_PASS)
     let users = []
     for (let i = 0; i < usersCount; i++) {
       const newUser = {
@@ -106,13 +118,6 @@ const seedDB = async (usersCount, transactionsPerUser, password) => {
 
     registeredUsers.forEach((updatedUser) => {
       savePromises.push(updatedUser.save())
-
-      // User.findById(updatedUser.id).then(user => {
-      //     user.transactions = updatedUser.transactions
-      //     user.totalIncome = updatedUser.totalIncome
-      //     user.totalExpenses = updatedUser.totalExpenses
-      //     user.save()
-      // })
     })
 
     // resolve all save promises
@@ -126,7 +131,7 @@ const seedDB = async (usersCount, transactionsPerUser, password) => {
   }
 }
 
-seedDB(10, 5, process.env.DB_SEED_USERS_PASS).then(() => {
+seedDB(10, 5).then(() => {
   mongoose.connection.close(() => {
     console.log("Connection closed".underline.blue)
     process.exit(0)
