@@ -1,9 +1,8 @@
 import Avatar from "@mui/material/Avatar"
 import { Grid, Typography, Button } from "@mui/material"
-import { logout, reset } from "../../features/auth/authSlice"
+import { logout, reset, resetLoaders, getCurrent } from "../../features/auth/authSlice"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { getCurrent } from "../../features/auth/authSlice"
 import { useEffect } from "react"
 
 const ProfileHeader = () => {
@@ -14,7 +13,15 @@ const ProfileHeader = () => {
     dispatch(getCurrent())
   }, [])
 
-  const { profile } = useSelector((state) => state.auth)
+  const { profile, isError, isSuccess, message } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    dispatch(resetLoaders())
+  }, [profile, isError, isSuccess, message, navigate, dispatch])
 
   const getInitials = () => {
     const first = profile.firstName
