@@ -24,7 +24,7 @@ const seedDB = async (usersCount, transactionsPerUser, password) => {
     await Expense.deleteMany({})
     console.log("DB Cleaned".underline.blue)
 
-    // create random users
+    // Create random users
     const hashedPassword = await hashPassword(password)
     let users = []
     for (let i = 0; i < usersCount; i++) {
@@ -44,22 +44,31 @@ const seedDB = async (usersCount, transactionsPerUser, password) => {
       users.push(newUser)
     }
 
-    // insert users
-    const registeredUsers = await User.insertMany(users)
+    // Insert users
+    let registeredUsers = await User.insertMany(users)
     console.log("Users added".bold.green)
 
-    // create transacttions
+    // Create transactions
     let incomes = []
     let expenses = []
+    let usersUpdatedValues = []
+
     registeredUsers.forEach((user) => {
+      let updatedValues = {
+        id: user._id,
+        transactions: transactionsPerUser * 2,
+        totalIncome: 0,
+        totalExpenses: 0,
+      }
+
       for (let i = 0; i < transactionsPerUser; i++) {
-        let newIncome = {
+        const newIncome = {
           user: user._id,
           type: faker.commerce.department(),
           amount: faker.commerce.price(10, 400, 0),
           date: faker.date.past(1),
         }
-        let newExpense = {
+        const newExpense = {
           user: user._id,
           type: faker.commerce.department(),
           amount: faker.commerce.price(10, 400, 0),
@@ -67,8 +76,12 @@ const seedDB = async (usersCount, transactionsPerUser, password) => {
         }
 
         incomes.push(newIncome)
+        updatedValues.totalIncome += parseInt(newIncome.amount)
         expenses.push(newExpense)
+        updatedValues.totalExpenses += parseInt(newExpense.amount)
       }
+
+      usersUpdatedValues.push(updatedValues)
     })
 
     // Insert transactions
@@ -76,13 +89,44 @@ const seedDB = async (usersCount, transactionsPerUser, password) => {
     await Expense.insertMany(expenses)
     console.log("Transactions added".bold.green)
 
+    // Update users stats
+    let savePromises = []
+
+    registeredUsers = registeredUsers.map((user) => {
+      let updatedUser = usersUpdatedValues.find(
+        (values) => values.id === user._id
+      )
+      if (updatedUser) {
+        user.transactions = updatedUser.transactions
+        user.totalIncome = updatedUser.totalIncome
+        user.totalExpenses = updatedUser.totalExpenses
+      }
+      return user
+    })
+
+    registeredUsers.forEach((updatedUser) => {
+      savePromises.push(updatedUser.save())
+
+      // User.findById(updatedUser.id).then(user => {
+      //     user.transactions = updatedUser.transactions
+      //     user.totalIncome = updatedUser.totalIncome
+      //     user.totalExpenses = updatedUser.totalExpenses
+      //     user.save()
+      // })
+    })
+
+    // resolve all save promises
+    await Promise.all(savePromises)
+
+    console.log("Users stats updated".bold.green)
+
     console.log("DB seeded successfully".bold.green)
   } catch (error) {
     console.log(error)
   }
 }
 
-seedDB(10, 5, "Fakepass@01").then(() => {
+seedDB(10, 5, process.env.DB_SEED_USERS_PASS).then(() => {
   mongoose.connection.close(() => {
     console.log("Connection closed".underline.blue)
     process.exit(0)
