@@ -104,7 +104,7 @@ const getUserStats = asyncHandler(async (req, res) => {
         total: { $sum: "$amount" },
       },
     },
-  ])
+  ]).sort({ _id: 1 })
 
   // get incomes stats
   let incomeStats = await Income.aggregate([
@@ -115,7 +115,7 @@ const getUserStats = asyncHandler(async (req, res) => {
         total: { $sum: "$amount" },
       },
     },
-  ])
+  ]).sort({ _id: 1 })
 
   // construct res
   const resData = {
