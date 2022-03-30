@@ -2,7 +2,7 @@ import axios from "axios"
 import fileDownload from "js-file-download"
 import { format } from "date-fns"
 
-const BASE_URL = "http://localhost:5000/api/expenses"
+const BASE_URL = "/expenses"
 
 // Create new expense
 const createExpense = async (expenseData, token) => {
