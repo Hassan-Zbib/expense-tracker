@@ -8,7 +8,6 @@ const {
     resetPassword,
     getCurrentUser,
     requestResetPassword,
-    getPublicUsers
   } = require('../../controllers/userController')
 
 const { protect } = require('../../middlewares/authMiddleware')
@@ -20,7 +19,6 @@ router.route('/')
   .put(protect, updateUser)
   .get(protect, getCurrentUser)
 
-router.get('/public', getPublicUsers)
 router.post('/login', loginUser)
 router.post('/reset', resetPassword)
 router.post('/request.reset', requestResetPassword)
