@@ -7,7 +7,7 @@ const documentSchema = mongoose.Schema(
             required: [true, 'Please specify a model'],
             enum: ['Expense', 'Income']
         },
-        extendes:  {
+        extends:  {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             refPath: 'model',
