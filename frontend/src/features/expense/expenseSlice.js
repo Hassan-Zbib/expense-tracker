@@ -11,7 +11,7 @@ const initialState = {
 
 // Create new expense
 export const createExpense = createAsyncThunk(
-  "Expense/create",
+  "expense/create",
   async (expenseData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -30,7 +30,7 @@ export const createExpense = createAsyncThunk(
 
 // Get user expenses
 export const getExpenses = createAsyncThunk(
-  "Expense/getAll",
+  "expense/getAll",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -49,7 +49,7 @@ export const getExpenses = createAsyncThunk(
 
 // Delete user expense
 export const deleteExpense = createAsyncThunk(
-  "Expense/delete",
+  "expense/delete",
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -68,7 +68,7 @@ export const deleteExpense = createAsyncThunk(
 
 // Update user expense
 export const updateExpense = createAsyncThunk(
-  "Expense/update",
+  "expense/update",
   async (expenseData, thunkAPI) => {
     try {
       const id = expenseData.id
@@ -89,7 +89,7 @@ export const updateExpense = createAsyncThunk(
 
 // Upload expense data
 export const uploadData = createAsyncThunk(
-  "Expense/import",
+  "expense/import",
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -108,7 +108,7 @@ export const uploadData = createAsyncThunk(
 
 // Export expense data
 export const exportData = createAsyncThunk(
-  "Expense/export",
+  "expense/export",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken

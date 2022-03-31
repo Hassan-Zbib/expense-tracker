@@ -30,7 +30,7 @@ const setDocument = async (formData, token) => {
 }
 
 // Update document
-const updateDocument = async (formData, id, token) => {
+const updateDocument = async (formData, token) => {
     const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const updateDocument = async (formData, id, token) => {
         },
       }
     
-      const response = await axios.put(BASE_URL + `/${id}`, formData, config)
+      const response = await axios.put(BASE_URL, formData, config)
     
       return response.data
 }

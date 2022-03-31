@@ -20,11 +20,15 @@ function Spinner() {
     (state) => state.stats
   )
 
+  const document = useSelector(
+    (state) => state.stats
+  )
+
   return (
     <>
       {
 
-        auth.isLoading || income.isLoading  || expense.isLoading  || stats.isLoading  ? (
+        auth.isLoading || income.isLoading  || expense.isLoading  || stats.isLoading || document.isLoading ? (
           <div className='loadingSpinnerContainer'>
           <div className='loadingSpinner'></div>
         </div>

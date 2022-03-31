@@ -11,7 +11,7 @@ const initialState = {
 
 // Create new income
 export const createIncome = createAsyncThunk(
-  "Income/create",
+  "income/create",
   async (incomeData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -30,7 +30,7 @@ export const createIncome = createAsyncThunk(
 
 // Get user incomes
 export const getIncomes = createAsyncThunk(
-  "Income/getAll",
+  "income/getAll",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -49,7 +49,7 @@ export const getIncomes = createAsyncThunk(
 
 // Delete user income
 export const deleteIncome = createAsyncThunk(
-  "Income/delete",
+  "income/delete",
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -68,7 +68,7 @@ export const deleteIncome = createAsyncThunk(
 
 // Update user income
 export const updateIncome = createAsyncThunk(
-  "Income/update",
+  "income/update",
   async (incomeData, thunkAPI) => {
     try {
       const id = incomeData.id
@@ -89,7 +89,7 @@ export const updateIncome = createAsyncThunk(
 
 // Upload income data
 export const uploadData = createAsyncThunk(
-  "Income/import",
+  "income/import",
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
@@ -108,7 +108,7 @@ export const uploadData = createAsyncThunk(
 
 // Export income data
 export const exportData = createAsyncThunk(
-  "Income/export",
+  "income/export",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.accessToken
