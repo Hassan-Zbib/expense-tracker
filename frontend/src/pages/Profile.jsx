@@ -10,14 +10,20 @@ import {
   FormControl,
   FormGroup,
   FormHelperText,
+  Avatar,
 } from "@mui/material"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useFormik } from "formik"
-import { update, resetLoaders } from "../features/auth/authSlice"
+import {
+  update,
+  resetLoaders,
+  uploadProfilePic,
+} from "../features/auth/authSlice"
+import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { profileSchema } from "../validators/userValidator"
-import { useNavigate } from "react-router-dom"
+import FileUploadIcon from "@mui/icons-material/FileUpload"
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -28,11 +34,10 @@ const Profile = () => {
   )
 
   useEffect(() => {
-    if( Object.keys(profile).length === 0) {
+    if(!profile || Object.keys(profile).length === 0) {
       navigate('/dashboard')
     }
   }, [])
-
 
   useEffect(() => {
     if (isError) {
@@ -59,7 +64,7 @@ const Profile = () => {
     )
 
     dispatch(resetLoaders())
-  }, [profile, isError, isSuccess, message])
+  }, [profile, isError, isSuccess, message, dispatch])
 
   const formik = useFormik({
     initialValues: {
@@ -82,7 +87,11 @@ const Profile = () => {
     },
   })
 
-  if (profile.settings) {
+  const onUpload = (event) => {
+    const file = event.target.files[0]
+    const formData = new FormData()
+    formData.append("file", file)
+    dispatch(uploadProfilePic(formData))
   }
 
   return (
@@ -97,6 +106,36 @@ const Profile = () => {
           <Typography variant="h6" fontWeight="bold" sx={{ m: "20px 0" }}>
             Profile
           </Typography>
+
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            sx={{ m: '0 0 15px 0'}}
+          >
+            <Avatar
+              alt="Remy Sharp"
+              src={profile.logoURL}
+              sx={{ width: 100, height: 100, mr: 2}}
+            />
+
+            <input
+              color="primary"
+              accept="image/*"
+              type="file"
+              onChange={onUpload}
+              id="icon-button-file"
+              hidden
+            />
+            <label htmlFor="icon-button-file">
+              <Button fullWidth={false} component="span" variant="outlined" size="small">
+                <FileUploadIcon fontSize="small" />
+                Upload
+              </Button>
+            </label>
+          </Grid>
+
           <Grid
             container
             direction="row"

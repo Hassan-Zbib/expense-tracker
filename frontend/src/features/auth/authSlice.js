@@ -133,7 +133,7 @@ export const uploadProfilePic = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.accessToken
       let res = await authService.uploadProfilePic(formData, token)
-      return thunkAPI.fulfillWithValue(res.message)
+      return thunkAPI.fulfillWithValue(res)
     } catch (error) {
       const message =
         (error.response &&
@@ -264,6 +264,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
+        state.message = "Profile Updated"
       })
       .addCase(uploadProfilePic.rejected, (state, action) => {
         state.isLoading = false
