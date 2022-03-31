@@ -14,6 +14,7 @@ import Profile from "./pages/Profile"
 import Discover from "./pages/Discover"
 import MainLayout from "./layouts/MainLayout"
 import Dashboard from "./pages/Dashboard"
+import Documents from "./pages/Documents"
 import ProtectedRoute from "./components/ProtectedRoute"
 import PublicRoute from "./components/PublicRoute"
 import Spinner from "./components/Spinner"
@@ -45,6 +46,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/income" element={<Income />} />
               <Route path="/expenses" element={<Expenses />} />
+              <Route path="/documents/:type/:id" element={<Documents />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/discover" element={<Discover />} />
             </Route>

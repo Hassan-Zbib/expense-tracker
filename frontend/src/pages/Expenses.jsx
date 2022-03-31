@@ -27,10 +27,6 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
 import { transactionSchema } from "../validators/transactionValidator"
 
-const documents = () => {
-  return true
-}
-
 const Expenses = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
@@ -258,7 +254,7 @@ const Expenses = () => {
         rows={data}
         onDelete={onDelete}
         onEdit={handleEditClickOpen}
-        documents={documents}
+        type="expense"
         importData={onImport}
         exportData={onExport}
         addNew={handleAddClickOpen}

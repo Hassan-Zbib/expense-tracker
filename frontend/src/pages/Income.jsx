@@ -258,7 +258,7 @@ const Income = () => {
         rows={data}
         onDelete={onDelete}
         onEdit={handleEditClickOpen}
-        documents={documents}
+        type="income"
         importData={onImport}
         exportData={onExport}
         addNew={handleAddClickOpen}

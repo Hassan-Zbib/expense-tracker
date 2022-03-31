@@ -20,6 +20,7 @@ import FileUploadIcon from "@mui/icons-material/FileUpload"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 import { format, parseISO } from "date-fns"
+import { useNavigate } from "react-router-dom"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,7 +60,9 @@ export default function DataTable(props) {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
-  const { rows, onDelete, onEdit, documents, importData, exportData, addNew } =
+  const navigate = useNavigate()
+
+  const { rows, onDelete, onEdit, type, importData, exportData, addNew } =
     props
 
   const handleRequestSort = (event, property) => {
@@ -148,7 +151,7 @@ export default function DataTable(props) {
                             variant="contained"
                             size="small"
                             sx={{ borderRadius: "5px" }}
-                            onClick={(event) => documents(event, row.name)}
+                            onClick={() => navigate(`/documents/${type}/${row._id}`)}
                           >
                             Documents
                           </Button>
@@ -234,7 +237,7 @@ DataTable.propTypes = {
   rows: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  documents: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
   importData: PropTypes.func.isRequired,
   exportData: PropTypes.func.isRequired,
   addNew: PropTypes.func.isRequired,
