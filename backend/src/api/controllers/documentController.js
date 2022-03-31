@@ -30,6 +30,7 @@ const setDocument = asyncHandler(async (req, res) => {
 
   const doc = await Document.create({
     model: req.body.model,
+    extends: req.body.transactionId,
     notes: req.body.notes,
     date: req.body.date,
     document: link,
