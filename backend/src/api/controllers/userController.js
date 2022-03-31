@@ -288,7 +288,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    upload user image
-// @route   POST /api/users
+// @route   POST /api/users/upload
 // @access  Private
 const uploadProfilePic = asyncHandler(async (req, res) => {
   const user = req.user
