@@ -36,7 +36,7 @@ services:
     ports:
       - 27017:27017
     container_name: mongo-db
-    env_file: ./.env
+    env_file: ./backend/.env.production
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
       - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
