@@ -44,11 +44,11 @@ const getPublicUserInfo = async (id) => {
   return response.data
 }
 
-const goalService = {
+const statsService = {
     getPublic,
     getUserStats,
     getDiscoverUsers,
     getPublicUserInfo,
 }
 
-export default goalService
+export default statsService

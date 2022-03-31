@@ -88,7 +88,7 @@ const exportData = async (token) => {
   fileDownload(response.data, `Income-${format(Date.now(), "MM/dd/yyyy")}.csv`)
 }
 
-const goalService = {
+const incomeService = {
   createIncome,
   getIncomes,
   deleteIncome,
@@ -97,4 +97,4 @@ const goalService = {
   exportData,
 }
 
-export default goalService
+export default incomeService
