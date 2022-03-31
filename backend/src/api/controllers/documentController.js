@@ -40,10 +40,10 @@ const setDocument = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update document
-// @route   PUT /api/documents/:id
+// @route   PUT /api/documents
 // @access  Private
 const updateDocument = asyncHandler(async (req, res) => {
-  const doc = await Document.findById(req.params.id)
+  const doc = await Document.findById(req.body.id)
   const link = req.file.location
 
   if (!doc) {
