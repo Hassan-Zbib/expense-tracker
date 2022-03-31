@@ -86,7 +86,10 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   // Check for user email
-  const user = await User.findOne({ email } , { orgName: 1, password: 1, firstName: 1, lastName: 1, email: 1 })
+  const user = await User.findOne(
+    { email },
+    { orgName: 1, password: 1, firstName: 1, lastName: 1, email: 1 }
+  )
   if (!user) {
     res.status(400)
     throw new Error("User not found")
@@ -131,7 +134,7 @@ const updateUser = asyncHandler(async (req, res) => {
   } = req.body
 
   // check email
-  if(email && email != user.email) {
+  if (email && email != user.email) {
     const userExists = await User.exists({ email: email })
     if (userExists) {
       res.status(400)
@@ -284,6 +287,25 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 })
 
+// @desc    upload user image
+// @route   POST /api/users
+// @access  Private
+const uploadProfilePic = asyncHandler(async (req, res) => {
+  const user = req.user
+  const link = req.file.location
+
+  if (!link) {
+    res.status(400)
+    throw new Error("Please Try Again")
+  }
+
+  user.logoURL = link
+
+  const updatedUser = await user.save()
+
+  res.status(200).json(updatedUser)
+})
+
 module.exports = {
   registerUser,
   loginUser,
@@ -291,4 +313,5 @@ module.exports = {
   resetPassword,
   getCurrentUser,
   requestResetPassword,
+  uploadProfilePic,
 }
