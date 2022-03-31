@@ -68,6 +68,20 @@ const resetPass = async (userData) => {
   return res.data
 }
 
+// Reset password
+const uploadProfilePic = async (formData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+
+  const response = await axios.post(BASE_URL + `/upload`, formData, config)
+
+  return response.data
+}
+
 const authService = {
   register,
   logout,
@@ -76,6 +90,7 @@ const authService = {
   getCurrent,
   forgotPass,
   resetPass,
+  uploadProfilePic,
 }
 
 export default authService

@@ -64,19 +64,24 @@ export const update = createAsyncThunk(
 )
 
 // Get current user
-export const getCurrent = createAsyncThunk("auth/get/me", async (_, thunkAPI) => {
-  try {
-    const token = thunkAPI.getState().auth.user.accessToken
-    let res = await authService.getCurrent(token)
-    return thunkAPI.fulfillWithValue(res)
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString()
-    return thunkAPI.rejectWithValue(message)
+export const getCurrent = createAsyncThunk(
+  "auth/get/me",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      let res = await authService.getCurrent(token)
+      return thunkAPI.fulfillWithValue(res)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
   }
-})
+)
 
 // Logout user
 export const logout = createAsyncThunk("auth/logout", async () => {
@@ -121,6 +126,26 @@ export const resetPass = createAsyncThunk(
   }
 )
 
+// Reset password
+export const uploadProfilePic = createAsyncThunk(
+  "auth/upload",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.accessToken
+      let res = await authService.uploadProfilePic(formData, token)
+      return thunkAPI.fulfillWithValue(res.message)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -137,7 +162,7 @@ export const authSlice = createSlice({
       state.isError = false
       state.isSuccess = false
       state.message = ""
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -227,6 +252,20 @@ export const authSlice = createSlice({
         state.message = action.payload
       })
       .addCase(forgotPass.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      // Request reset Pass Side effects
+      .addCase(uploadProfilePic.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(uploadProfilePic.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.profile = action.payload
+      })
+      .addCase(uploadProfilePic.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
