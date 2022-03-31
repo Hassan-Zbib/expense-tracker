@@ -11,7 +11,7 @@ import {
   TableRow,
   TableCell,
   Grid,
-  listItemSecondaryActionClasses,
+  Link,
 } from "@mui/material"
 import TableHeader from "../components/TableHeader"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
@@ -142,8 +142,12 @@ export default function DataTable(props) {
                       </TableCell>
                       {isDocument ? (
                         <>
-                          <TableCell align="left">{row.document}</TableCell>
-                          <TableCell align="left">$ {row.notes}</TableCell>
+                          <TableCell align="left">
+                            <Link href={row.document} underline="hover">
+                              Download
+                            </Link>
+                          </TableCell>
+                          <TableCell align="left">{row.notes}</TableCell>
                         </>
                       ) : (
                         <>

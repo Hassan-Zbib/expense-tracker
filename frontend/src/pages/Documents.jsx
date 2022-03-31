@@ -8,7 +8,6 @@ import {
   Divider,
   Grid,
   Box,
-  Tooltip,
 } from "@mui/material"
 import DataTable from "../components/DataTable"
 import { useEffect, useState } from "react"
@@ -26,6 +25,8 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
+import { useNavigate } from "react-router-dom"
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
 // import { documentSchema } from "../validators/documentValidator"
 
 const headCells = [
@@ -77,6 +78,7 @@ const Documents = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const { id, type } = useParams()
 
@@ -119,12 +121,12 @@ const Documents = () => {
     onSubmit: (values) => {
       if (!values.file) {
         toast.error("A document is required")
-        return 
+        return
       }
       const formData = new FormData()
       formData.append("file", values.file)
       formData.append("model", values.model)
-      formData.append("extends", values.transactionId)
+      formData.append("transactionId", values.transactionId)
       formData.append("notes", values.notes)
       formData.append("date", values.date)
       dispatch(setDocument(formData))
@@ -136,13 +138,22 @@ const Documents = () => {
   const EditForm = useFormik({
     initialValues: {
       id: 0,
-      type: "",
-      amount: 0,
+      notes: "",
       date: new Date().toISOString(),
+      file: null,
     },
     // validationSchema: documentSchema,
     onSubmit: (values) => {
-      dispatch(updateDocument(values))
+      if (!values.file) {
+        toast.error("A document is required")
+        return
+      }
+      const formData = new FormData()
+      formData.append("id", values.id)
+      formData.append("notes", values.notes)
+      formData.append("date", values.date)
+
+      dispatch(updateDocument(formData))
       EditForm.resetForm()
       setEditOpen(false)
     },
@@ -161,8 +172,7 @@ const Documents = () => {
     })[0]
 
     EditForm.setFieldValue("id", record._id)
-    EditForm.setFieldValue("amount", record.amount)
-    EditForm.setFieldValue("type", record.type)
+    EditForm.setFieldValue("notes", record.notes)
     EditForm.setFieldValue("date", record.date)
     setEditOpen(true)
   }
@@ -249,38 +259,13 @@ const Documents = () => {
         </DialogContent>
       </Dialog>
 
-      {/* <Dialog open={editOpen} onClose={handleEditClose}>
+      <Dialog open={editOpen} onClose={handleEditClose}>
         <DialogContent>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: "20px" }}>
             Edit document
           </Typography>
           <form onSubmit={EditForm.handleSubmit}>
-            <TextField
-              fullWidth
-              id="type"
-              name="type"
-              label="Type"
-              type="text"
-              value={EditForm.values.type}
-              onChange={EditForm.handleChange}
-              error={EditForm.touched.type && Boolean(EditForm.errors.type)}
-              helperText={EditForm.touched.type && EditForm.errors.type}
-            />
-
-            <TextField
-              fullWidth
-              id="amount"
-              name="amount"
-              label="Amount ($)"
-              type="number"
-              value={EditForm.values.amount}
-              onChange={EditForm.handleChange}
-              error={EditForm.touched.amount && Boolean(EditForm.errors.amount)}
-              helperText={EditForm.touched.amount && EditForm.errors.amount}
-              sx={{ marginTop: "20px" }}
-            />
-
-            <Box sx={{ marginTop: "20px" }}>
+            <Box>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   renderInput={(props) => <TextField {...props} />}
@@ -292,6 +277,42 @@ const Documents = () => {
                 />
               </LocalizationProvider>
             </Box>
+
+            <TextField
+              fullWidth
+              sx={{ marginTop: "20px" }}
+              multiline
+              rows={3}
+              id="notes"
+              name="notes"
+              label="Notes"
+              type="text"
+              value={EditForm.values.notes}
+              onChange={EditForm.handleChange}
+              error={EditForm.touched.notes && Boolean(EditForm.errors.notes)}
+              helperText={EditForm.touched.notes && EditForm.errors.notes}
+            />
+
+            <input
+              color="primary"
+              type="file"
+              onChange={(event) =>
+                EditForm.setFieldValue("file", event.target.files[0])
+              }
+              id="icon-button-file"
+              hidden
+            />
+            <label htmlFor="icon-button-file">
+              <Button
+                sx={{ marginTop: "20px" }}
+                component="span"
+                variant="outlined"
+              >
+                <FileUploadIcon fontSize="small" />
+                Replace File
+              </Button>
+            </label>
+
             <Divider />
             <Grid
               container
@@ -310,7 +331,7 @@ const Documents = () => {
             </Grid>
           </form>
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
 
       <Typography variant="h4" fontWeight="bold">
         Documents
