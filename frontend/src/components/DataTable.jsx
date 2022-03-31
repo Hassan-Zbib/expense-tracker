@@ -1,5 +1,4 @@
 import { useState } from "react"
-import PropTypes from "prop-types"
 import {
   Paper,
   Box,
@@ -12,6 +11,7 @@ import {
   TableRow,
   TableCell,
   Grid,
+  listItemSecondaryActionClasses,
 } from "@mui/material"
 import TableHeader from "../components/TableHeader"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
@@ -62,8 +62,17 @@ export default function DataTable(props) {
 
   const navigate = useNavigate()
 
-  const { rows, onDelete, onEdit, type, importData, exportData, addNew } =
-    props
+  const {
+    rows,
+    onDelete,
+    onEdit,
+    type,
+    importData,
+    exportData,
+    addNew,
+    headCells,
+    isDocument,
+  } = props
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc"
@@ -118,6 +127,7 @@ export default function DataTable(props) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
+              headCells={headCells}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
@@ -130,8 +140,18 @@ export default function DataTable(props) {
                       <TableCell component="th" id={labelId} scope="row">
                         {row._id}
                       </TableCell>
-                      <TableCell align="left">{row.type}</TableCell>
-                      <TableCell align="left">$ {row.amount}</TableCell>
+                      {isDocument ? (
+                        <>
+                          <TableCell align="left">{row.document}</TableCell>
+                          <TableCell align="left">$ {row.notes}</TableCell>
+                        </>
+                      ) : (
+                        <>
+                          <TableCell align="left">{row.type}</TableCell>
+                          <TableCell align="left">$ {row.amount}</TableCell>
+                        </>
+                      )}
+
                       <TableCell align="left">
                         {format(parseISO(row.date), "MM/dd/yyyy")}
                       </TableCell>
@@ -147,14 +167,19 @@ export default function DataTable(props) {
                           size="small"
                           aria-label="outlined primary button group"
                         >
-                          <Button
-                            variant="contained"
-                            size="small"
-                            sx={{ borderRadius: "5px" }}
-                            onClick={() => navigate(`/documents/${type}/${row._id}`)}
-                          >
-                            Documents
-                          </Button>
+                          {isDocument ? null : (
+                            <Button
+                              variant="contained"
+                              size="small"
+                              sx={{ borderRadius: "5px" }}
+                              onClick={() =>
+                                navigate(`/documents/${type}/${row._id}`)
+                              }
+                            >
+                              Documents
+                            </Button>
+                          )}
+
                           <Button
                             sx={{ borderRadius: "5px" }}
                             color="secondary"
@@ -198,47 +223,39 @@ export default function DataTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <Grid
-        container
-        direction="column"
-        alignItems="flex-end"
-        justifyContent="center"
-      >
-        <ButtonGroup
-          variant="contained"
-          size="medium"
-          aria-label="outlined primary button group"
+      {isDocument ? null : (
+        <Grid
+          container
+          direction="column"
+          alignItems="flex-end"
+          justifyContent="center"
         >
-          <input
-            color="primary"
-            accept=".csv"
-            type="file"
-            onChange={importData}
-            id="icon-button-file"
-            style={{ display: "none" }}
-          />
-          <label htmlFor="icon-button-file">
-            <Button sx={{ borderRadius: "5px 0 0 5px" }} component="span">
-              <FileUploadIcon fontSize="small" />
-              Import
+          <ButtonGroup
+            variant="contained"
+            size="medium"
+            aria-label="outlined primary button group"
+          >
+            <input
+              color="primary"
+              accept=".csv"
+              type="file"
+              onChange={importData}
+              id="icon-button-file"
+              style={{ display: "none" }}
+            />
+            <label htmlFor="icon-button-file">
+              <Button sx={{ borderRadius: "5px 0 0 5px" }} component="span">
+                <FileUploadIcon fontSize="small" />
+                Import
+              </Button>
+            </label>
+            <Button sx={{ borderRadius: "0 5px 5px 0" }} onClick={exportData}>
+              <FileDownloadIcon fontSize="small" />
+              Export
             </Button>
-          </label>
-          <Button sx={{ borderRadius: "0 5px 5px 0" }} onClick={exportData}>
-            <FileDownloadIcon fontSize="small" />
-            Export
-          </Button>
-        </ButtonGroup>
-      </Grid>
+          </ButtonGroup>
+        </Grid>
+      )}
     </Box>
   )
-}
-
-DataTable.propTypes = {
-  rows: PropTypes.array.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
-  importData: PropTypes.func.isRequired,
-  exportData: PropTypes.func.isRequired,
-  addNew: PropTypes.func.isRequired,
 }

@@ -8,53 +8,8 @@ import {
   TableSortLabel,
 } from "@mui/material"
 
-const headCells = [
-  {
-    id: "_id",
-    numeric: false,
-    disablePadding: false,
-    label: "ID",
-  },
-  {
-    id: "type",
-    numeric: false,
-    disablePadding: false,
-    label: "Type",
-  },
-  {
-    id: "amount",
-    numeric: false,
-    disablePadding: false,
-    label: "Amount",
-  },
-  {
-    id: "date",
-    numeric: false,
-    disablePadding: false,
-    label: "Date",
-  },
-  {
-    id: "createdAt",
-    numeric: false,
-    disablePadding: false,
-    label: "Created At",
-  },
-  {
-    id: "updatedAt",
-    numeric: false,
-    disablePadding: false,
-    label: "Updated At",
-  },
-  {
-    id: "action",
-    numeric: false,
-    disablePadding: false,
-    label: "",
-  },
-]
-
 function TableHeader(props) {
-  const { order, orderBy, onRequestSort } = props
+  const { order, orderBy, onRequestSort, headCells } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
   }

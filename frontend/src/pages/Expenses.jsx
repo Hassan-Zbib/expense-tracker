@@ -27,6 +27,51 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
 import { transactionSchema } from "../validators/transactionValidator"
 
+const headCells = [
+  {
+    id: "_id",
+    numeric: false,
+    disablePadding: false,
+    label: "ID",
+  },
+  {
+    id: "type",
+    numeric: false,
+    disablePadding: false,
+    label: "Type",
+  },
+  {
+    id: "amount",
+    numeric: false,
+    disablePadding: false,
+    label: "Amount",
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date",
+  },
+  {
+    id: "createdAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Created At",
+  },
+  {
+    id: "updatedAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Updated At",
+  },
+  {
+    id: "action",
+    numeric: false,
+    disablePadding: false,
+    label: "",
+  },
+]
+
 const Expenses = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
@@ -258,6 +303,8 @@ const Expenses = () => {
         importData={onImport}
         exportData={onExport}
         addNew={handleAddClickOpen}
+        isDocument={false}
+        headCells={headCells}
       />
     </>
   )
