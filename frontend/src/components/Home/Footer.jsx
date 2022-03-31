@@ -2,7 +2,7 @@ import { Divider, Grid, Paper, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
 const useStyles = makeStyles((theme) => ({
-  footer:{
+  footer: {
     padding: "10px 30px",
     color: theme.palette.background.darker,
     fontSize: "small",
@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     backgroundColor: theme.palette.background.darker,
   },
-  bottom:{
+  bottom: {
     padding: "10px 30px",
     color: theme.palette.background.darker,
     fontSize: "small",
-    marginLeft:'8%'
-  }
+    marginLeft: "8%",
+  },
 }))
 
 const Footer = () => {
@@ -31,7 +31,7 @@ const Footer = () => {
         spacing={0}
         className={classes.footer}
       >
-        <Grid item md={1} xs={12} >
+        <Grid item md={1} xs={12}>
           <Typography
             variant="h5"
             sx={{
@@ -44,12 +44,13 @@ const Footer = () => {
           </Typography>
         </Grid>
 
-        <Grid item md={6} xs={12} >
-          <Typography component="p" >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit
+        <Grid item md={6} xs={12}>
+          <Typography component="p">
+            Presented on the NET landing page, an interface that enables users
+            to navigate quickly and efficiently between the publicized
+            statistics that our platform has captured over time. Along with
+            great transparency , the brand also eflects a well-balanced strategy
+            that serves many organizations in their financial management.
           </Typography>
         </Grid>
       </Grid>

@@ -17,7 +17,7 @@ const Welcome = () => {
             NGO EXPENSE TRACKER
           </Typography>
           <Typography variant="h2" textAlign="center" sx={{ margin: "30px" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+             We think beyond self profit to satisfy the communities growth and money needs with transparency
           </Typography>
           <Button
             component={Link}
