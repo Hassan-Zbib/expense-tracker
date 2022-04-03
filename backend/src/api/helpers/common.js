@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const _ = require("lodash")
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" })
@@ -25,11 +26,11 @@ const validateImport = (source, id) => {
 
   source.forEach((row) => {
     if (!row.Type || !row.Amount || !row.Date) {
-        console.log(errMsg)
+      console.log(errMsg)
     }
 
     if (parseInt(row.Amount) <= 0) {
-        console.log(errMsg)
+      console.log(errMsg)
     }
 
     const [date, month, year] = row.Date.split("/")
@@ -41,7 +42,7 @@ const validateImport = (source, id) => {
     const dateParsed = new Date(Date.parse(isoStr))
 
     if (!(dateParsed instanceof Date) || dateParsed.toISOString() !== isoStr) {
-        console.log(errMsg)
+      console.log(errMsg)
     }
 
     let record = {
@@ -61,8 +62,19 @@ const validateImport = (source, id) => {
   }
 }
 
+function getJsonDiff(curr, prev) {
+  return _.transform(curr, (result, value, key) => {
+    if (!_.isEqual(value, prev[key]))
+      result[key] =
+        _.isObject(value) && _.isObject(prev[key])
+          ? getDiff(value, prev[key])
+          : value
+  })
+}
+
 module.exports = {
   generateToken,
   amountCustomSetter,
   validateImport,
+  getJsonDiff,
 }
