@@ -1,20 +1,13 @@
-import {
-  Button,
-  Divider,
-  TextField,
-  Typography,
-  Box,
-} from "@mui/material"
+import { Button, Divider, TextField, Typography, Box } from "@mui/material"
 import { useFormik } from "formik"
 import { useNavigate } from "react-router-dom"
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { forgotPass, reset } from '../features/auth/authSlice'
-import { toast } from 'react-toastify'
-import { forgotPassSchema } from "../validators/userValidator"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { forgotPass, reset } from "../../features/auth/authSlice"
+import { toast } from "react-toastify"
+import { forgotPassSchema } from "../../validators/userValidator"
 
 const ForgotPassword = () => {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -55,11 +48,12 @@ const ForgotPassword = () => {
           Forgot Password?
         </Typography>
 
-          <Typography variant="p" fontWeight="light" fontSize="small" >
-          Enter the email address you used when you joined and we'll send you instructions to reset your password.
-          For security reasons, we do NOT store your password. So rest assured that we will never send your password via email.
-          </Typography>
-
+        <Typography variant="p" fontWeight="light" fontSize="small">
+          Enter the email address you used when you joined and we'll send you
+          instructions to reset your password. For security reasons, we do NOT
+          store your password. So rest assured that we will never send your
+          password via email.
+        </Typography>
       </Box>
 
       <form onSubmit={formik.handleSubmit}>
@@ -76,7 +70,7 @@ const ForgotPassword = () => {
 
         <Divider />
         <Button color="primary" variant="contained" type="submit">
-        Send Reset Instructions
+          Send Reset Instructions
         </Button>
       </form>
     </>

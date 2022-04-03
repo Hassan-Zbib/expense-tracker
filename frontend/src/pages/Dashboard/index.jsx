@@ -1,8 +1,8 @@
 import { Card, CardContent, Grid, Typography } from "@mui/material"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { getUserStats } from "../features/stats/statsSlice"
-import BarChart from "../components/BarChart"
+import { getUserStats } from "../../features/stats/statsSlice"
+import BarChart from "../../components/BarChart"
 import PaidIcon from "@mui/icons-material/Paid"
 import AddCardIcon from "@mui/icons-material/AddCard"
 import MoveToInboxIcon from "@mui/icons-material/MoveToInbox"
@@ -53,17 +53,16 @@ const Dashboard = () => {
         <Grid item md={3} xs={12}>
           <Card>
             <CardContent>
-            <Grid container direction="row" alignItems="center">
+              <Grid container direction="row" alignItems="center">
                 <Grid item>
                   <MoveToInboxIcon fontSize="large" color="yellow" />
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" textAlign="left">
-                  Total Income
+                    Total Income
                   </Typography>
                 </Grid>
               </Grid>
-
 
               <Typography variant="h5" textAlign="left" color="black" mt="5%">
                 $ {profile.totalIncome}
@@ -75,13 +74,13 @@ const Dashboard = () => {
         <Grid item md={3} xs={12}>
           <Card>
             <CardContent>
-            <Grid container direction="row" alignItems="center">
+              <Grid container direction="row" alignItems="center">
                 <Grid item>
                   <PaidIcon fontSize="large" color="orange" />
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" textAlign="left">
-                  Total Expenses
+                    Total Expenses
                   </Typography>
                 </Grid>
               </Grid>
@@ -96,17 +95,16 @@ const Dashboard = () => {
         <Grid item md={3} xs={12}>
           <Card>
             <CardContent>
-            <Grid container direction="row" alignItems="center">
+              <Grid container direction="row" alignItems="center">
                 <Grid item>
                   <AddCardIcon fontSize="large" color="info" />
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" textAlign="left">
-                  Remaining Budget
+                    Remaining Budget
                   </Typography>
                 </Grid>
               </Grid>
-   
 
               <Typography variant="h5" textAlign="left" color="black" mt="5%">
                 $ {profile.totalIncome - profile.totalExpenses}
@@ -129,7 +127,7 @@ const Dashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <BarChart title="Expenses Report" dataSets={data.expenses}/>
+          <BarChart title="Expenses Report" dataSets={data.expenses} />
         </Grid>
       </Grid>
     </>

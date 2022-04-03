@@ -9,7 +9,7 @@ import {
   Grid,
   Box,
 } from "@mui/material"
-import DataTable from "../components/DataTable"
+import DataTable from "../../components/DataTable"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useFormik } from "formik"
@@ -19,7 +19,7 @@ import {
   deleteDocument,
   updateDocument,
   reset,
-} from "../features/document/documentSlice"
+} from "../../features/document/documentSlice"
 import { toast } from "react-toastify"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
@@ -27,7 +27,7 @@ import DatePicker from "@mui/lab/DatePicker"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
 import { useNavigate } from "react-router-dom"
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
-import { documentSchema } from "../validators/documentValidator"
+import { documentSchema } from "../../validators/documentValidator"
 
 const headCells = [
   {
@@ -333,9 +333,14 @@ const Documents = () => {
         </DialogContent>
       </Dialog>
 
-      <Button color="background" fullWidth={false} variant="outlined" onClick={() => navigate(-1)}>
-          <KeyboardBackspaceIcon />
-        </Button>
+      <Button
+        color="background"
+        fullWidth={false}
+        variant="outlined"
+        onClick={() => navigate(-1)}
+      >
+        <KeyboardBackspaceIcon />
+      </Button>
 
       <Typography variant="h4" fontWeight="bold">
         Documents

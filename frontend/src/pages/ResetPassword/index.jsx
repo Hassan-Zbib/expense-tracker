@@ -8,21 +8,20 @@ import {
 } from "@mui/material"
 import { useFormik } from "formik"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { resetPass, reset } from '../features/auth/authSlice'
-import { toast } from 'react-toastify'
-import { resetPassSchema } from "../validators/userValidator"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { resetPass, reset } from "../../features/auth/authSlice"
+import { toast } from "react-toastify"
+import { resetPassSchema } from "../../validators/userValidator"
 
 const ResetPassword = () => {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [params, setParams] = useSearchParams()
 
-  const token = params.get('token')
-  const id = params.get('id')
+  const token = params.get("token")
+  const id = params.get("id")
 
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -30,7 +29,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (!token || !id) {
-      navigate('/')
+      navigate("/")
     }
 
     if (isError) {
@@ -51,11 +50,13 @@ const ResetPassword = () => {
     },
     validationSchema: resetPassSchema,
     onSubmit: (values) => {
-      dispatch(resetPass({
-        token: token,
-        password: values.password,
-        userId: id,
-      }))
+      dispatch(
+        resetPass({
+          token: token,
+          password: values.password,
+          userId: id,
+        })
+      )
     },
   })
 

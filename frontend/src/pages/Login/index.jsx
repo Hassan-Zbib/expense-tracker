@@ -8,14 +8,13 @@ import {
 } from "@mui/material"
 import { useFormik } from "formik"
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { login, reset } from '../features/auth/authSlice'
-import { toast } from 'react-toastify'
-import { loginSchema } from "../validators/userValidator"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { login, reset } from "../../features/auth/authSlice"
+import { toast } from "react-toastify"
+import { loginSchema } from "../../validators/userValidator"
 
 const Login = () => {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -29,7 +28,7 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
-      navigate('/dashboard')
+      navigate("/dashboard")
     }
 
     dispatch(reset())
@@ -57,19 +56,19 @@ const Login = () => {
           Sign In
         </Typography>
 
-          <Typography variant="p" fontWeight="light" fontSize="small" >
-            New User ?
-          </Typography>
+        <Typography variant="p" fontWeight="light" fontSize="small">
+          New User ?
+        </Typography>
 
-          <Button
-            variant="text"
-            component={Link}
-            to="/sign-up"
-            size="small"
-            sx={{ width: "auto" }}
-          >
-            Create Account
-          </Button>
+        <Button
+          variant="text"
+          component={Link}
+          to="/sign-up"
+          size="small"
+          sx={{ width: "auto" }}
+        >
+          Create Account
+        </Button>
       </Box>
 
       <form onSubmit={formik.handleSubmit}>

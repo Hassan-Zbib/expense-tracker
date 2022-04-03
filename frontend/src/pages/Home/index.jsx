@@ -1,14 +1,14 @@
 import { Fab } from "@mui/material"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
-import Navbar from "../components/Home/Navbar"
-import Footer from "../components/Home/Footer"
-import Ngos from "../components/Home/Ngos"
-import Stats from "../components/Home/Stats"
-import Welcome from "../components/Home/Welcome"
-import ScrollTop from "../components/ScrollTop"
+import Navbar from "../../components/Home/Navbar"
+import Footer from "../../components/Home/Footer"
+import Ngos from "../../components/Home/Ngos"
+import Stats from "../../components/Home/Stats"
+import Welcome from "../../components/Home/Welcome"
+import ScrollTop from "../../components/ScrollTop"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getPublic } from "../features/stats/statsSlice"
+import { getPublic } from "../../features/stats/statsSlice"
 
 const Home = () => {
   const dispatch = useDispatch()

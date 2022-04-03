@@ -8,7 +8,7 @@ import {
   Grid,
   Box,
 } from "@mui/material"
-import DataTable from "../components/DataTable"
+import DataTable from "../../components/DataTable"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useFormik } from "formik"
@@ -20,12 +20,12 @@ import {
   reset,
   uploadData,
   exportData,
-} from "../features/income/incomeSlice"
+} from "../../features/income/incomeSlice"
 import { toast } from "react-toastify"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
-import { transactionSchema } from "../validators/transactionValidator"
+import { transactionSchema } from "../../validators/transactionValidator"
 
 const headCells = [
   {
@@ -80,7 +80,7 @@ const Income = () => {
   useEffect(() => {
     dispatch(getIncomes())
   }, [])
-  
+
   const { data, isError, isSuccess, message } = useSelector(
     (state) => state.income
   )
@@ -105,7 +105,7 @@ const Income = () => {
     AddForm.resetForm()
   }
   const handleEditClickOpen = (event, id) => {
-    let record = data.filter(obj => {
+    let record = data.filter((obj) => {
       return obj._id === id
     })[0]
 
@@ -142,7 +142,6 @@ const Income = () => {
     },
     validationSchema: transactionSchema,
     onSubmit: (values) => {
-
       dispatch(updateIncome(values))
       EditForm.resetForm()
       setEditOpen(false)
@@ -230,7 +229,7 @@ const Income = () => {
       </Dialog>
 
       <Dialog open={editOpen} onClose={handleEditClose}>
-      <DialogContent>
+        <DialogContent>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: "20px" }}>
             Edit record
           </Typography>

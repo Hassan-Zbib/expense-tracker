@@ -11,9 +11,9 @@ import { useFormik } from "formik"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { register, reset } from "../features/auth/authSlice"
+import { register, reset } from "../../features/auth/authSlice"
 import { toast } from "react-toastify"
-import { registerSchema } from "../validators/userValidator"
+import { registerSchema } from "../../validators/userValidator"
 
 const SignUp = () => {
   const navigate = useNavigate()

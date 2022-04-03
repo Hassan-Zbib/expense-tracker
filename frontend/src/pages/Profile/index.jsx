@@ -19,10 +19,10 @@ import {
   update,
   resetLoaders,
   uploadProfilePic,
-} from "../features/auth/authSlice"
+} from "../../features/auth/authSlice"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { profileSchema } from "../validators/userValidator"
+import { profileSchema } from "../../validators/userValidator"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
 
 const Profile = () => {
@@ -34,8 +34,8 @@ const Profile = () => {
   )
 
   useEffect(() => {
-    if(!profile || Object.keys(profile).length === 0) {
-      navigate('/dashboard')
+    if (!profile || Object.keys(profile).length === 0) {
+      navigate("/dashboard")
     }
   }, [])
 
@@ -112,12 +112,12 @@ const Profile = () => {
             direction="row"
             alignItems="center"
             justifyContent="flex-start"
-            sx={{ m: '0 0 15px 0'}}
+            sx={{ m: "0 0 15px 0" }}
           >
             <Avatar
               alt="Remy Sharp"
               src={profile.logoURL}
-              sx={{ width: 100, height: 100, mr: 2}}
+              sx={{ width: 100, height: 100, mr: 2 }}
             />
 
             <input
@@ -129,7 +129,12 @@ const Profile = () => {
               hidden
             />
             <label htmlFor="icon-button-file">
-              <Button fullWidth={false} component="span" variant="outlined" size="small">
+              <Button
+                fullWidth={false}
+                component="span"
+                variant="outlined"
+                size="small"
+              >
                 <FileUploadIcon fontSize="small" />
                 Upload
               </Button>

@@ -8,7 +8,7 @@ import {
   Grid,
   Box,
 } from "@mui/material"
-import DataTable from "../components/DataTable"
+import DataTable from "../../components/DataTable"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useFormik } from "formik"
@@ -20,12 +20,12 @@ import {
   reset,
   uploadData,
   exportData,
-} from "../features/expense/expenseSlice"
+} from "../../features/expense/expenseSlice"
 import { toast } from "react-toastify"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import DatePicker from "@mui/lab/DatePicker"
-import { transactionSchema } from "../validators/transactionValidator"
+import { transactionSchema } from "../../validators/transactionValidator"
 
 const headCells = [
   {
