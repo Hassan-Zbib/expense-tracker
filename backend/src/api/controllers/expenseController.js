@@ -96,11 +96,7 @@ const importExpense = asyncHandler(async (req, res) => {
   req.user.save()
 
   // delete the uploaded csv from the static folder
-  fs.unlink(req.file.path, (err) => {
-    if (err) {
-      console.log(err)
-    }
-  })
+  await fs.promises.unlink(req.file.path)
 
   res.status(200).json({ file: req.file, expenses: imports })
 })
