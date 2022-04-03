@@ -85,7 +85,10 @@ const exportData = async (token) => {
 
   const response = await axios.get(BASE_URL + `/export`, config)
 
-  fileDownload(response.data, `Expenses-${format(Date.now(), "MM/dd/yyyy")}.csv`)
+  fileDownload(
+    response.data,
+    `Expenses-${format(Date.now(), "MM/dd/yyyy")}.csv`
+  )
 }
 
 const expenseService = {

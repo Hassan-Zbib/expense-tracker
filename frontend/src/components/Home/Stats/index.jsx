@@ -1,5 +1,5 @@
 import { Card, CardContent, Grid, Typography } from "@mui/material"
-import BarChart from "../BarChart"
+import BarChart from "../../BarChart"
 
 const Stats = (props) => {
   const { data } = props

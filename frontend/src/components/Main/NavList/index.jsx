@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 import {
-    List,
-    Divider,
-    ListItemIcon,
-    ListItemText,
-    ListItemButton,
-  } from "@mui/material"
+  List,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+  ListItemButton,
+} from "@mui/material"
 import PieChartIcon from "@mui/icons-material/PieChart"
 import FlourescentIcon from "@mui/icons-material/Flourescent"
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
@@ -34,7 +34,7 @@ const NavList = ({ open }) => {
           >
             <PieChartIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0}} />
+          <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>
         <ListItemButton
           sx={{

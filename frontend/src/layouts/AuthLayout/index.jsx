@@ -1,7 +1,7 @@
 import { Button, Grid, Typography, Box } from "@mui/material"
 import { Outlet, useNavigate } from "react-router-dom"
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
-import useStyles from './style'
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
+import useStyles from "./style"
 
 const AuthLayout = ({ children }) => {
   const navigate = useNavigate()
@@ -49,12 +49,11 @@ const AuthLayout = ({ children }) => {
             style={{ minHeight: "90vh" }}
           >
             <Grid item alignSelf="flex-start">
-              <Box >
-                <Button color="background" onClick={() => navigate(-1)} >
+              <Box>
+                <Button color="background" onClick={() => navigate(-1)}>
                   <KeyboardBackspaceIcon />
                 </Button>
               </Box>
-
             </Grid>
             {/* Children components */}
             <Grid item>

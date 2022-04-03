@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom"
 import {
   Box,
   CssBaseline,
@@ -9,15 +9,14 @@ import {
   Toolbar,
 } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
-import { DrawerHeader, AppBar, Drawer} from './style'
+import { DrawerHeader, AppBar, Drawer } from "./style"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import NavList from '../../components/Main/NavList'
-import ProfileHeader from '../../components/Main/ProfileHeader'
+import NavList from "../../components/Main/NavList"
+import ProfileHeader from "../../components/Main/ProfileHeader"
 
 export default function MainLayout() {
-
   const theme = useTheme()
   const [open, setOpen] = useState(false)
 

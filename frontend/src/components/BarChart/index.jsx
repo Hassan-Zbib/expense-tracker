@@ -33,7 +33,7 @@ const BarChart = (props) => {
         },
         font: {
           size: 18,
-          weight: 'bold'
+          weight: "bold",
         },
         align: "center",
         color: theme.palette.background.main,

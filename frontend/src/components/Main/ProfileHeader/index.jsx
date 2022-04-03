@@ -1,9 +1,14 @@
 import Avatar from "@mui/material/Avatar"
 import { Grid, Typography, Button } from "@mui/material"
-import { logout, reset, resetLoaders, getCurrent } from "../../features/auth/authSlice"
-import { reset as resetStats } from "../../features/stats/statsSlice"
-import { reset as resetIncome} from "../../features/income/incomeSlice"
-import { reset as resetExpense} from "../../features/expense/expenseSlice"
+import {
+  logout,
+  reset,
+  resetLoaders,
+  getCurrent,
+} from "../../../features/auth/authSlice"
+import { reset as resetStats } from "../../../features/stats/statsSlice"
+import { reset as resetIncome } from "../../../features/income/incomeSlice"
+import { reset as resetExpense } from "../../../features/expense/expenseSlice"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
@@ -17,7 +22,9 @@ const ProfileHeader = () => {
     dispatch(getCurrent())
   }, [])
 
-  const { profile, isError, isSuccess, message } = useSelector((state) => state.auth)
+  const { profile, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
 
   useEffect(() => {
     if (isError) {
@@ -39,12 +46,14 @@ const ProfileHeader = () => {
 
   const getFullName = () => {
     const first = profile.firstName
-      ? profile.firstName.charAt(0).toUpperCase() + profile.firstName.slice(1).toLowerCase()
+      ? profile.firstName.charAt(0).toUpperCase() +
+        profile.firstName.slice(1).toLowerCase()
       : "User"
     const last = profile.lastName
-      ? profile.lastName.charAt(0).toUpperCase() + profile.lastName.slice(1).toLowerCase()
+      ? profile.lastName.charAt(0).toUpperCase() +
+        profile.lastName.slice(1).toLowerCase()
       : "Name"
-    return first + ' ' + last
+    return first + " " + last
   }
 
   const onLogout = () => {
@@ -66,9 +75,11 @@ const ProfileHeader = () => {
         spacing={2}
       >
         <Grid item>
-          {
-            !profile.logoURL ? (<Avatar>{getInitials()}</Avatar>) : (<Avatar src={profile.logoURL}></Avatar>)
-          }
+          {!profile.logoURL ? (
+            <Avatar>{getInitials()}</Avatar>
+          ) : (
+            <Avatar src={profile.logoURL}></Avatar>
+          )}
         </Grid>
         <Grid item>
           <Grid
@@ -81,7 +92,7 @@ const ProfileHeader = () => {
               {getFullName()}
             </Typography>{" "}
             <Typography variant="p" noWrap component="div" fontSize="small">
-              {profile.orgName ? profile.orgName : 'Org Name'}
+              {profile.orgName ? profile.orgName : "Org Name"}
             </Typography>
           </Grid>
         </Grid>

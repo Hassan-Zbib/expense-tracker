@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material"
-import DiscoverTable from "../DiscoverTable"
+import DiscoverTable from "../../DiscoverTable"
 import { useTheme } from "@mui/styles"
 
 const Ngos = (props) => {
@@ -42,7 +42,7 @@ const Ngos = (props) => {
           >
             Highest Income
           </Typography>
-          <DiscoverTable rows={data.users.highestIncome}             minHeight='100%'></DiscoverTable >
+          <DiscoverTable rows={data.users.highestIncome}></DiscoverTable >
         </Grid>
       </Grid>
     </div>

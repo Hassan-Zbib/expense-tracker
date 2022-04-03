@@ -13,7 +13,7 @@ import {
   Grid,
   Link,
 } from "@mui/material"
-import TableHeader from "../components/TableHeader"
+import TableHeader from "../TableHeader"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import FileDownloadIcon from "@mui/icons-material/FileDownload"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
@@ -21,6 +21,7 @@ import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 import { format, parseISO } from "date-fns"
 import { useNavigate } from "react-router-dom"
+import useStyles from "./style"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -50,16 +51,13 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0])
 }
 
-// function getTotal(data) {
-//   return data.map(({ price }) => price).reduce((sum, i) => sum + i, 0)
-// }
-
 export default function DataTable(props) {
   const [order, setOrder] = useState("desc")
   const [orderBy, setOrderBy] = useState("createdAt")
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
+  const classes = useStyles()
   const navigate = useNavigate()
 
   const {
@@ -108,14 +106,7 @@ export default function DataTable(props) {
         </Button>
       </Box>
       <Paper
-        sx={{
-          width: "100%",
-          mb: 2,
-          color: "black",
-          backgroundColor: "white",
-          border: "0.1px solid #CCC",
-          borderRadius: " 5px",
-        }}
+       className={classes.tableContainer}
       >
         <TableContainer>
           <Table
@@ -175,7 +166,7 @@ export default function DataTable(props) {
                             <Button
                               variant="contained"
                               size="small"
-                              sx={{ borderRadius: "5px" }}
+                              className={classes.actnsBtn}
                               onClick={() =>
                                 navigate(`/documents/${type}/${row._id}`)
                               }
@@ -185,7 +176,7 @@ export default function DataTable(props) {
                           )}
 
                           <Button
-                            sx={{ borderRadius: "5px" }}
+                            className={classes.actnsBtn}
                             color="secondary"
                             onClick={(event) => onEdit(event, row._id)}
                           >
@@ -193,7 +184,7 @@ export default function DataTable(props) {
                             Edit
                           </Button>
                           <Button
-                            sx={{ borderRadius: "5px" }}
+                            className={classes.actnsBtn}
                             color="danger"
                             onClick={(event) => onDelete(event, row._id)}
                           >
@@ -248,12 +239,12 @@ export default function DataTable(props) {
               style={{ display: "none" }}
             />
             <label htmlFor="icon-button-file">
-              <Button sx={{ borderRadius: "5px 0 0 5px" }} component="span">
+              <Button className={classes.extraBtn} component="span">
                 <FileUploadIcon fontSize="small" />
                 Import
               </Button>
             </label>
-            <Button sx={{ borderRadius: "0 5px 5px 0" }} onClick={exportData}>
+            <Button className={classes.extraBtn} onClick={exportData}>
               <FileDownloadIcon fontSize="small" />
               Export
             </Button>

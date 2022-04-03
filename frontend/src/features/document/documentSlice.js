@@ -132,9 +132,7 @@ export const documentSlice = createSlice({
       .addCase(deleteDocument.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.data = state.data.filter(
-          (doc) => doc._id !== action.payload.id
-        )
+        state.data = state.data.filter((doc) => doc._id !== action.payload.id)
       })
       .addCase(deleteDocument.rejected, (state, action) => {
         state.isLoading = false

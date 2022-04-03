@@ -12,8 +12,9 @@ import {
   Avatar,
 } from "@mui/material"
 import InfoIcon from "@mui/icons-material/Info"
-import InfoDialogue from "./InfoDialogue"
+import InfoDialogue from "../InfoDialogue"
 import { useState } from "react"
+import useStyles from "./style"
 
 const getInitials = (user) => {
   const first = user.firstName
@@ -28,6 +29,7 @@ const getInitials = (user) => {
 export default function DiscoverTable(props) {
   const [Open, setOpen] = useState(false)
   const [Id, setId] = useState(0)
+  const classes = useStyles()
 
   const { rows } = props
 
@@ -45,14 +47,7 @@ export default function DiscoverTable(props) {
         <InfoDialogue id={Id} />
       </Dialog>
       <Paper
-        sx={{
-          width: "100%",
-          mb: 2,
-          color: "black",
-          backgroundColor: "white",
-          border: "0.1px solid #CCC",
-          borderRadius: " 5px",
-        }}
+        className={classes.tableContainer}
       >
         <TableContainer>
           <Table>

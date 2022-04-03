@@ -1,4 +1,4 @@
-import { getPublicUserInfo } from "../features/stats/statsSlice"
+import { getPublicUserInfo } from "../../features/stats/statsSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import {

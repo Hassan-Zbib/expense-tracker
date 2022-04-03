@@ -4,7 +4,6 @@ const BASE_URL = "/stats"
 
 // Get Public stats
 const getPublic = async () => {
-
   const response = await axios.get(BASE_URL)
 
   return response.data
@@ -38,17 +37,16 @@ const getDiscoverUsers = async (token) => {
 
 // Get public user info
 const getPublicUserInfo = async (id) => {
-
   const response = await axios.get(BASE_URL + `/${id}`)
 
   return response.data
 }
 
 const statsService = {
-    getPublic,
-    getUserStats,
-    getDiscoverUsers,
-    getPublicUserInfo,
+  getPublic,
+  getUserStats,
+  getDiscoverUsers,
+  getPublicUserInfo,
 }
 
 export default statsService
