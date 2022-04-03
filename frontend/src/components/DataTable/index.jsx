@@ -239,12 +239,12 @@ export default function DataTable(props) {
               style={{ display: "none" }}
             />
             <label htmlFor="icon-button-file">
-              <Button className={classes.extraBtn} component="span">
+              <Button className={classes.left} component="span">
                 <FileUploadIcon fontSize="small" />
                 Import
               </Button>
             </label>
-            <Button className={classes.extraBtn} onClick={exportData}>
+            <Button className={classes.right} onClick={exportData}>
               <FileDownloadIcon fontSize="small" />
               Export
             </Button>

@@ -23,7 +23,6 @@
 <img src="./readme/title3.svg"/>
 
 > This design was planned before on paper, then moved to Figma app for the fine details.
-> Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 > | Landing | Home/Search |
 > | -----------------| -----|
 > | ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
@@ -47,7 +46,7 @@ Here's a brief high-level overview of the tech stack NET uses:
 <br><br>
 <img src="./readme/title5.svg"/>
 
-> Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> Uing the above mentioned tech stacks and the wireframes build with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 > | Landing | Home/Search |
 > | -----------------| -----|
 > | ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
@@ -93,6 +92,7 @@ _To run the project with docker download Docker and Docker Compose, if you are r
    ```
 4. Run the backend
    ```sh
+   npm run seed
    npm run dev
    ```
 5. Run the frontend
