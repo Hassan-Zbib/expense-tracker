@@ -27,7 +27,7 @@ import DatePicker from "@mui/lab/DatePicker"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
 import { useNavigate } from "react-router-dom"
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
-// import { documentSchema } from "../validators/documentValidator"
+import { documentSchema } from "../validators/documentValidator"
 
 const headCells = [
   {
@@ -117,7 +117,7 @@ const Documents = () => {
       date: new Date().toISOString(),
       file: null,
     },
-    // validationSchema: documentSchema,
+    validationSchema: documentSchema,
     onSubmit: (values) => {
       if (!values.file) {
         toast.error("A document is required")
@@ -142,7 +142,7 @@ const Documents = () => {
       date: new Date().toISOString(),
       file: null,
     },
-    // validationSchema: documentSchema,
+    validationSchema: documentSchema,
     onSubmit: (values) => {
       if (!values.file) {
         toast.error("A document is required")
@@ -332,6 +332,10 @@ const Documents = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      <Button color="background" fullWidth={false} variant="outlined" onClick={() => navigate(-1)}>
+          <KeyboardBackspaceIcon />
+        </Button>
 
       <Typography variant="h4" fontWeight="bold">
         Documents
