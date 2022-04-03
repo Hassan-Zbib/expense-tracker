@@ -71,7 +71,7 @@ const Stats = (props) => {
           </Card>
         </Grid>
       </Grid>
-      <Typography variant="h5" textAlign="center">
+      <Typography variant="h4" textAlign="center">
         GENERAL RECODED STATS
       </Typography>
       <Grid
@@ -79,7 +79,7 @@ const Stats = (props) => {
         direction="row"
         alignItems="center"
         justifyContent="center"
-        spacing={2}
+        spacing={10}
         sx={{ padding: "30px" }}
       >
         <Grid item md={6} xs={12}>

@@ -14,7 +14,6 @@ import { useTheme } from "@mui/styles"
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const BarChart = (props) => {
-
   const theme = useTheme()
 
   const { title, dataSets } = props
@@ -28,12 +27,22 @@ const BarChart = (props) => {
       title: {
         display: true,
         text: title,
+        padding: {
+          top: 10,
+          bottom: 10,
+        },
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        align: "center",
+        color: theme.palette.background.main,
+        fullSize: true,
       },
     },
   }
 
-
-  if(dataSets) {
+  if (dataSets) {
     const data = {
       labels: [],
       datasets: [
@@ -44,12 +53,12 @@ const BarChart = (props) => {
         },
       ],
     }
-  
-    dataSets.forEach(set => {
+
+    dataSets.forEach((set) => {
       data.labels.push(set._id)
       data.datasets[0].data.push(set.total)
-    });
-  
+    })
+
     return <Bar options={options} data={data} />
   }
   return null
