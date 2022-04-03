@@ -1,33 +1,7 @@
 import { Button, Grid, Typography, Box } from "@mui/material"
-import { makeStyles } from "@mui/styles"
 import { Outlet, useNavigate } from "react-router-dom"
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
-
-
-const useStyles = makeStyles((theme) => ({
-  left: {
-    padding: "10px",
-    backgroundColor: theme.palette.background.main,
-    color: "white",
-  },
-  right: {
-    padding: "10px",
-    backgroundColor: "white",
-    color: theme.palette.background.main,
-  },
-  title: {
-    fontWeight: "bolder",
-    textAlign: "center",
-    textTransform: "uppercase",
-    fontStyle: "italic",
-    paddingBottom: "30px",
-  },
-  text: {
-    fontWeight: "medium",
-    textAlign: "center",
-    textTransform: "none",
-  },
-}))
+import useStyles from './style'
 
 const AuthLayout = ({ children }) => {
   const navigate = useNavigate()
