@@ -5,6 +5,7 @@ const fs = require("fs")
 const { validateImport } = require("../helpers/common")
 const Expense = require("../models/expenseModel")
 const sendEmail = require("../helpers/sendEmail")
+const { log } = require("../middlewares/logMiddleware")
 
 // @desc    Get expenses
 // @route   GET /api/expenses
@@ -27,6 +28,7 @@ const setExpense = asyncHandler(async (req, res) => {
   })
 
   res.status(200).json(expense)
+  log(req, res, expense)
 })
 
 // @desc    Update expense
@@ -53,6 +55,7 @@ const updateExpense = asyncHandler(async (req, res) => {
   const updatedExpense = await expense.save()
 
   res.status(200).json(updatedExpense)
+  log(req, res, updatedExpense)
 })
 
 // @desc    Delete expense

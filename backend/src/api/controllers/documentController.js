@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const Document = require("../models/documentModel")
+const { log } = require("../middlewares/logMiddleware")
 
 // @desc    Get documents for a transaction
 // @route   GET /api/documents/:model/:id
@@ -37,6 +38,7 @@ const setDocument = asyncHandler(async (req, res) => {
   })
 
   res.status(200).json(doc)
+  log(req, res, doc)
 })
 
 // @desc    Update document
@@ -63,6 +65,7 @@ const updateDocument = asyncHandler(async (req, res) => {
   const updatedDoc = await doc.save()
 
   res.status(200).json(updatedDoc)
+  log(req, res, updatedDoc)
 })
 
 // @desc    Delete document

@@ -231,6 +231,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   await passwordResetToken.deleteOne()
 
   res.status(201).json({ message: "Password reset successfully" })
+  log(req, res, user)
 })
 
 // @desc    Request a reset user password
@@ -306,6 +307,7 @@ const uploadProfilePic = asyncHandler(async (req, res) => {
   const updatedUser = await user.save()
 
   res.status(200).json(updatedUser)
+  log(req, res, updatedUser)
 })
 
 module.exports = {

@@ -5,6 +5,7 @@ const Income = require("../models/incomeModel")
 const fs = require("fs")
 const { validateImport } = require("../helpers/common")
 const sendEmail = require("../helpers/sendEmail")
+const { log } = require("../middlewares/logMiddleware")
 
 // @desc    Get incomes
 // @route   GET /api/incomes
@@ -27,6 +28,7 @@ const setIncome = asyncHandler(async (req, res) => {
   })
 
   res.status(200).json(income)
+  log(req, res, income)
 })
 
 // @desc    Update income
@@ -53,6 +55,7 @@ const updateIncome = asyncHandler(async (req, res) => {
   const updatedIncome = await income.save()
 
   res.status(200).json(updatedIncome)
+  log(req, res, updatedIncome)
 })
 
 // @desc    Delete income

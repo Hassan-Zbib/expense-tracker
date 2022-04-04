@@ -1,6 +1,6 @@
 const _ = require("lodash")
 const LogSchema = require("../models/logModel")
-const { getJsonDiff } = require("../helpers/common")
+// const { getJsonDiff } = require("../helpers/common")
 
 const loggingPlugin = function (schema) {
   schema.post("init", (doc) => {
@@ -10,7 +10,8 @@ const loggingPlugin = function (schema) {
     if (this.isNew) {
       next()
     } else {
-      this._diff = getJsonDiff(this, this._original)
+      // this._diff = getJsonDiff(this, this._original)
+      this._diff = this
       next()
     }
   })
