@@ -10,6 +10,7 @@ const Expense = require("../api/models/expenseModel")
 const User = require("../api/models/userModel")
 const Document = require("../api/models/documentModel")
 const Token = require("../api/models/tokenModel")
+const Log = require("../api/models/logModel")
 
 const hashPassword = async (pass) => {
   const salt = await bcrypt.genSalt(10)
@@ -34,6 +35,7 @@ const seedDB = async (usersCount, transactionsPerUser) => {
     await Expense.deleteMany({})
     await Document.deleteMany({})
     await Token.deleteMany({})
+    await Log.deleteMany({})
     console.log("DB Cleaned".bold.green)
 
     // Create random users
