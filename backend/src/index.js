@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
 const dotenv = require('dotenv')
+const loggingPlugin = require('./api/middlewares/logMiddleware').loggingPlugin
 const { errorHandler } = require('./api/middlewares/errorMiddleware')
-const { loggingPlugin } = require('./api/middlewares/logMiddleware')
 const  connectDB = require('./config/db')
 
 dotenv.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`)})

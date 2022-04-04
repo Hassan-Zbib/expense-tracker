@@ -1,11 +1,6 @@
 const _ = require("lodash")
-const asyncHandler = require("express-async-handler")
 const LogSchema = require("../models/logModel")
 const { getJsonDiff } = require("../helpers/common")
-const User = require("../models/userModel")
-const Document = require("../models/documentModel")
-const Income = require("../models/incomeModel")
-const Expense = require("../models/expenseModel")
 
 const loggingPlugin = function (schema) {
   schema.post("init", (doc) => {
@@ -30,16 +25,14 @@ const loggingPlugin = function (schema) {
 }
 
 const log = async (req, res, model) => {
-  console.log(req.method, req.originalUrl, res.statusCode, req.user.id, model)
+  const data = {
+    method: req.method,
+    endpoint: req.originalUrl,
+    statusCode: res.statusCode,
+    createdBy: req.user.id,
+  }
 
-  // const data = {
-  //   action: "update-user",
-  //   category: "users",
-  //   createdBy: req.user.id,
-  //   message: "Updated user name",
-  // }
-
-  // model.logging(data)
+  await model.logging(data)
 }
 
 module.exports = { loggingPlugin, log }

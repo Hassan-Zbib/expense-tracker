@@ -2,21 +2,21 @@ const mongoose = require("mongoose")
 
 const LogSchema = mongoose.Schema(
   {
-    action: {
+    method: {
       type: String,
       required: true,
     },
-    category: {
+    endpoint: {
       type: String,
+      required: true,
+    },
+    statusCode: {
+      type: Number,
       required: true,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
-    },
-    message: {
-      type: String,
       required: true,
     },
     diff: {
@@ -28,6 +28,6 @@ const LogSchema = mongoose.Schema(
   }
 )
 
-LogSchema.index({ action: 1, category: 1 })
+LogSchema.index({ createdBy: 1, endpoint: 1 })
 
 module.exports = mongoose.model("Log", LogSchema)

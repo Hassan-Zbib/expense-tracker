@@ -6,7 +6,7 @@ const crypto = require("crypto")
 const { generateToken } = require("../helpers/common")
 const validator = require("validator")
 const sendEmail = require("../helpers/sendEmail")
-const { log } = require('../middlewares/logMiddleware')
+const { log } = require("../middlewares/logMiddleware")
 
 // @desc    Register new user
 // @route   POST /api/users
@@ -157,7 +157,7 @@ const updateUser = asyncHandler(async (req, res) => {
   const updatedUser = await user.save()
 
   res.status(200).json(updatedUser)
-  log(req, res, User)
+  log(req, res, updatedUser)
 })
 
 // @desc    Reset a user password
