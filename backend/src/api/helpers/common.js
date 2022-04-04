@@ -62,14 +62,17 @@ const validateImport = (source, id) => {
   }
 }
 
-function getJsonDiff(curr, prev) {
-  return _.transform(curr, (result, value, key) => {
-    if (!_.isEqual(value, prev[key]))
-      result[key] =
-        _.isObject(value) && _.isObject(prev[key])
-          ? getDiff(value, prev[key])
-          : value
-  })
+const getJsonDiff = (curr, prev) => {
+  function changes(object, base) {
+    return _.transform(object, (result, value, key) => {
+      if (!_.isEqual(value, base[key]))
+        result[key] =
+          _.isObject(value) && _.isObject(base[key])
+            ? changes(value, base[key])
+            : value
+    })
+  }
+  return changes(curr, prev)
 }
 
 module.exports = {
