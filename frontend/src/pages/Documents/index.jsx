@@ -58,13 +58,13 @@ const headCells = [
     id: "createdAt",
     numeric: false,
     disablePadding: false,
-    label: "Created At",
+    label: "Created On",
   },
   {
     id: "updatedAt",
     numeric: false,
     disablePadding: false,
-    label: "Updated At",
+    label: "Updated On",
   },
   {
     id: "action",
@@ -149,6 +149,7 @@ const Documents = () => {
         return
       }
       const formData = new FormData()
+      formData.append("file", values.file)
       formData.append("id", values.id)
       formData.append("notes", values.notes)
       formData.append("date", values.date)
