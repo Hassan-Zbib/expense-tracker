@@ -10,7 +10,7 @@ function Spinner() {
 
   const stats = useSelector((state) => state.stats)
 
-  const document = useSelector((state) => state.stats)
+  const document = useSelector((state) => state.document)
 
   return (
     <>

@@ -2,6 +2,7 @@ import { Button, Grid, Typography, Box } from "@mui/material"
 import { Outlet, useNavigate } from "react-router-dom"
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
 import useStyles from "./style"
+import financeLogo from "../../assests/financeLogo.png"
 
 const AuthLayout = ({ children }) => {
   const navigate = useNavigate()
@@ -26,14 +27,31 @@ const AuthLayout = ({ children }) => {
             justifyContent="center"
             style={{ minHeight: "90vh" }}
           >
-            <Grid item>
-              <Typography variant="h4" className={classes.title}>
+            <Grid
+              item
+              container
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Typography variant="h4" className={classes.title} alignSelf="self-end">
                 NET
               </Typography>
+              <Box
+                  component="img"
+                  sx={{
+                    height: 233,
+                    width: 350,
+                    maxHeight: { xs: 233, md: 167 },
+                    maxWidth: { xs: 350, md: 250 },
+                  }}
+                  alt="Finances Logo"
+                  src={financeLogo}
+                />
             </Grid>
             <Grid item>
               <Typography variant="h5" className={classes.text}>
-                Keep Track Of All Your Org's Finance
+                Keep Track Of All Your Organization's Finances
               </Typography>
             </Grid>
           </Grid>

@@ -53,7 +53,7 @@ const InfoDialogue = ({ id }) => {
       <CustomTextField label="Phone" type="text" value={publicUser.phone} />
 
       <CustomTextField
-        label="Joined At"
+        label="Joined On"
         type="text"
         value={format(parseISO(publicUser.createdAt), "MM/dd/yyyy")}
       />

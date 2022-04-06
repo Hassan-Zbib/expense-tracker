@@ -23,7 +23,7 @@ import { format, parseISO } from "date-fns"
 import { useNavigate } from "react-router-dom"
 import useStyles from "./style"
 
-function descendingComparator(a, b, orderBy) {
+const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
     return -1
   }
@@ -33,13 +33,13 @@ function descendingComparator(a, b, orderBy) {
   return 0
 }
 
-function getComparator(order, orderBy) {
+const getComparator = (order, orderBy) => {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-function stableSort(array, comparator) {
+const stableSort = (array, comparator) => {
   const stabilizedThis = array.map((el, index) => [el, index])
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0])
@@ -49,6 +49,10 @@ function stableSort(array, comparator) {
     return a[1] - b[1]
   })
   return stabilizedThis.map((el) => el[0])
+}
+
+const capitalize = (input) => {
+  return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase()
 }
 
 export default function DataTable(props) {
@@ -93,7 +97,13 @@ export default function DataTable(props) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ marginBottom: "5px" }}>
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-end"
+        justifyContent="center"
+        sx={{ mb: "5px" }}
+      >
         <Button
           variant="contained"
           size="medium"
@@ -104,10 +114,8 @@ export default function DataTable(props) {
           <AddIcon fontSize="small" />
           Add New
         </Button>
-      </Box>
-      <Paper
-       className={classes.tableContainer}
-      >
+      </Grid>
+      <Paper className={classes.tableContainer}>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -142,7 +150,9 @@ export default function DataTable(props) {
                         </>
                       ) : (
                         <>
-                          <TableCell align="left">{row.type}</TableCell>
+                          <TableCell align="left">
+                            {capitalize(row.type)}
+                          </TableCell>
                           <TableCell align="left">$ {row.amount}</TableCell>
                         </>
                       )}

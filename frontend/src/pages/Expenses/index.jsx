@@ -56,13 +56,13 @@ const headCells = [
     id: "createdAt",
     numeric: false,
     disablePadding: false,
-    label: "Created At",
+    label: "Created On",
   },
   {
     id: "updatedAt",
     numeric: false,
     disablePadding: false,
-    label: "Updated At",
+    label: "Updated On",
   },
   {
     id: "action",

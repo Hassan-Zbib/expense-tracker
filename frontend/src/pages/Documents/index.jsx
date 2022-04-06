@@ -333,18 +333,20 @@ const Documents = () => {
         </DialogContent>
       </Dialog>
 
-      <Button
-        color="background"
-        fullWidth={false}
-        variant="outlined"
-        onClick={() => navigate(-1)}
-      >
-        <KeyboardBackspaceIcon />
-      </Button>
+      <Grid container direction="row">
+        <Button
+          color="background"
+          fullWidth={false}
+          onClick={() => navigate(-1)}
+          size="small"
+        >
+          <KeyboardBackspaceIcon />
+        </Button>
 
-      <Typography variant="h4" fontWeight="bold">
-        Documents
-      </Typography>
+        <Typography variant="h4" fontWeight="bold">
+          Documents
+        </Typography>
+      </Grid>
 
       <DataTable
         rows={data}
