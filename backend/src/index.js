@@ -7,7 +7,7 @@ const loggingPlugin = require('./api/middlewares/logMiddleware').loggingPlugin
 const { errorHandler } = require('./api/middlewares/errorMiddleware')
 const  connectDB = require('./config/db')
 
-dotenv.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`)})
+dotenv.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV ? process.env.NODE_ENV : 'development'}`)})
 
 const port = process.env.PORT || 5000
 
