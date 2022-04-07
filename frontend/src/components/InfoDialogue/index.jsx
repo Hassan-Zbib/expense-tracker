@@ -26,7 +26,7 @@ const InfoDialogue = ({ id }) => {
       toast.error(message)
     }
 
-  }, [publicUser, isError, isSuccess, message])
+  }, [publicUser, isError, isSuccess, message, id, dispatch])
 
   if (!publicUser.orgName) {
     return null

@@ -37,7 +37,28 @@ const Profile = () => {
     if (!profile || Object.keys(profile).length === 0) {
       navigate("/dashboard")
     }
-  }, [])
+  })
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      websiteAddress: "",
+      country: "",
+      city: "",
+      phone: "",
+      about: "",
+      settings: {
+        emailExports: true,
+        publicVisibility: true,
+      },
+    },
+    validationSchema: profileSchema,
+    onSubmit: (values) => {
+      dispatch(update(values))
+    },
+  })
 
   useEffect(() => {
     if (isError) {
@@ -64,28 +85,8 @@ const Profile = () => {
     )
 
     dispatch(resetLoaders())
-  }, [profile, isError, isSuccess, message, dispatch])
-
-  const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      websiteAddress: "",
-      country: "",
-      city: "",
-      phone: "",
-      about: "",
-      settings: {
-        emailExports: true,
-        publicVisibility: true,
-      },
-    },
-    validationSchema: profileSchema,
-    onSubmit: (values) => {
-      dispatch(update(values))
-    },
-  })
+    // eslint-disable-next-line
+  }, [profile, isError, isSuccess, message, navigate, dispatch])
 
   const onUpload = (event) => {
     const file = event.target.files[0]
@@ -333,7 +334,7 @@ const Profile = () => {
                   label="Allow Public Visibility"
                 />
                 <FormHelperText>
-                  Send me an export copy via email
+                  Allow users and non users to access your general information
                 </FormHelperText>
                 <FormControlLabel
                   control={
@@ -349,7 +350,7 @@ const Profile = () => {
                   label="Enable Email Exports"
                 />
                 <FormHelperText>
-                  Allow users and non users to access your general information
+                  Send me an export copy via email
                 </FormHelperText>
               </FormGroup>
             </FormControl>

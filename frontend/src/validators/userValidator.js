@@ -12,6 +12,7 @@ const loginSchema = yup.object({
   password: yup
     .string("Enter your password")
     .matches(
+      // eslint-disable-next-line
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
     )
@@ -28,6 +29,7 @@ const registerSchema = yup.object({
   password: yup
     .string("Enter your password")
     .matches(
+      // eslint-disable-next-line
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
     )
@@ -57,6 +59,7 @@ const resetPassSchema = yup.object({
   password: yup
     .string("Enter your password")
     .matches(
+      // eslint-disable-next-line
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
     )
