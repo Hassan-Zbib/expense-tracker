@@ -14,9 +14,9 @@
 
 ### User Stories
 
-- As a user, I want to import or export my data, so that I can store them elsewhere
 - As a user, I want to browse my transactions, so that I can edit or add to them supporting documents
-- As a user, I want to opt in or out from being publicly visible, so that my stats are kept private
+- As a user, I want to import or export my data
+- As a user, I want to opt in or out from being publicly visible
 
 <br><br>
 
@@ -42,9 +42,9 @@ Here's a brief high-level overview of the tech stack NET uses:
 <img src="./readme/title5.svg"/>
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
-> | User Dashboard | Expenses |
+> | User Dashboard | Income |
 > | -----------------| -----|
-> |  ![UserDashboard](./readme/dash.png) | ![Expenses](./readme/expenses.png) |
+> |  ![UserDashboard](./readme/dash.png) | ![Income](./readme/income.png) |
 
 > | Landing                                                                             
 > | ---------------------------------------------------------------------------------------------- | 
@@ -67,8 +67,6 @@ This is a list of things you need to run the software and how to install them.
 npm install npm@latest -g
 ```
 
-_To run the project with docker download Docker and Docker Compose, if you are running on windows it is recommended to install Docker Desktop_
-
 ### Installation 
 
 1. Clone the repo
@@ -87,7 +85,7 @@ _To run the project with docker download Docker and Docker Compose, if you are r
    PORT = 5000
    MONGO_URI = mongodb://127.0.0.1:27017/expense-tracker-db
    ```
-4. Run the backend
+4. Seed the DB then run the backend
    ```sh
    npm run seed
    npm run dev
@@ -98,17 +96,16 @@ _To run the project with docker download Docker and Docker Compose, if you are r
    ```
 
 ### To Run with Docker
-1. Enter your configurations in `./backend/.env.production` for example:
+
+1. Download Docker and Docker Compose, _if you are running on windows it is recommended to install Docker Desktop_
+
+2. Enter your configurations in `./backend/.env.production` for example:
    ```env
    PORT = 5000
-   MONGO_URI = mongodb://127.0.0.1:27017/expense-tracker-db
-
-1. Change the react proxy in `frontend/package.json`
-   ```json
-     "proxy": "http://backend:5000/api",
+   MONGO_URI = mongodb://root:Pass01@mongodb:27017/expense-tracker-db?authSource=admin
    ```
 
-2. Build and run the containers
+3. Build and run the containers
 
    ```sh
    docker compose up
