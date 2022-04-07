@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../helpers/axios"
 
 const BASE_URL = "/users"
 

@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../helpers/axios"
 import fileDownload from "js-file-download"
 import { format } from "date-fns"
 
