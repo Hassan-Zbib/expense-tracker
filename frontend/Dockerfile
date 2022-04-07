@@ -2,7 +2,7 @@
 
 FROM node:16 as build-stage
 
-ARG REACT_APP_API_BASE_URL=http://backend:5000/api
+ARG REACT_APP_API_BASE_URL=http://localhost:5000/api
 
 WORKDIR /usr/src/app
 

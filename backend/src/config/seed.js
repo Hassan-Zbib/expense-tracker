@@ -43,7 +43,7 @@ const seedDB = async (usersCount, transactionsPerUser) => {
     let users = []
     for (let i = 0; i < usersCount; i++) {
       const newUser = {
-        orgName: faker.company.companyName(),
+        orgName: faker.company.companyName().substring(0, 10),
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: faker.internet.email(),
