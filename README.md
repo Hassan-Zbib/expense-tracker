@@ -27,7 +27,7 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > | User Dashboard | Expenses |
 > | -----------------| -----|
-> |  ![UserDashboard](./readme/figma-dash.png) | ![Expenses](./readme/figma-expenses.png) |
+> | ![UserDashboard](./readme/figma-dash.png) | ![Expenses](./readme/figma-expenses.png) |
 
 <br><br>
 
@@ -36,7 +36,8 @@
 Here's a brief high-level overview of the tech stack NET uses:
 
 - The design of the app adheres to the material design guidelines.
-- This project uses the [React](https://reactjs.org/) library. React is a open-source front-end JavaScript library for building user interfaces based on UI components.  - - This project uses the [Express JS](https://expressjs.com/) web framework. Express JS is a web application framework that provides you with an API to build websites, web apps and back ends.
+- This project uses the [React](https://reactjs.org/) library. React is a open-source front-end JavaScript library for building user interfaces based on UI components.
+- This project uses the [Express JS](https://expressjs.com/) web framework. Express JS is a web application framework that provides you with an API to build websites, web apps and back ends.
 - For persistent data, the app uses [mongoDB](https://www.mongodb.com/). MongoDB is a document-oriented NoSQL database used for high volume data storage.
 - This project uses the [Mongoose](https://mongoosejs.com/) library. Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node. js. It manages relationships between data, provides schema validation, and many other utilities.
 - For storing user images and transaction documents, this project uses [Amazon S3 Buckets](https://aws.amazon.com/s3/). Amazon S3 is an object storage service that stores data as objects within buckets.
@@ -46,13 +47,33 @@ Here's a brief high-level overview of the tech stack NET uses:
 <img src="./readme/title5.svg" id="implementation"/>
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
-> | User Dashboard | Income |
-> | -----------------| -----|
-> |  ![UserDashboard](./readme/dash.png) | ![Income](./readme/income.png) |
 
-> | Landing                                                                             
-> | ---------------------------------------------------------------------------------------------- | 
-> | ![Landing](./readme/landing.png) |
+<table>
+   <tr>
+    <td>Landing Page</td>
+    <td>Dashboard</td>
+   </tr>
+   <tr>
+    <td><img src="readme/Landing.gif" /></td>
+    <td><img src="readme/dash.gif"/></td>
+   </tr>
+   <tr>
+    <td>Income Page</td>
+    <td>Expense Documents</td>
+   </tr>
+   <tr>
+    <td><img src="readme/Income.gif"/></td>
+    <td><img src="readme/Docs.gif"/></td>
+   </tr>
+   <tr>
+    <td>Profile Page</td>
+    <td>Discover</td>
+   </tr> 
+   <tr>
+    <td><img src="readme/Profile.gif"/></td>
+    <td><img src="readme/Discover.gif"/></td>
+   </tr>
+</table>
 
 <br><br>
 <img src="./readme/title6.svg" id="how-to-run"/>
@@ -71,7 +92,7 @@ This is a list of things you need to run the software and how to install them.
 npm install npm@latest -g
 ```
 
-### Installation 
+### Installation
 
 1. Clone the repo
    ```sh
@@ -104,6 +125,7 @@ npm install npm@latest -g
 1. Download Docker and Docker Compose, _if you are running on windows it is recommended to install Docker Desktop_
 
 2. Enter your configurations in `./backend/.env.production` for example:
+
    ```
    PORT=5000
    MONGO_URI=mongodb://root:Pass01@mongodb:27017/expense-tracker-db?authSource=admin
