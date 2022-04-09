@@ -54,7 +54,7 @@ Here's a brief high-level overview of the tech stack NET uses:
     <td>Dashboard</td>
    </tr>
    <tr>
-    <td><img src="readme/Landing.gif" /></td>
+    <td><img src="readme/landing.gif" /></td>
     <td><img src="readme/dash.gif"/></td>
    </tr>
    <tr>
