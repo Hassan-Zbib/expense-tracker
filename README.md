@@ -4,23 +4,25 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.
 
+**[PROJECT PHILOSOPHY](#project-philosophy) • [WIREFRAMES](#wireframes) • [TECH STACK](#tech-stack) • [IMPLEMENTATION](#implementation) • [HOW TO RUN?](#how-to-run)**
+
 </div>
 
 <br><br>
 
-<img src="./readme/title2.svg"/>
+<img src="./readme/title2.svg" id="project-philosophy"/>
 
-> NET is a website where users can track their income and expenses, save the relative documents, and access their overall statistics
+> NET is a website where users can track their income flow of donations and expenses, save the relative documents, and access their overall statistics
 
 ### User Stories
 
 - As a user, I want to browse my transactions, so that I can edit or add to them supporting documents
-- As a user, I want to import or export my data
-- As a user, I want to opt in or out from being publicly visible
+- As a user, I want to import or export my data, so that i have the option of using them inside or outside the website
+- As a user, I want to opt in or out from being publicly visible, so that i can change how users and non users can see my statistics
 
 <br><br>
 
-<img src="./readme/title3.svg"/>
+<img src="./readme/title3.svg" id="wireframes"/>
 
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > | User Dashboard | Expenses |
@@ -29,17 +31,19 @@
 
 <br><br>
 
-<img src="./readme/title4.svg"/>
+<img src="./readme/title4.svg" id="tech-stack"/>
 
 Here's a brief high-level overview of the tech stack NET uses:
 
-- This project uses the React javascript library to power it's user interface, and the Express library to power it's API's 
-- For persistent storage (database), the app uses mongoDB and the mongoose package which allows the app to create a custom storage schema and save it to a local database.
-- This project was deployed using docker compose with seperate containers 
 - The design of the app adheres to the material design guidelines.
+- This project uses the [React](https://reactjs.org/) library. React is a open-source front-end JavaScript library for building user interfaces based on UI components.  - - This project uses the [Express JS](https://expressjs.com/) web framework. Express JS is a web application framework that provides you with an API to build websites, web apps and back ends.
+- For persistent data, the app uses [mongoDB](https://www.mongodb.com/). MongoDB is a document-oriented NoSQL database used for high volume data storage.
+- This project uses the [Mongoose](https://mongoosejs.com/) library. Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node. js. It manages relationships between data, provides schema validation, and many other utilities.
+- For storing user images and transaction documents, this project uses [Amazon S3 Buckets](https://aws.amazon.com/s3/). Amazon S3 is an object storage service that stores data as objects within buckets.
+- For backend shipping and deployment, this project uses [Docker](https://www.docker.com/). Docker is an open platform to develop, ship and run applications containers on a common operating system.
 
 <br><br>
-<img src="./readme/title5.svg"/>
+<img src="./readme/title5.svg" id="implementation"/>
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 > | User Dashboard | Income |
@@ -51,7 +55,7 @@ Here's a brief high-level overview of the tech stack NET uses:
 > | ![Landing](./readme/landing.png) |
 
 <br><br>
-<img src="./readme/title6.svg"/>
+<img src="./readme/title6.svg" id="how-to-run"/>
 
 To get a local copy up and running follow these simple example steps.
 
@@ -100,9 +104,9 @@ npm install npm@latest -g
 1. Download Docker and Docker Compose, _if you are running on windows it is recommended to install Docker Desktop_
 
 2. Enter your configurations in `./backend/.env.production` for example:
-   ```env
-   PORT = 5000
-   MONGO_URI = mongodb://root:Pass01@mongodb:27017/expense-tracker-db?authSource=admin
+   ```
+   PORT=5000
+   MONGO_URI=mongodb://root:Pass01@mongodb:27017/expense-tracker-db?authSource=admin
    ```
 
 3. Build and run the containers
