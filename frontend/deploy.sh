@@ -6,4 +6,6 @@ npm run build;
 
 export AWS_PROFILE=NET
 
+# aws s3 rm s3://ngo-expense-tracker-react--recursive
+
 aws s3 sync build/ s3://ngo-expense-tracker-react
